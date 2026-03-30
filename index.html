@@ -63,6 +63,43 @@
     }
     .nav-links a:hover { color: var(--text); }
 
+    /* ─── Lang Toggle ───────────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-left: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: .3rem .7rem;
+      color: var(--muted);
+      transition: background .2s, color .2s;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #0f0f0f;
+    }
+    .lang-btn:not(.active):hover {
+      color: var(--text);
+      background: var(--surface2);
+    }
+    .lang-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
     /* ─── Hero ──────────────────────────────────────────────── */
     #hero {
       min-height: 100vh;
@@ -753,13 +790,20 @@
 <!-- ─── Navigation ───────────────────────────────────────── -->
 <nav>
   <div class="nav-logo">Dongho Lee</div>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#research">Research</a>
-    <a href="#publications">Publications</a>
-    <a href="#patents">Patents</a>
-    <a href="#projects">Projects</a>
-    <a href="#awards">Awards</a>
+  <div style="display:flex; align-items:center; gap:0;">
+    <div class="nav-links">
+      <a href="#about"        data-en="About"        data-ko="소개">About</a>
+      <a href="#research"     data-en="Research"     data-ko="연구">Research</a>
+      <a href="#publications" data-en="Publications" data-ko="논문">Publications</a>
+      <a href="#patents"      data-en="Patents"      data-ko="특허">Patents</a>
+      <a href="#projects"     data-en="Projects"     data-ko="프로젝트">Projects</a>
+      <a href="#awards"       data-en="Awards"       data-ko="수상">Awards</a>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <div class="lang-divider"></div>
+      <button class="lang-btn" id="btn-ko" onclick="setLang('ko')">한국어</button>
+    </div>
   </div>
 </nav>
 
@@ -778,9 +822,11 @@
       <div class="corner-br"></div>
     </div>
     <div class="hero-text">
-      <div class="label">M.S. Researcher · Dong-A University · ISPL</div>
+      <div class="label" data-en="M.S. Researcher · Dong-A University · ISPL" data-ko="석사 연구생 · 동아대학교 · ISPL">M.S. Researcher · Dong-A University · ISPL</div>
       <h1>Dongho<br><span>Lee</span></h1>
-      <p class="subtitle">
+      <p class="subtitle" id="hero-subtitle"
+        data-en="Researching <strong>Video Super Resolution</strong>, video compression standards including <strong>HEVC</strong>, <strong>VVC</strong>, and <strong>Beyond VVC</strong>, <strong>Rate Control</strong> algorithms, and <strong>3D Gaussian Splatting</strong> at Image Signal Processing Lab, Dong-A University. Advised by Prof. Dongsan Jun."
+        data-ko="동아대학교 영상신호처리연구실(ISPL)에서 <strong>비디오 초해상도(VSR)</strong>, <strong>HEVC</strong>·<strong>VVC</strong>·<strong>Beyond VVC</strong> 등 비디오 압축 표준, <strong>레이트 컨트롤</strong> 알고리즘, <strong>3D 가우시안 스플래팅</strong>을 연구하고 있습니다. 지도교수: 전동산 교수님.">
         Researching <strong>Video Super Resolution</strong>, video compression standards
         including <strong>HEVC</strong>, <strong>VVC</strong>, and <strong>Beyond VVC</strong>,
         <strong>Rate Control</strong> algorithms, and <strong>3D Gaussian Splatting</strong>
@@ -788,22 +834,16 @@
         Advised by Prof. Dongsan Jun.
       </p>
       <div class="hero-links">
-        <a href="https://github.com/LeeDongho-ISPL" target="_blank" class="btn btn-primary">
-          GitHub
-        </a>
-        <a href="mailto:dlehdgh256@gmail.com" class="btn btn-outline">
-          Contact
-        </a>
-        <a href="https://soet0256.tistory.com/" target="_blank" class="btn btn-outline">
-          Blog
-        </a>
+        <a href="https://github.com/LeeDongho-ISPL" target="_blank" class="btn btn-primary">GitHub</a>
+        <a href="mailto:dlehdgh256@gmail.com" class="btn btn-outline" data-en="Contact" data-ko="이메일">Contact</a>
+        <a href="https://soet0256.tistory.com/" target="_blank" class="btn btn-outline" data-en="Blog" data-ko="블로그">Blog</a>
       </div>
       <div class="hero-badges">
-        <span class="badge green">SCIE (Under Review)</span>
-        <span class="badge gold">KCI Publication</span>
-        <span class="badge gold">3 Patents Filed</span>
-        <span class="badge blue">Best Paper Award</span>
-        <span class="badge blue">NIA Gov. Project</span>
+        <span class="badge green" data-en="SCIE (Under Review)" data-ko="SCIE (심사 중)">SCIE (Under Review)</span>
+        <span class="badge gold" data-en="KCI Publication" data-ko="KCI 논문">KCI Publication</span>
+        <span class="badge gold" data-en="3 Patents Filed" data-ko="특허 3건 출원">3 Patents Filed</span>
+        <span class="badge blue" data-en="Best Paper Award" data-ko="최우수논문상">Best Paper Award</span>
+        <span class="badge blue" data-en="NIA Gov. Project" data-ko="NIA 정부 과제">NIA Gov. Project</span>
       </div>
     </div>
   </div>
@@ -811,28 +851,36 @@
 
 <!-- ─── About ────────────────────────────────────────────── -->
 <section id="about" style="padding-top:2rem;">
-  <div class="section-label">Profile</div>
-  <h2 class="section-title">About Me</h2>
+  <div class="section-label" data-en="Profile" data-ko="프로필">Profile</div>
+  <h2 class="section-title" data-en="About Me" data-ko="소개">About Me</h2>
   <div class="about-grid">
     <div class="about-body">
-      <p>
+      <p id="about-p1"
+        data-en="I am a M.S. student in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>."
+        data-ko="대한민국 부산 <strong>동아대학교</strong> 컴퓨터공학과 석사 과정에 재학 중이며, <strong>영상신호처리연구실(ISPL)</strong>에서 전동산 교수님의 지도를 받고 있습니다.">
         I am a M.S. student in the Department of Computer Engineering at <strong>Dong-A University</strong>,
         Busan, South Korea, advised by Prof. Dongsan Jun in the
         <strong>Image Signal Processing Laboratory (ISPL)</strong>.
       </p>
-      <p>
+      <p id="about-p2"
+        data-en="My primary research interest lies in <strong>deep learning–based video quality enhancement</strong>. I have focused on Video Super Resolution (VSR) using deformable convolution–based alignment and dense feature extraction, targeting both quality-maximizing and edge-device–deployable lightweight architectures."
+        data-ko="주요 연구 관심사는 <strong>딥러닝 기반 비디오 화질 향상</strong>입니다. 변형 가능한 합성곱(deformable convolution) 기반 정렬과 밀집 특징 추출을 활용한 비디오 초해상도(VSR) 연구를 수행하며, 화질 극대화 모델과 엣지 디바이스 배포 가능한 경량 아키텍처를 모두 탐구하고 있습니다.">
         My primary research interest lies in <strong>deep learning–based video quality enhancement</strong>.
         I have focused on Video Super Resolution (VSR) using deformable convolution–based alignment
         and dense feature extraction, targeting both quality-maximizing and edge-device–deployable
         lightweight architectures.
       </p>
-      <p>
+      <p id="about-p3"
+        data-en="In parallel, I work on <strong>VVC (H.266) video compression</strong>, focusing on inter-prediction optimization and <strong>rate control algorithms</strong> — optimizing QP scheduling and bit allocation under constrained bitrate budgets. This line of work has led to 3 domestic patent filings."
+        data-ko="병행하여 <strong>VVC(H.266) 비디오 압축</strong> 분야에서 인터 예측 최적화와 <strong>레이트 컨트롤 알고리즘</strong>을 연구합니다. 제한된 비트레이트 조건에서 QP 스케줄링 및 비트 할당 최적화를 목표로 하며, 이 연구들은 3건의 국내 특허 출원으로 이어졌습니다.">
         In parallel, I work on <strong>VVC (H.266) video compression</strong>, focusing on
         inter-prediction optimization and <strong>rate control algorithms</strong> — optimizing
         QP scheduling and bit allocation under constrained bitrate budgets.
         This line of work has led to 3 domestic patent filings.
       </p>
-      <p>
+      <p id="about-p4"
+        data-en="More recently, I have expanded into <strong>3D Gaussian Splatting (3DGS)</strong>, exploring scene analysis and quality evaluation for real-time novel-view synthesis pipelines. I also contributed production-level software to the Busan Smart City Digital Twin Platform, commissioned by the <strong>National Information Society Agency (NIA)</strong>."
+        data-ko="최근에는 <strong>3D 가우시안 스플래팅(3DGS)</strong> 분야로 연구를 확장하여 실시간 새로운 시점 합성 파이프라인의 장면 분석 및 화질 평가를 연구하고 있습니다. 또한 <strong>한국지능정보사회진흥원(NIA)</strong>이 발주한 부산 스마트시티 디지털 트윈 플랫폼의 실서비스 소프트웨어 개발에 참여했습니다.">
         More recently, I have expanded into <strong>3D Gaussian Splatting (3DGS)</strong>,
         exploring scene analysis and quality evaluation for real-time novel-view synthesis pipelines.
         I also contributed production-level software to the Busan Smart City Digital Twin Platform,
@@ -873,19 +921,19 @@
   <div class="stats-row">
     <div class="stat-card">
       <span class="stat-num">2</span>
-      <div class="stat-desc">Publications<br>(Journal + Conference)</div>
+      <div class="stat-desc" data-en="Publications<br>(Journal + Conference)" data-ko="논문<br>(저널 + 학술대회)">Publications<br>(Journal + Conference)</div>
     </div>
     <div class="stat-card">
       <span class="stat-num">3</span>
-      <div class="stat-desc">Patents Filed<br>(Korean Intellectual Property)</div>
+      <div class="stat-desc" data-en="Patents Filed<br>(Korean Intellectual Property)" data-ko="특허 출원<br>(국내 지식재산권)">Patents Filed<br>(Korean Intellectual Property)</div>
     </div>
     <div class="stat-card">
       <span class="stat-num">5</span>
-      <div class="stat-desc">Open-Source<br>Projects</div>
+      <div class="stat-desc" data-en="Open-Source<br>Projects" data-ko="오픈소스<br>프로젝트">Open-Source<br>Projects</div>
     </div>
     <div class="stat-card">
       <span class="stat-num">2</span>
-      <div class="stat-desc">Awards<br>(Best Paper + Capstone)</div>
+      <div class="stat-desc" data-en="Awards<br>(Best Paper + Capstone)" data-ko="수상<br>(최우수논문상 + 캡스톤)">Awards<br>(Best Paper + Capstone)</div>
     </div>
   </div>
 </section>
@@ -894,58 +942,64 @@
 
 <!-- ─── Research Interest ─────────────────────────────────── -->
 <section id="research">
-  <div class="section-label">Focus Areas</div>
-  <h2 class="section-title">Research Interests</h2>
+  <div class="section-label" data-en="Focus Areas" data-ko="연구 분야">Focus Areas</div>
+  <h2 class="section-title" data-en="Research Interests" data-ko="연구 관심사">Research Interests</h2>
   <div class="interest-grid">
     <div class="interest-card">
-      <div class="interest-icon">Video SR</div>
-      <h3>Video Super Resolution</h3>
-      <p>
+      <div class="interest-icon" data-en="Video SR" data-ko="Video SR">Video SR</div>
+      <h3 data-en="Video Super Resolution" data-ko="비디오 초해상도">Video Super Resolution</h3>
+      <p data-en="Video Super Resolution (VSR) is a class of methods that reconstruct high-resolution video frames from temporally consecutive low-resolution inputs by exploiting inter-frame spatial-temporal correlations through deep neural networks."
+         data-ko="비디오 초해상도(VSR)는 딥 뉴럴 네트워크를 통해 연속된 저해상도 입력으로부터 고해상도 비디오 프레임을 복원하는 방법론으로, 프레임 간 공간-시간 상관관계를 활용합니다.">
         Video Super Resolution (VSR) is a class of methods that reconstruct high-resolution
         video frames from temporally consecutive low-resolution inputs by exploiting
         inter-frame spatial-temporal correlations through deep neural networks.
       </p>
     </div>
     <div class="interest-card">
-      <div class="interest-icon">3D Rendering</div>
-      <h3>3D Gaussian Splatting</h3>
-      <p>
+      <div class="interest-icon" data-en="3D Rendering" data-ko="3D 렌더링">3D Rendering</div>
+      <h3 data-en="3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅">3D Gaussian Splatting</h3>
+      <p data-en="3D Gaussian Splatting (3DGS) is a point-based scene representation that models a scene as a set of anisotropic 3D Gaussians, enabling real-time novel-view synthesis via differentiable rasterization without neural ray marching."
+         data-ko="3D 가우시안 스플래팅(3DGS)은 장면을 비등방성 3D 가우시안 집합으로 표현하는 포인트 기반 방법론으로, 신경 레이 마칭 없이 미분 가능한 래스터화를 통해 실시간 새로운 시점 합성을 가능하게 합니다.">
         3D Gaussian Splatting (3DGS) is a point-based scene representation that models
         a scene as a set of anisotropic 3D Gaussians, enabling real-time novel-view synthesis
         via differentiable rasterization without neural ray marching.
       </p>
     </div>
     <div class="interest-card">
-      <div class="interest-icon">Video Coding</div>
-      <h3>VVC / Video Compression</h3>
-      <p>
+      <div class="interest-icon" data-en="Video Coding" data-ko="비디오 코딩">Video Coding</div>
+      <h3 data-en="VVC / Video Compression" data-ko="VVC / 비디오 압축">VVC / Video Compression</h3>
+      <p data-en="Versatile Video Coding (VVC / H.266) is the latest generation ITU-T/ISO video coding standard that achieves approximately 50% bitrate reduction over HEVC through advanced partitioning, inter/intra prediction tools, and in-loop filtering."
+         data-ko="다목적 비디오 코딩(VVC / H.266)은 최신 세대 ITU-T/ISO 비디오 코딩 표준으로, 고급 파티셔닝, 인터/인트라 예측 도구, 인루프 필터링을 통해 HEVC 대비 약 50%의 비트레이트 절감을 달성합니다.">
         Versatile Video Coding (VVC / H.266) is the latest generation ITU-T/ISO video coding
         standard that achieves approximately 50% bitrate reduction over HEVC through advanced
         partitioning, inter/intra prediction tools, and in-loop filtering.
       </p>
     </div>
     <div class="interest-card">
-      <div class="interest-icon">Rate Control</div>
-      <h3>VVC Rate Control</h3>
-      <p>
+      <div class="interest-icon" data-en="Rate Control" data-ko="레이트 컨트롤">Rate Control</div>
+      <h3 data-en="VVC Rate Control" data-ko="VVC 레이트 컨트롤">VVC Rate Control</h3>
+      <p data-en="Rate control in video coding determines the quantization parameter (QP) and bit allocation per coding unit to meet a target bitrate constraint while maximizing perceptual quality, balancing distortion against buffer and bandwidth limits."
+         data-ko="비디오 코딩의 레이트 컨트롤은 목표 비트레이트 제약 조건을 만족하면서 지각적 화질을 극대화하기 위해 코딩 단위별 양자화 파라미터(QP)와 비트 할당을 결정하며, 왜곡과 버퍼/대역폭 한계를 균형 있게 조절합니다.">
         Rate control in video coding determines the quantization parameter (QP) and bit
         allocation per coding unit to meet a target bitrate constraint while maximizing
         perceptual quality, balancing distortion against buffer and bandwidth limits.
       </p>
     </div>
     <div class="interest-card">
-      <div class="interest-icon">Digital Twin</div>
-      <h3>Smart City Digital Twin</h3>
-      <p>
+      <div class="interest-icon" data-en="Digital Twin" data-ko="디지털 트윈">Digital Twin</div>
+      <h3 data-en="Smart City Digital Twin" data-ko="스마트시티 디지털 트윈">Smart City Digital Twin</h3>
+      <p data-en="A smart city digital twin is a real-time virtual replica of urban infrastructure — integrating GIS, IoT sensor streams, and 3D city models — that enables simulation, monitoring, and data-driven decision support for city administrators."
+         data-ko="스마트시티 디지털 트윈은 GIS, IoT 센서 스트림, 3D 도시 모델을 통합한 도시 인프라의 실시간 가상 복제본으로, 시뮬레이션, 모니터링 및 데이터 기반 의사결정을 지원합니다.">
         A smart city digital twin is a real-time virtual replica of urban infrastructure —
         integrating GIS, IoT sensor streams, and 3D city models — that enables simulation,
         monitoring, and data-driven decision support for city administrators.
       </p>
     </div>
     <div class="interest-card">
-      <div class="interest-icon">Image Quality</div>
-      <h3>Perceptual Image Quality</h3>
-      <p>
+      <div class="interest-icon" data-en="Image Quality" data-ko="화질 평가">Image Quality</div>
+      <h3 data-en="Perceptual Image Quality" data-ko="지각적 화질 평가">Perceptual Image Quality</h3>
+      <p data-en="Image quality assessment (IQA) encompasses both full-reference metrics (PSNR, SSIM, VMAF) and no-reference perceptual models that measure fidelity, structural similarity, and human visual system–aligned distortion in restored imagery."
+         data-ko="화질 평가(IQA)는 완전 참조 지표(PSNR, SSIM, VMAF)와 비참조 지각 모델을 모두 포함하며, 복원 영상의 충실도, 구조적 유사성, 인간 시각 시스템 기반 왜곡을 측정합니다.">
         Image quality assessment (IQA) encompasses both full-reference metrics
         (PSNR, SSIM, VMAF) and no-reference perceptual models that measure fidelity,
         structural similarity, and human visual system–aligned distortion in restored imagery.
@@ -958,8 +1012,8 @@
 
 <!-- ─── Publications ──────────────────────────────────────── -->
 <section id="publications">
-  <div class="section-label">Academic Output</div>
-  <h2 class="section-title">Publications</h2>
+  <div class="section-label" data-en="Academic Output" data-ko="학술 성과">Academic Output</div>
+  <h2 class="section-title" data-en="Publications" data-ko="논문">Publications</h2>
   <!-- ── SCIE ── -->
   <div class="pub-group">
     <div class="pub-group-label scie"><span>SCIE Journal</span></div>
@@ -968,16 +1022,16 @@
         <div class="pub-year" style="color:var(--muted); font-size:1rem; padding-top:.3rem;">TBD</div>
         <div>
           <div class="pub-type" style="color:#6db38a;">
-            International Journal · SCIE
-            <span class="under-review-badge" style="border-color:#6db38a; color:#6db38a;">Under Review</span>
+            <span data-en="International Journal · SCIE" data-ko="국제 저널 · SCIE">International Journal · SCIE</span>
+            <span class="under-review-badge" style="border-color:#6db38a; color:#6db38a;" data-en="Under Review" data-ko="심사 중">Under Review</span>
           </div>
-          <div class="pub-title" style="color:#aaa;">
+          <div class="pub-title" style="color:#aaa;" data-en="Title to be updated upon submission" data-ko="제출 후 제목 업데이트 예정">
             Title to be updated upon submission
           </div>
           <div class="pub-authors">
             <strong>Dongho Lee</strong>, Dongsan Jun, et al.
           </div>
-          <div class="pub-venue" style="color:#555;">
+          <div class="pub-venue" style="color:#555;" data-en="Submitted to an SCIE-indexed international journal" data-ko="SCIE 등재 국제 저널 제출 예정">
             Submitted to an SCIE-indexed international journal
           </div>
           <div class="pub-tags">
@@ -1057,8 +1111,8 @@
 
 <!-- ─── Patents ───────────────────────────────────────────── -->
 <section id="patents">
-  <div class="section-label">Intellectual Property</div>
-  <h2 class="section-title">Patents</h2>
+  <div class="section-label" data-en="Intellectual Property" data-ko="지식재산권">Intellectual Property</div>
+  <h2 class="section-title" data-en="Patents" data-ko="특허">Patents</h2>
   <div class="patent-list">
 
     <div class="patent-card">
@@ -1098,8 +1152,8 @@
 
 <!-- ─── Projects ──────────────────────────────────────────── -->
 <section id="projects">
-  <div class="section-label">Selected Work</div>
-  <h2 class="section-title">Projects</h2>
+  <div class="section-label" data-en="Selected Work" data-ko="주요 작업">Selected Work</div>
+  <h2 class="section-title" data-en="Projects" data-ko="프로젝트">Projects</h2>
   <div class="project-grid">
 
     <a href="https://github.com/LeeDongho-ISPL/VideoSR_RDAN" target="_blank" class="project-card">
@@ -1206,25 +1260,25 @@
 
 <!-- ─── Awards ────────────────────────────────────────────── -->
 <section id="awards">
-  <div class="section-label">Recognition</div>
-  <h2 class="section-title">Awards &amp; Honors</h2>
+  <div class="section-label" data-en="Recognition" data-ko="수상 이력">Recognition</div>
+  <h2 class="section-title" data-en="Awards &amp; Honors" data-ko="수상 및 표창">Awards &amp; Honors</h2>
   <div class="award-list">
 
     <div class="award-card">
       <div class="award-emoji">Best Paper</div>
       <div>
         <div class="award-year">2024</div>
-        <div class="award-title">최우수논문상 (Best Paper Award)</div>
-        <div class="award-org">한국멀티미디어학회 (Korea Multimedia Society) · Dong-A University</div>
+        <div class="award-title" data-en="Best Paper Award (최우수논문상)" data-ko="최우수논문상">최우수논문상 (Best Paper Award)</div>
+        <div class="award-org" data-en="Korea Multimedia Society · Dong-A University" data-ko="한국멀티미디어학회 · 동아대학교">한국멀티미디어학회 (Korea Multimedia Society) · Dong-A University</div>
       </div>
     </div>
 
     <div class="award-card">
       <div class="award-emoji">Capstone</div>
       <div>
-        <div class="award-year">Capstone Design</div>
-        <div class="award-title">Capstone Design Award — Pedestrian Safety System</div>
-        <div class="award-org">Dong-A University · LiDAR-based Walking Assistance System for Visually Impaired</div>
+        <div class="award-year" data-en="Capstone Design" data-ko="캡스톤 디자인">Capstone Design</div>
+        <div class="award-title" data-en="Capstone Design Award — Pedestrian Safety System" data-ko="캡스톤 디자인상 — 보행자 안전 시스템">Capstone Design Award — Pedestrian Safety System</div>
+        <div class="award-org" data-en="Dong-A University · LiDAR-based Walking Assistance System for Visually Impaired" data-ko="동아대학교 · LiDAR 기반 시각 장애인 보행 보조 시스템">Dong-A University · LiDAR-based Walking Assistance System for Visually Impaired</div>
       </div>
     </div>
 
@@ -1232,8 +1286,8 @@
       <div class="award-emoji">NIA</div>
       <div>
         <div class="award-year">2023 – Present</div>
-        <div class="award-title">NIA Government-Commissioned Project Contributor</div>
-        <div class="award-org">National Information Society Agency (NIA) · Busan 1365 Digital Twin Platform</div>
+        <div class="award-title" data-en="NIA Government-Commissioned Project Contributor" data-ko="NIA 정부 위탁 과제 참여">NIA Government-Commissioned Project Contributor</div>
+        <div class="award-org" data-en="National Information Society Agency (NIA) · Busan 1365 Digital Twin Platform" data-ko="한국지능정보사회진흥원(NIA) · 부산 1365 디지털 트윈 플랫폼">National Information Society Agency (NIA) · Busan 1365 Digital Twin Platform</div>
       </div>
     </div>
 
@@ -1244,18 +1298,18 @@
 
 <!-- ─── Education ─────────────────────────────────────────── -->
 <section id="education">
-  <div class="section-label">Background</div>
-  <h2 class="section-title">Education</h2>
+  <div class="section-label" data-en="Background" data-ko="학력">Background</div>
+  <h2 class="section-title" data-en="Education" data-ko="학력 사항">Education</h2>
   <div class="edu-list">
 
     <div class="edu-item">
       <div class="edu-dot"></div>
       <div>
         <div class="edu-period">2023 – Present</div>
-        <div class="edu-degree">M.S. in Computer Engineering</div>
-        <div class="edu-school">Dong-A University, Busan, South Korea</div>
-        <div class="edu-detail">Advisor: Prof. Dongsan Jun &nbsp;·&nbsp; Lab: Image Signal Processing Lab (ISPL)</div>
-        <div class="edu-detail">Research: Video Super Resolution, 3D Gaussian Splatting, Video Coding</div>
+        <div class="edu-degree" data-en="M.S. in Computer Engineering" data-ko="컴퓨터공학과 석사 과정">M.S. in Computer Engineering</div>
+        <div class="edu-school" data-en="Dong-A University, Busan, South Korea" data-ko="동아대학교, 부산, 대한민국">Dong-A University, Busan, South Korea</div>
+        <div class="edu-detail" data-en="Advisor: Prof. Dongsan Jun · Lab: Image Signal Processing Lab (ISPL)" data-ko="지도교수: 전동산 교수님 · 소속: 영상신호처리연구실(ISPL)">Advisor: Prof. Dongsan Jun &nbsp;·&nbsp; Lab: Image Signal Processing Lab (ISPL)</div>
+        <div class="edu-detail" data-en="Research: Video Super Resolution, 3D Gaussian Splatting, Video Coding" data-ko="연구: 비디오 초해상도, 3D 가우시안 스플래팅, 비디오 코딩">Research: Video Super Resolution, 3D Gaussian Splatting, Video Coding</div>
       </div>
     </div>
 
@@ -1263,9 +1317,9 @@
       <div class="edu-dot"></div>
       <div>
         <div class="edu-period">– 2023</div>
-        <div class="edu-degree">B.S. in Computer Engineering</div>
-        <div class="edu-school">Dong-A University, Busan, South Korea</div>
-        <div class="edu-detail">Capstone Design Award recipient</div>
+        <div class="edu-degree" data-en="B.S. in Computer Engineering" data-ko="컴퓨터공학과 학사">B.S. in Computer Engineering</div>
+        <div class="edu-school" data-en="Dong-A University, Busan, South Korea" data-ko="동아대학교, 부산, 대한민국">Dong-A University, Busan, South Korea</div>
+        <div class="edu-detail" data-en="Capstone Design Award recipient" data-ko="캡스톤 디자인상 수상">Capstone Design Award recipient</div>
       </div>
     </div>
 
@@ -1276,11 +1330,11 @@
 
 <!-- ─── Skills ────────────────────────────────────────────── -->
 <section id="skills">
-  <div class="section-label">Technical Stack</div>
-  <h2 class="section-title">Skills</h2>
+  <div class="section-label" data-en="Technical Stack" data-ko="기술 스택">Technical Stack</div>
+  <h2 class="section-title" data-en="Skills" data-ko="보유 기술">Skills</h2>
   <div class="skills-grid">
     <div class="skill-group">
-      <h3>Deep Learning / ML</h3>
+      <h3 data-en="Deep Learning / ML" data-ko="딥러닝 / 머신러닝">Deep Learning / ML</h3>
       <div class="skill-chips">
         <span class="chip">PyTorch</span>
         <span class="chip">Python</span>
@@ -1291,7 +1345,7 @@
       </div>
     </div>
     <div class="skill-group">
-      <h3>Computer Vision / Graphics</h3>
+      <h3 data-en="Computer Vision / Graphics" data-ko="컴퓨터 비전 / 그래픽스">Computer Vision / Graphics</h3>
       <div class="skill-chips">
         <span class="chip">3D Gaussian Splatting</span>
         <span class="chip">Video SR</span>
@@ -1302,7 +1356,7 @@
       </div>
     </div>
     <div class="skill-group">
-      <h3>Systems & Tools</h3>
+      <h3 data-en="Systems &amp; Tools" data-ko="시스템 및 도구">Systems & Tools</h3>
       <div class="skill-chips">
         <span class="chip">Unreal Engine</span>
         <span class="chip">C++</span>
@@ -1319,12 +1373,35 @@
 <footer>
   <div style="margin-bottom:.8rem;">
     <a href="https://github.com/LeeDongho-ISPL" target="_blank" style="margin:0 .8rem;">GitHub</a>
-    <a href="mailto:dlehdgh256@gmail.com" style="margin:0 .8rem;">Email</a>
-    <a href="https://soet0256.tistory.com/" target="_blank" style="margin:0 .8rem;">Blog</a>
+    <a href="mailto:dlehdgh256@gmail.com" style="margin:0 .8rem;" data-en="Email" data-ko="이메일">Email</a>
+    <a href="https://soet0256.tistory.com/" target="_blank" style="margin:0 .8rem;" data-en="Blog" data-ko="블로그">Blog</a>
   </div>
-  <div>Dongho Lee &nbsp;·&nbsp; ISPL, Dong-A University &nbsp;·&nbsp; Busan, South Korea</div>
-  <div style="margin-top:.4rem; color: #444;">© 2026 Dongho Lee. All rights reserved.</div>
+  <div data-en="Dongho Lee · ISPL, Dong-A University · Busan, South Korea" data-ko="이동호 · 동아대학교 영상신호처리연구실(ISPL) · 부산, 대한민국">Dongho Lee &nbsp;·&nbsp; ISPL, Dong-A University &nbsp;·&nbsp; Busan, South Korea</div>
+  <div style="margin-top:.4rem; color: #444;" data-en="© 2026 Dongho Lee. All rights reserved." data-ko="© 2026 이동호. All rights reserved.">© 2026 Dongho Lee. All rights reserved.</div>
 </footer>
 
+<script>
+// ─── Language Toggle ────────────────────────────────────────
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+
+  // 버튼 active 상태 전환
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+
+  // data-en / data-ko 속성이 있는 모든 요소의 innerHTML 교체
+  document.querySelectorAll('[data-en][data-ko]').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + lang);
+  });
+
+  // innerHTML 교체가 아닌 단순 텍스트 전용 요소(subtitle, about paragraphs)는
+  // data 속성에 HTML 포함돼 있으므로 위에서 이미 처리됨
+
+  // html lang 속성 업데이트
+  document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
+}
+</script>
 </body>
 </html>
