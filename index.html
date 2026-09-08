@@ -292,6 +292,7 @@
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: .6rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
     }
     .section-title {
       font-family: 'Playfair Display', serif;
@@ -300,6 +301,7 @@
       margin-bottom: 3rem;
       border-bottom: 1px solid var(--border);
       padding-bottom: 1rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
     }
     .section-divider {
       width: 100%;
@@ -365,7 +367,7 @@
       border-radius: 8px;
       padding: 1.6rem 1.4rem;
       text-align: center;
-      transition: border-color .2s;
+      transition: border-color .2s, opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
     }
     .stat-card:hover { border-color: var(--accent); }
     .stat-num {
@@ -394,7 +396,7 @@
       padding: 1.8rem 1.6rem;
       position: relative;
       overflow: hidden;
-      transition: border-color .2s, transform .2s;
+      transition: border-color .2s, transform .2s, opacity .7s cubic-bezier(.16,.8,.3,1);
     }
     /* CV corner bracket per card */
     .interest-card::before {
@@ -464,7 +466,7 @@
       grid-template-columns: auto 1fr;
       gap: 1.4rem;
       align-items: start;
-      transition: border-color .2s;
+      transition: border-color .2s, opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
     }
     .pub-card:hover { border-color: var(--accent2); }
     /* Under Review variant */
@@ -537,7 +539,7 @@
       border-radius: 8px;
       padding: 1.4rem 1.8rem;
       display: flex; align-items: center; gap: 1.4rem;
-      transition: border-color .2s;
+      transition: border-color .2s, opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
     }
     .patent-card:hover { border-color: var(--accent); }
     .patent-icon {
@@ -594,7 +596,7 @@
       border-radius: 8px;
       padding: 1.8rem;
       display: flex; flex-direction: column;
-      transition: border-color .2s, transform .2s;
+      transition: border-color .2s, transform .2s, opacity .7s cubic-bezier(.16,.8,.3,1);
     }
     .project-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
     .project-header {
@@ -655,7 +657,7 @@
       border-radius: 0 8px 8px 0;
       padding: 1.4rem 1.8rem;
       display: flex; align-items: center; gap: 1.4rem;
-      transition: background .2s;
+      transition: background .2s, opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
     }
     .award-card:hover { background: var(--surface2); }
     .award-emoji {
@@ -697,6 +699,7 @@
       display: flex; gap: 2rem;
       padding: 0 0 2.5rem 0;
       position: relative;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
     }
     .edu-dot {
       width: 41px; flex-shrink: 0;
@@ -783,9 +786,54 @@
       .project-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
     }
+
+    /* ─── Scroll-Reveal Motion ──────────────────────────────── */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-image-wrap { animation: heroFadeUp .8s cubic-bezier(.16,.8,.3,1) both; }
+    .hero-text .label   { animation: heroFadeUp .7s cubic-bezier(.16,.8,.3,1) .08s both; }
+    .hero-text h1        { animation: heroFadeUp .7s cubic-bezier(.16,.8,.3,1) .16s both; }
+    .hero-text .subtitle { animation: heroFadeUp .7s cubic-bezier(.16,.8,.3,1) .24s both; }
+    .hero-links           { animation: heroFadeUp .7s cubic-bezier(.16,.8,.3,1) .32s both; }
+    .hero-badges           { animation: heroFadeUp .7s cubic-bezier(.16,.8,.3,1) .4s both; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-image-wrap, .hero-text .label, .hero-text h1, .hero-text .subtitle,
+      .hero-links, .hero-badges { animation: none; }
+    }
+
+    /* Each .reveal target defines its OWN merged `transition` (see its base
+       rule) so this fade/slide doesn't clobber that card's existing hover
+       transition (border-color, background, hover-lift transform, etc.) —
+       a single element can only have one `transition` shorthand winner. */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      will-change: opacity, transform;
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .pub-card.under-review.in-view { opacity: .85; }
+    /* .skill-group has no other rule declaring `transition`, so it's safe
+       to give it one directly here. */
+    .skill-group { transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* Subtle progress fill for the nav on scroll */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index: 102;
+      transition: width .1s linear;
+    }
   </style>
 </head>
 <body>
+
+<div id="scroll-progress"></div>
 
 <!-- ─── Navigation ───────────────────────────────────────── -->
 <nav>
@@ -851,8 +899,8 @@
 
 <!-- ─── About ────────────────────────────────────────────── -->
 <section id="about" style="padding-top:2rem;">
-  <div class="section-label" data-en="Profile" data-ko="프로필">Profile</div>
-  <h2 class="section-title" data-en="About Me" data-ko="소개">About Me</h2>
+  <div class="section-label reveal" data-en="Profile" data-ko="프로필">Profile</div>
+  <h2 class="section-title reveal" data-en="About Me" data-ko="소개">About Me</h2>
   <div class="about-grid">
     <div class="about-body">
       <p id="about-p1"
@@ -919,19 +967,19 @@
 
   <!-- Quick Stats -->
   <div class="stats-row">
-    <div class="stat-card">
+    <div class="stat-card reveal">
       <span class="stat-num">2</span>
       <div class="stat-desc" data-en="Publications<br>(Journal + Conference)" data-ko="논문<br>(저널 + 학술대회)">Publications<br>(Journal + Conference)</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card reveal">
       <span class="stat-num">3</span>
       <div class="stat-desc" data-en="Patents Filed<br>(Korean Intellectual Property)" data-ko="특허 출원<br>(국내 지식재산권)">Patents Filed<br>(Korean Intellectual Property)</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card reveal">
       <span class="stat-num">5</span>
       <div class="stat-desc" data-en="Open-Source<br>Projects" data-ko="오픈소스<br>프로젝트">Open-Source<br>Projects</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card reveal">
       <span class="stat-num">2</span>
       <div class="stat-desc" data-en="Awards<br>(Best Paper + Capstone)" data-ko="수상<br>(최우수논문상 + 캡스톤)">Awards<br>(Best Paper + Capstone)</div>
     </div>
@@ -942,10 +990,10 @@
 
 <!-- ─── Research Interest ─────────────────────────────────── -->
 <section id="research">
-  <div class="section-label" data-en="Focus Areas" data-ko="연구 분야">Focus Areas</div>
-  <h2 class="section-title" data-en="Research Interests" data-ko="연구 관심사">Research Interests</h2>
+  <div class="section-label reveal" data-en="Focus Areas" data-ko="연구 분야">Focus Areas</div>
+  <h2 class="section-title reveal" data-en="Research Interests" data-ko="연구 관심사">Research Interests</h2>
   <div class="interest-grid">
-    <div class="interest-card">
+    <div class="interest-card reveal">
       <div class="interest-icon" data-en="Video SR" data-ko="Video SR">Video SR</div>
       <h3 data-en="Video Super Resolution" data-ko="비디오 초해상도">Video Super Resolution</h3>
       <p data-en="Video Super Resolution (VSR) is a class of methods that reconstruct high-resolution video frames from temporally consecutive low-resolution inputs by exploiting inter-frame spatial-temporal correlations through deep neural networks."
@@ -955,7 +1003,7 @@
         inter-frame spatial-temporal correlations through deep neural networks.
       </p>
     </div>
-    <div class="interest-card">
+    <div class="interest-card reveal">
       <div class="interest-icon" data-en="3D Rendering" data-ko="3D 렌더링">3D Rendering</div>
       <h3 data-en="3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅">3D Gaussian Splatting</h3>
       <p data-en="3D Gaussian Splatting (3DGS) is a point-based scene representation that models a scene as a set of anisotropic 3D Gaussians, enabling real-time novel-view synthesis via differentiable rasterization without neural ray marching."
@@ -965,7 +1013,7 @@
         via differentiable rasterization without neural ray marching.
       </p>
     </div>
-    <div class="interest-card">
+    <div class="interest-card reveal">
       <div class="interest-icon" data-en="Video Coding" data-ko="비디오 코딩">Video Coding</div>
       <h3 data-en="VVC / Video Compression" data-ko="VVC / 비디오 압축">VVC / Video Compression</h3>
       <p data-en="Versatile Video Coding (VVC / H.266) is the latest generation ITU-T/ISO video coding standard that achieves approximately 50% bitrate reduction over HEVC through advanced partitioning, inter/intra prediction tools, and in-loop filtering."
@@ -975,7 +1023,7 @@
         partitioning, inter/intra prediction tools, and in-loop filtering.
       </p>
     </div>
-    <div class="interest-card">
+    <div class="interest-card reveal">
       <div class="interest-icon" data-en="Rate Control" data-ko="레이트 컨트롤">Rate Control</div>
       <h3 data-en="VVC Rate Control" data-ko="VVC 레이트 컨트롤">VVC Rate Control</h3>
       <p data-en="Rate control in video coding determines the quantization parameter (QP) and bit allocation per coding unit to meet a target bitrate constraint while maximizing perceptual quality, balancing distortion against buffer and bandwidth limits."
@@ -985,7 +1033,7 @@
         perceptual quality, balancing distortion against buffer and bandwidth limits.
       </p>
     </div>
-    <div class="interest-card">
+    <div class="interest-card reveal">
       <div class="interest-icon" data-en="Digital Twin" data-ko="디지털 트윈">Digital Twin</div>
       <h3 data-en="Smart City Digital Twin" data-ko="스마트시티 디지털 트윈">Smart City Digital Twin</h3>
       <p data-en="A smart city digital twin is a real-time virtual replica of urban infrastructure — integrating GIS, IoT sensor streams, and 3D city models — that enables simulation, monitoring, and data-driven decision support for city administrators."
@@ -995,7 +1043,7 @@
         monitoring, and data-driven decision support for city administrators.
       </p>
     </div>
-    <div class="interest-card">
+    <div class="interest-card reveal">
       <div class="interest-icon" data-en="Image Quality" data-ko="화질 평가">Image Quality</div>
       <h3 data-en="Perceptual Image Quality" data-ko="지각적 화질 평가">Perceptual Image Quality</h3>
       <p data-en="Image quality assessment (IQA) encompasses both full-reference metrics (PSNR, SSIM, VMAF) and no-reference perceptual models that measure fidelity, structural similarity, and human visual system–aligned distortion in restored imagery."
@@ -1012,14 +1060,14 @@
 
 <!-- ─── Publications ──────────────────────────────────────── -->
 <section id="publications">
-  <div class="section-label" data-en="Academic Output" data-ko="학술 성과">Academic Output</div>
-  <h2 class="section-title" data-en="Publications" data-ko="논문">Publications</h2>
+  <div class="section-label reveal" data-en="Academic Output" data-ko="학술 성과">Academic Output</div>
+  <h2 class="section-title reveal" data-en="Publications" data-ko="논문">Publications</h2>
   <!-- ── SCIE ── -->
   <div class="pub-group">
     <div class="pub-group-label scie"><span>SCIE Journal</span></div>
     <div class="pub-list">
 
-      <div class="pub-card under-review">
+      <div class="pub-card under-review reveal">
         <div class="pub-year">2026</div>
         <div>
           <div class="pub-type">
@@ -1047,7 +1095,7 @@
         </div>
       </div>
 
-      <div class="pub-card under-review">
+      <div class="pub-card under-review reveal">
         <div class="pub-year">2026</div>
         <div>
           <div class="pub-type">
@@ -1075,7 +1123,7 @@
         </div>
       </div>
 
-      <div class="pub-card">
+      <div class="pub-card reveal">
         <div class="pub-year">2026</div>
         <div>
           <div class="pub-type" data-en="International Journal · SCIE" data-ko="국제 저널 · SCIE">International Journal · SCIE</div>
@@ -1107,7 +1155,7 @@
   <div class="pub-group">
     <div class="pub-group-label kci"><span>KCI Journal</span></div>
     <div class="pub-list">
-      <div class="pub-card">
+      <div class="pub-card reveal">
         <div class="pub-year">2023</div>
         <div>
           <div class="pub-type">Journal · KCI Indexed</div>
@@ -1139,7 +1187,7 @@
   <div class="pub-group">
     <div class="pub-group-label conf"><span>Domestic Conference</span></div>
     <div class="pub-list">
-      <div class="pub-card">
+      <div class="pub-card reveal">
         <div class="pub-year">2023</div>
         <div>
           <div class="pub-type">Conference · 한국방송미디어공학회 하계학술대회</div>
@@ -1171,11 +1219,11 @@
 
 <!-- ─── Patents ───────────────────────────────────────────── -->
 <section id="patents">
-  <div class="section-label" data-en="Intellectual Property" data-ko="지식재산권">Intellectual Property</div>
-  <h2 class="section-title" data-en="Patents" data-ko="특허">Patents</h2>
+  <div class="section-label reveal" data-en="Intellectual Property" data-ko="지식재산권">Intellectual Property</div>
+  <h2 class="section-title reveal" data-en="Patents" data-ko="특허">Patents</h2>
   <div class="patent-list">
 
-    <div class="patent-card">
+    <div class="patent-card reveal">
       <div class="patent-icon">KR Patent</div>
       <div style="flex:1;">
         <div class="patent-num">10-2025-0193072 · Filed 2025.12.08</div>
@@ -1185,7 +1233,7 @@
       <div class="patent-status">Pending</div>
     </div>
 
-    <div class="patent-card">
+    <div class="patent-card reveal">
       <div class="patent-icon">KR Patent</div>
       <div style="flex:1;">
         <div class="patent-num">10-2025-0193071 · Filed 2025.12.08</div>
@@ -1195,7 +1243,7 @@
       <div class="patent-status">Pending</div>
     </div>
 
-    <div class="patent-card">
+    <div class="patent-card reveal">
       <div class="patent-icon">KR Patent</div>
       <div style="flex:1;">
         <div class="patent-num">10-2024-0071658 · Filed 2024.05.31</div>
@@ -1212,11 +1260,11 @@
 
 <!-- ─── Projects ──────────────────────────────────────────── -->
 <section id="projects">
-  <div class="section-label" data-en="Selected Work" data-ko="주요 작업">Selected Work</div>
-  <h2 class="section-title" data-en="Projects" data-ko="프로젝트">Projects</h2>
+  <div class="section-label reveal" data-en="Selected Work" data-ko="주요 작업">Selected Work</div>
+  <h2 class="section-title reveal" data-en="Projects" data-ko="프로젝트">Projects</h2>
   <div class="project-grid">
 
-    <a href="https://github.com/LeeDongho-ISPL/VideoSR_RDAN" target="_blank" class="project-card">
+    <a href="https://github.com/LeeDongho-ISPL/VideoSR_RDAN" target="_blank" class="project-card reveal">
       <div class="project-header">
         <div class="project-icon">Deep Learning</div>
         <div class="project-link-icon">↗</div>
@@ -1236,7 +1284,7 @@
       </div>
     </a>
 
-    <a href="https://github.com/LeeDongho-ISPL/3DGS-Analyzer" target="_blank" class="project-card">
+    <a href="https://github.com/LeeDongho-ISPL/3DGS-Analyzer" target="_blank" class="project-card reveal">
       <div class="project-header">
         <div class="project-icon">3D Vision</div>
         <div class="project-link-icon">↗</div>
@@ -1254,7 +1302,7 @@
       </div>
     </a>
 
-    <a href="https://github.com/LeeDongho-ISPL/LightPollutionSimulation" target="_blank" class="project-card">
+    <a href="https://github.com/LeeDongho-ISPL/LightPollutionSimulation" target="_blank" class="project-card reveal">
       <div class="project-header">
         <div class="project-icon">Gov. Project</div>
         <div class="project-link-icon">↗</div>
@@ -1275,7 +1323,7 @@
       <div class="project-org">NIA Gov. Project · Busan Metropolitan City</div>
     </a>
 
-    <a href="https://github.com/LeeDongho-ISPL/Pedestrian-Safety-System" target="_blank" class="project-card">
+    <a href="https://github.com/LeeDongho-ISPL/Pedestrian-Safety-System" target="_blank" class="project-card reveal">
       <div class="project-header">
         <div class="project-icon">LiDAR</div>
         <div class="project-link-icon">↗</div>
@@ -1294,7 +1342,7 @@
       </div>
     </a>
 
-    <a href="https://github.com/LeeDongho-ISPL/planetarium" target="_blank" class="project-card">
+    <a href="https://github.com/LeeDongho-ISPL/planetarium" target="_blank" class="project-card reveal">
       <div class="project-header">
         <div class="project-icon">Unreal Engine</div>
         <div class="project-link-icon">↗</div>
@@ -1320,11 +1368,11 @@
 
 <!-- ─── Awards ────────────────────────────────────────────── -->
 <section id="awards">
-  <div class="section-label" data-en="Recognition" data-ko="수상 이력">Recognition</div>
-  <h2 class="section-title" data-en="Awards &amp; Honors" data-ko="수상 및 표창">Awards &amp; Honors</h2>
+  <div class="section-label reveal" data-en="Recognition" data-ko="수상 이력">Recognition</div>
+  <h2 class="section-title reveal" data-en="Awards &amp; Honors" data-ko="수상 및 표창">Awards &amp; Honors</h2>
   <div class="award-list">
 
-    <div class="award-card">
+    <div class="award-card reveal">
       <div class="award-emoji">Best Paper</div>
       <div>
         <div class="award-year">2024</div>
@@ -1333,7 +1381,7 @@
       </div>
     </div>
 
-    <div class="award-card">
+    <div class="award-card reveal">
       <div class="award-emoji">Capstone</div>
       <div>
         <div class="award-year" data-en="Capstone Design" data-ko="캡스톤 디자인">Capstone Design</div>
@@ -1342,7 +1390,7 @@
       </div>
     </div>
 
-    <div class="award-card">
+    <div class="award-card reveal">
       <div class="award-emoji">NIA</div>
       <div>
         <div class="award-year">2023 – Present</div>
@@ -1358,11 +1406,11 @@
 
 <!-- ─── Education ─────────────────────────────────────────── -->
 <section id="education">
-  <div class="section-label" data-en="Background" data-ko="학력">Background</div>
-  <h2 class="section-title" data-en="Education" data-ko="학력 사항">Education</h2>
+  <div class="section-label reveal" data-en="Background" data-ko="학력">Background</div>
+  <h2 class="section-title reveal" data-en="Education" data-ko="학력 사항">Education</h2>
   <div class="edu-list">
 
-    <div class="edu-item">
+    <div class="edu-item reveal">
       <div class="edu-dot"></div>
       <div>
         <div class="edu-period">2023 – Present</div>
@@ -1373,7 +1421,7 @@
       </div>
     </div>
 
-    <div class="edu-item">
+    <div class="edu-item reveal">
       <div class="edu-dot"></div>
       <div>
         <div class="edu-period">– 2023</div>
@@ -1390,10 +1438,10 @@
 
 <!-- ─── Skills ────────────────────────────────────────────── -->
 <section id="skills">
-  <div class="section-label" data-en="Technical Stack" data-ko="기술 스택">Technical Stack</div>
-  <h2 class="section-title" data-en="Skills" data-ko="보유 기술">Skills</h2>
+  <div class="section-label reveal" data-en="Technical Stack" data-ko="기술 스택">Technical Stack</div>
+  <h2 class="section-title reveal" data-en="Skills" data-ko="보유 기술">Skills</h2>
   <div class="skills-grid">
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h3 data-en="Deep Learning / ML" data-ko="딥러닝 / 머신러닝">Deep Learning / ML</h3>
       <div class="skill-chips">
         <span class="chip">PyTorch</span>
@@ -1404,7 +1452,7 @@
         <span class="chip">Dense Connections</span>
       </div>
     </div>
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h3 data-en="Computer Vision / Graphics" data-ko="컴퓨터 비전 / 그래픽스">Computer Vision / Graphics</h3>
       <div class="skill-chips">
         <span class="chip">3D Gaussian Splatting</span>
@@ -1415,7 +1463,7 @@
         <span class="chip">GIS Visualization</span>
       </div>
     </div>
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h3 data-en="Systems &amp; Tools" data-ko="시스템 및 도구">Systems & Tools</h3>
       <div class="skill-chips">
         <span class="chip">Unreal Engine</span>
@@ -1462,6 +1510,87 @@ function setLang(lang) {
   // html lang 속성 업데이트
   document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
 }
+
+// ─── Scroll Progress Bar ───────────────────────────────────────
+(function () {
+  var bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+})();
+
+// ─── Scroll-Reveal Animation ────────────────────────────────────
+(function () {
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (!revealEls.length) return;
+
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Stagger siblings within the same parent grid/list so cards cascade in.
+  var parentIndex = new Map();
+  revealEls.forEach(function (el) {
+    var parent = el.parentElement;
+    var idx = parentIndex.get(parent) || 0;
+    parentIndex.set(parent, idx + 1);
+    el.style.transitionDelay = prefersReduced ? '0s' : Math.min(idx * 0.09, 0.45) + 's';
+  });
+
+  if (prefersReduced || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function (el) { observer.observe(el); });
+  }
+
+  // ─── Stat Count-Up ─────────────────────────────────────────
+  var statNums = document.querySelectorAll('.stat-num');
+  statNums.forEach(function (el) {
+    var target = parseInt(el.textContent, 10);
+    if (isNaN(target)) return;
+    el.dataset.target = target;
+    if (!prefersReduced) el.textContent = '0';
+  });
+
+  function animateCount(el) {
+    var target = parseInt(el.dataset.target, 10);
+    if (isNaN(target)) return;
+    var duration = 900;
+    var start = performance.now();
+    function tick(now) {
+      var progress = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    statNums.forEach(function (el) { countObserver.observe(el); });
+  }
+})();
 </script>
 </body>
 </html>
