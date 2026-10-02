@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dongho Lee — Portfolio</title>
+  <meta name="description" content="Dongho Lee — Ph.D. student at Dong-A University (ISPL) researching multi-scale 3D Gaussian Splatting.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
@@ -830,6 +831,218 @@
       z-index: 102;
       transition: width .1s linear;
     }
+
+    /* ═══════════════ Portfolio v2 — infographic sections ═══════════════ */
+    :root {
+      --viz-a: #4a8fd0;   /* baseline series (MS-GS / NeRF)   — validated vs #161616 */
+      --viz-b: #c2862a;   /* proposed series (Ours / 3DGS)   — validated vs #161616 */
+      --viz-ref: #6b6b6b; /* context series (vanilla 3DGS), always dashed + labeled */
+      --grid: #262626;
+    }
+    .sec-lead { color: var(--muted); max-width: 720px; margin: -1.2rem 0 2.6rem; font-size: .95rem; }
+
+    /* ── Journey timeline ── */
+    .journey { position: relative; margin-top: 1rem; }
+    .journey::before {
+      content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(var(--border), var(--accent) 55%, var(--accent2));
+      transform: translateX(-50%);
+    }
+    .jn {
+      position: relative; width: 50%; padding: 0 2.6rem 2.2rem 0; text-align: right;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+    }
+    .jn.r { margin-left: 50%; padding: 0 0 2.2rem 2.6rem; text-align: left; }
+    .jn::after {
+      content: ''; position: absolute; top: .45rem; right: -6px; width: 11px; height: 11px;
+      border-radius: 50%; background: #0f0f0f; border: 2px solid var(--accent);
+    }
+    .jn.r::after { right: auto; left: -5px; }
+    .jn.blue::after { border-color: var(--accent2); }
+    .jn.big::after { background: var(--accent); box-shadow: 0 0 0 5px rgba(200,169,110,.15); }
+    .jn-date { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+    .jn.blue .jn-date { color: var(--accent2); }
+    .jn-title { font-size: 1rem; font-weight: 600; color: var(--text); margin: .15rem 0 .25rem; }
+    .jn-desc { font-size: .84rem; color: var(--muted); line-height: 1.6; }
+    .jn-tags { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .5rem; }
+    .jn:not(.r) .jn-tags { justify-content: flex-end; }
+    .era {
+      position: relative; z-index: 1; width: max-content; margin: .4rem auto 2rem;
+      padding: .3rem 1rem; border: 1px solid var(--border); border-radius: 20px;
+      background: #0f0f0f; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── Generic panel / KPI ── */
+    .panel {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.6rem 1.8rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+    }
+    .panel h4 { font-size: .95rem; font-weight: 600; margin-bottom: .2rem; }
+    .panel .panel-sub { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .panel-note { font-size: .72rem; color: #666; margin-top: .8rem; line-height: 1.55; }
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.6rem 0; }
+    .kpi {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.2rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1), border-color .2s;
+    }
+    .kpi:hover { border-color: var(--accent); }
+    .kpi-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; line-height: 1.1; color: var(--accent); }
+    .kpi-num small { font-family: 'Inter', sans-serif; font-size: .8rem; color: var(--muted); margin-left: .2rem; }
+    .kpi-lbl { font-size: .76rem; color: var(--muted); margin-top: .35rem; line-height: 1.45; }
+
+    /* ── Case study ── */
+    .case { margin-bottom: 5rem; }
+    .case:last-child { margin-bottom: 0; }
+    .case-head { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .4rem; }
+    .case-kicker {
+      font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; padding: .2rem .7rem;
+      border-radius: 20px; border: 1px solid var(--accent); color: var(--accent);
+    }
+    .case-kicker.blue { border-color: var(--accent2); color: var(--accent2); }
+    .case-meta { font-size: .78rem; color: var(--muted); }
+    .case h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 600; line-height: 1.35; margin: .3rem 0 .6rem; }
+    .case-one { color: var(--muted); font-size: .92rem; max-width: 820px; }
+    .case-one strong { color: var(--text); font-weight: 500; }
+    .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin: 1.6rem 0; }
+    .flow-step {
+      position: relative; padding: 1rem 1.4rem 1rem 1.2rem; border: 1px solid var(--border);
+      background: var(--surface); font-size: .84rem; color: var(--muted);
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+    }
+    .flow-step:first-child { border-radius: 10px 0 0 10px; }
+    .flow-step:last-child { border-radius: 0 10px 10px 0; }
+    .flow-step + .flow-step { border-left: none; }
+    .flow-step b { display: block; font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: .3rem; }
+    .flow-step:nth-child(2) b { color: var(--accent2); }
+    .flow-step:nth-child(3) b { color: #6db38a; }
+    .flow-step strong { color: var(--text); font-weight: 500; }
+    .case-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.2rem; align-items: stretch; }
+    .fig {
+      margin: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1), border-color .2s;
+    }
+    .fig:hover { border-color: var(--accent2); }
+    .fig button { all: unset; cursor: zoom-in; display: block; background: #fff; }
+    .fig button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .fig img { width: 100%; height: auto; }
+    .fig.dark button { background: #161616; }
+    .fig figcaption { font-size: .74rem; color: var(--muted); padding: .7rem 1rem; border-top: 1px solid var(--border); line-height: 1.5; margin-top: auto; }
+    .fig figcaption a { color: var(--accent2); }
+
+    /* ── Charts ── */
+    .chart { position: relative; width: 100%; }
+    .chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .chart text { font-family: 'Inter', sans-serif; }
+    .legend { display: flex; gap: 1.1rem; flex-wrap: wrap; font-size: .76rem; color: var(--muted); margin-bottom: .6rem; }
+    .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: .4rem; }
+    .legend i.dash { background: repeating-linear-gradient(90deg, var(--viz-ref) 0 4px, transparent 4px 7px) !important; }
+    .ref-toggle { all: unset; cursor: pointer; display: inline-flex; align-items: center; color: var(--muted); border: 1px dashed #3a3a3a; border-radius: 12px; padding: 0 .55rem; font-size: .72rem; }
+    .ref-toggle[aria-pressed="true"] { color: var(--text); border-color: #777; }
+    .ref-toggle:focus-visible { outline: 2px solid var(--accent); }
+    .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: .8rem; flex-wrap: wrap; }
+    .seg button {
+      background: none; border: none; color: var(--muted); font: 500 .74rem 'Inter', sans-serif;
+      padding: .32rem .75rem; cursor: pointer; letter-spacing: .03em;
+    }
+    .seg button + button { border-left: 1px solid var(--border); }
+    .seg button[aria-pressed="true"] { background: var(--surface2); color: var(--text); }
+    .seg button:hover { color: var(--text); }
+    .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .viz-tip {
+      position: absolute; pointer-events: none; z-index: 5; min-width: 150px;
+      background: #0b0b0b; border: 1px solid #333; border-radius: 6px; padding: .5rem .7rem;
+      font-size: .74rem; color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.5);
+      opacity: 0; transform: translateY(4px); transition: opacity .12s, transform .12s;
+    }
+    .viz-tip.on { opacity: 1; transform: none; }
+    .viz-tip .t-h { color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .25rem; }
+    .viz-tip .t-r { display: flex; align-items: center; gap: .45rem; justify-content: space-between; }
+    .viz-tip .t-r span:first-child { display: flex; align-items: center; gap: .4rem; color: #bbb; }
+    .viz-tip .t-r i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .viz-tip .t-d { margin-top: .3rem; padding-top: .3rem; border-top: 1px solid #262626; color: var(--accent); font-weight: 600; }
+    .table-toggle { all: unset; cursor: pointer; font-size: .72rem; color: var(--accent2); margin-top: .6rem; display: inline-block; }
+    .table-toggle:focus-visible { outline: 2px solid var(--accent); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: .74rem; margin-top: .6rem; font-variant-numeric: tabular-nums; }
+    .data-table th, .data-table td { border-bottom: 1px solid var(--border); padding: .3rem .4rem; text-align: right; color: var(--muted); }
+    .data-table th:first-child, .data-table td:first-child { text-align: left; }
+    .data-table th { color: var(--text); font-weight: 500; }
+
+    /* ── Before / After slider ── */
+    .ba-wrap { margin-top: 1.2rem; display: grid; grid-template-columns: 1fr 260px; gap: 1.2rem; }
+    .ba {
+      position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border);
+      aspect-ratio: 314 / 207; background: #000; user-select: none; touch-action: pan-y;
+    }
+    .ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ba .ba-top { clip-path: inset(0 0 0 var(--pos, 50%)); }
+    .ba .ba-line { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px; background: #fff; transform: translateX(-1px); pointer-events: none; box-shadow: 0 0 8px rgba(0,0,0,.6); }
+    .ba .ba-knob {
+      position: absolute; top: 50%; left: var(--pos, 50%); width: 34px; height: 34px; border-radius: 50%;
+      background: #fff; color: #111; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700; pointer-events: none; box-shadow: 0 2px 10px rgba(0,0,0,.5);
+    }
+    .ba .ba-tag { position: absolute; top: .6rem; font-size: .7rem; font-weight: 600; letter-spacing: .08em; padding: .2rem .55rem; border-radius: 4px; background: rgba(0,0,0,.72); }
+    .ba .ba-tag.l { left: .6rem; color: #8fbbe6; }
+    .ba .ba-tag.r { right: .6rem; color: #e2b267; }
+    .ba input[type=range] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+    .ba input[type=range]:focus-visible ~ .ba-knob { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .ba-side { display: flex; flex-direction: column; gap: .6rem; }
+    .ba-side .gt { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+    .ba-side .gt img { width: 100%; height: auto; }
+    .ba-side .gt span { position: absolute; top: .45rem; left: .45rem; font-size: .66rem; font-weight: 600; letter-spacing: .08em; padding: .15rem .45rem; border-radius: 4px; background: rgba(0,0,0,.72); color: #ddd; }
+    .ba-side p { font-size: .76rem; color: var(--muted); line-height: 1.55; }
+    .ba-label { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
+
+    /* ── Under-review strip ── */
+    .pipeline-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.4rem; }
+    .pipe-card {
+      border: 1px dashed #3a3a3a; border-radius: 10px; padding: 1.2rem 1.4rem; background: rgba(22,22,22,.6);
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1), border-color .2s;
+    }
+    .pipe-card:hover { border-color: var(--accent2); }
+    .pipe-card .pc-status { font-size: .7rem; font-weight: 700; color: var(--accent2); letter-spacing: .04em; }
+    .pipe-card .pc-title { font-size: .92rem; font-weight: 600; margin: .35rem 0 .4rem; line-height: 1.45; }
+    .pipe-card .pc-one { font-size: .8rem; color: var(--muted); }
+
+    /* ── Patent diagrams ── */
+    .patent-card.has-diagram { flex-wrap: wrap; }
+    .patent-diagram {
+      flex-basis: 100%; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border);
+      display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.4rem; align-items: center;
+    }
+    .patent-diagram svg { width: 100%; height: auto; display: block; }
+    .patent-diagram svg text { font-family: 'Inter', sans-serif; }
+    .patent-diagram p { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+    .patent-diagram p strong { color: var(--text); font-weight: 500; }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center;
+      padding: 2rem; cursor: zoom-out;
+    }
+    #lightbox img { max-width: min(1400px, 96vw); max-height: 90vh; width: auto; border-radius: 6px; background: #fff; }
+    #lightbox .lb-cap { position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center; font-size: .78rem; color: #aaa; padding: 0 1rem; }
+    #lightbox .lb-x { position: absolute; top: 1rem; right: 1.2rem; background: none; border: 1px solid #444; color: #ddd; border-radius: 6px; padding: .3rem .7rem; cursor: pointer; font: 500 .8rem 'Inter', sans-serif; }
+
+    @media (max-width: 900px) {
+      .journey::before { left: 8px; }
+      .jn, .jn.r { width: 100%; margin-left: 0; padding: 0 0 1.8rem 2rem; text-align: left; }
+      .jn::after, .jn.r::after { left: 3px; right: auto; }
+      .jn:not(.r) .jn-tags { justify-content: flex-start; }
+      .era { margin-left: 0; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .flow { grid-template-columns: 1fr; }
+      .flow-step, .flow-step:first-child, .flow-step:last-child { border-radius: 0; border-left: 1px solid var(--border); }
+      .flow-step + .flow-step { border-top: none; }
+      .flow-step:first-child { border-radius: 10px 10px 0 0; }
+      .flow-step:last-child { border-radius: 0 0 10px 10px; }
+      .case-grid, .ba-wrap, .pipeline-strip, .patent-diagram { grid-template-columns: 1fr; }
+      nav { gap: 1rem; }
+      .nav-links { overflow-x: auto; max-width: 52vw; gap: 1rem; scrollbar-width: none; }
+      .nav-links a { white-space: nowrap; }
+    }
   </style>
 </head>
 <body>
@@ -842,11 +1055,11 @@
   <div style="display:flex; align-items:center; gap:0;">
     <div class="nav-links">
       <a href="#about"        data-en="About"        data-ko="소개">About</a>
-      <a href="#research"     data-en="Research"     data-ko="연구">Research</a>
+      <a href="#journey"      data-en="Journey"      data-ko="여정">Journey</a>
+      <a href="#research"     data-en="Highlights"   data-ko="하이라이트">Highlights</a>
       <a href="#publications" data-en="Publications" data-ko="논문">Publications</a>
       <a href="#patents"      data-en="Patents"      data-ko="특허">Patents</a>
       <a href="#projects"     data-en="Projects"     data-ko="프로젝트">Projects</a>
-      <a href="#awards"       data-en="Awards"       data-ko="수상">Awards</a>
     </div>
     <div class="lang-toggle">
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
@@ -871,16 +1084,12 @@
       <div class="corner-br"></div>
     </div>
     <div class="hero-text">
-      <div class="label" data-en="M.S. Researcher · Dong-A University · ISPL" data-ko="석사 연구생 · 동아대학교 · ISPL">M.S. Researcher · Dong-A University · ISPL</div>
+      <div class="label" data-en="Ph.D. Student · Dong-A University · ISPL" data-ko="박사과정 · 동아대학교 · ISPL">Ph.D. Student · Dong-A University · ISPL</div>
       <h1>Dongho<br><span>Lee</span></h1>
       <p class="subtitle" id="hero-subtitle"
-        data-en="Researching <strong>Video Super Resolution</strong>, video compression standards including <strong>HEVC</strong>, <strong>VVC</strong>, and <strong>Beyond VVC</strong>, <strong>Rate Control</strong> algorithms, and <strong>3D Gaussian Splatting</strong> at Image Signal Processing Lab, Dong-A University. Advised by Prof. Dongsan Jun."
-        data-ko="동아대학교 영상신호처리연구실(ISPL)에서 <strong>비디오 초해상도(VSR)</strong>, <strong>HEVC</strong>·<strong>VVC</strong>·<strong>Beyond VVC</strong> 등 비디오 압축 표준, <strong>레이트 컨트롤</strong> 알고리즘, <strong>3D 가우시안 스플래팅</strong>을 연구하고 있습니다. 지도교수: 전동산 교수님.">
-        Researching <strong>Video Super Resolution</strong>, video compression standards
-        including <strong>HEVC</strong>, <strong>VVC</strong>, and <strong>Beyond VVC</strong>,
-        <strong>Rate Control</strong> algorithms, and <strong>3D Gaussian Splatting</strong>
-        at Image Signal Processing Lab, Dong-A University.
-        Advised by Prof. Dongsan Jun.
+        data-en="Researching multi-scale <strong>3D Gaussian Splatting</strong> and anti-aliased novel-view synthesis at the Image Signal Processing Lab, Dong-A University — building on earlier work in <strong>video coding (VVC)</strong> and <strong>Video Super Resolution</strong>. Advised by Prof. Dongsan Jun."
+        data-ko="동아대학교 영상신호처리연구실(ISPL)에서 멀티스케일 <strong>3D 가우시안 스플래팅</strong>과 안티앨리어싱 새로운 시점 합성을 연구합니다. 앞서 <strong>비디오 코딩(VVC)</strong>과 <strong>비디오 초해상도</strong>를 연구했습니다. 지도교수: 전동산 교수님.">
+        Researching multi-scale <strong>3D Gaussian Splatting</strong> and anti-aliased novel-view synthesis at the Image Signal Processing Lab, Dong-A University — building on earlier work in <strong>video coding (VVC)</strong> and <strong>Video Super Resolution</strong>. Advised by Prof. Dongsan Jun.
       </p>
       <div class="hero-links">
         <a href="https://github.com/LeeDongho-ISPL" target="_blank" class="btn btn-primary">GitHub</a>
@@ -909,35 +1118,24 @@
   <div class="about-grid">
     <div class="about-body">
       <p id="about-p1"
-        data-en="I am a M.S. student in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>."
-        data-ko="대한민국 부산 <strong>동아대학교</strong> 컴퓨터공학과 석사 과정에 재학 중이며, <strong>영상신호처리연구실(ISPL)</strong>에서 전동산 교수님의 지도를 받고 있습니다.">
-        I am a M.S. student in the Department of Computer Engineering at <strong>Dong-A University</strong>,
-        Busan, South Korea, advised by Prof. Dongsan Jun in the
-        <strong>Image Signal Processing Laboratory (ISPL)</strong>.
+        data-en="I am a <strong>Ph.D. student</strong> in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>. I received my B.S. (2024) and M.S. (2026) from the same department."
+        data-ko="대한민국 부산 <strong>동아대학교</strong> 컴퓨터공학과 <strong>박사과정</strong>에 재학 중이며, <strong>영상신호처리연구실(ISPL)</strong>에서 전동산 교수님의 지도를 받고 있습니다. 같은 학과에서 학사(2024)와 석사(2026)를 마쳤습니다.">
+        I am a <strong>Ph.D. student</strong> in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>. I received my B.S. (2024) and M.S. (2026) from the same department.
       </p>
       <p id="about-p2"
-        data-en="My primary research interest lies in <strong>deep learning–based video quality enhancement</strong>. I have focused on Video Super Resolution (VSR) using deformable convolution–based alignment and dense feature extraction, targeting both quality-maximizing and edge-device–deployable lightweight architectures."
-        data-ko="주요 연구 관심사는 <strong>딥러닝 기반 비디오 화질 향상</strong>입니다. 변형 가능한 합성곱(deformable convolution) 기반 정렬과 밀집 특징 추출을 활용한 비디오 초해상도(VSR) 연구를 수행하며, 화질 극대화 모델과 엣지 디바이스 배포 가능한 경량 아키텍처를 모두 탐구하고 있습니다.">
-        My primary research interest lies in <strong>deep learning–based video quality enhancement</strong>.
-        I have focused on Video Super Resolution (VSR) using deformable convolution–based alignment
-        and dense feature extraction, targeting both quality-maximizing and edge-device–deployable
-        lightweight architectures.
+        data-en="My current research is <strong>multi-scale 3D Gaussian Splatting (3DGS)</strong> — keeping novel-view renderings sharp and alias-free from full resolution down to 128× zoom-out. My M.S. thesis and three 2026 SCIE journal papers approach this problem from the training-objective, color-representation and sampling-theory sides."
+        data-ko="현재 연구 주제는 <strong>멀티스케일 3D 가우시안 스플래팅(3DGS)</strong>입니다 — 원해상도부터 128× 줌아웃까지 새로운 시점 렌더링을 선명하고 앨리어싱 없이 유지하는 것이 목표입니다. 석사학위논문과 2026년 SCIE 저널 논문 3편에서 이 문제를 학습 목적함수, 색상 표현, 샘플링 이론의 관점에서 다뤘습니다.">
+        My current research is <strong>multi-scale 3D Gaussian Splatting (3DGS)</strong> — keeping novel-view renderings sharp and alias-free from full resolution down to 128× zoom-out. My M.S. thesis and three 2026 SCIE journal papers approach this problem from the training-objective, color-representation and sampling-theory sides.
       </p>
       <p id="about-p3"
-        data-en="In parallel, I work on <strong>VVC (H.266) video compression</strong>, focusing on inter-prediction optimization and <strong>rate control algorithms</strong> — optimizing QP scheduling and bit allocation under constrained bitrate budgets. This line of work has led to 3 domestic patent filings."
-        data-ko="병행하여 <strong>VVC(H.266) 비디오 압축</strong> 분야에서 인터 예측 최적화와 <strong>레이트 컨트롤 알고리즘</strong>을 연구합니다. 제한된 비트레이트 조건에서 QP 스케줄링 및 비트 할당 최적화를 목표로 하며, 이 연구들은 3건의 국내 특허 출원으로 이어졌습니다.">
-        In parallel, I work on <strong>VVC (H.266) video compression</strong>, focusing on
-        inter-prediction optimization and <strong>rate control algorithms</strong> — optimizing
-        QP scheduling and bit allocation under constrained bitrate budgets.
-        This line of work has led to 3 domestic patent filings.
+        data-en="Before 3DGS I worked on <strong>video coding</strong> — VVC/ECM prediction tools and rate control — which led to 3 domestic patent filings, and on deep-learning <strong>Video Super Resolution</strong>, published in a KCI journal. I received the Best Paper Award from the Korea Multimedia Society in 2024."
+        data-ko="3DGS 이전에는 <strong>비디오 코딩</strong>(VVC/ECM 예측 도구, 레이트 컨트롤)을 연구해 국내 특허 3건을 출원했고, 딥러닝 기반 <strong>비디오 초해상도</strong> 연구를 KCI 저널에 게재했습니다. 2024년 한국멀티미디어학회 최우수논문상을 받았습니다.">
+        Before 3DGS I worked on <strong>video coding</strong> — VVC/ECM prediction tools and rate control — which led to 3 domestic patent filings, and on deep-learning <strong>Video Super Resolution</strong>, published in a KCI journal. I received the Best Paper Award from the Korea Multimedia Society in 2024.
       </p>
       <p id="about-p4"
-        data-en="More recently, I have expanded into <strong>3D Gaussian Splatting (3DGS)</strong>, exploring scene analysis and quality evaluation for real-time novel-view synthesis pipelines. I also contributed production-level software to the Busan Smart City Digital Twin Platform, commissioned by the <strong>National Information Society Agency (NIA)</strong>."
-        data-ko="최근에는 <strong>3D 가우시안 스플래팅(3DGS)</strong> 분야로 연구를 확장하여 실시간 새로운 시점 합성 파이프라인의 장면 분석 및 화질 평가를 연구하고 있습니다. 또한 <strong>한국지능정보사회진흥원(NIA)</strong>이 발주한 부산 스마트시티 디지털 트윈 플랫폼의 실서비스 소프트웨어 개발에 참여했습니다.">
-        More recently, I have expanded into <strong>3D Gaussian Splatting (3DGS)</strong>,
-        exploring scene analysis and quality evaluation for real-time novel-view synthesis pipelines.
-        I also contributed production-level software to the Busan Smart City Digital Twin Platform,
-        commissioned by the <strong>National Information Society Agency (NIA)</strong>.
+        data-en="Outside the lab, I built production front-end software for the Busan Smart City Digital Twin platform commissioned by the <strong>National Information Society Agency (NIA)</strong>, and interned at <strong>ETRI</strong>&rsquo;s Realistic Media Research Lab."
+        data-ko="연구실 밖에서는 <strong>한국지능정보사회진흥원(NIA)</strong>이 발주한 부산 스마트시티 디지털 트윈 플랫폼의 실서비스 프런트엔드를 개발했고, <strong>ETRI</strong> 실감미디어연구실에서 인턴십을 했습니다.">
+        Outside the lab, I built production front-end software for the Busan Smart City Digital Twin platform commissioned by the <strong>National Information Society Agency (NIA)</strong>, and interned at <strong>ETRI</strong>&rsquo;s Realistic Media Research Lab.
       </p>
     </div>
     <div class="info-card">
@@ -945,6 +1143,10 @@
         <li>
           <span class="key">Email</span>
           <a href="mailto:dlehdgh256@gmail.com" class="val">dlehdgh256@gmail.com</a>
+        </li>
+        <li>
+          <span class="key">Position</span>
+          <span class="val" data-en="Ph.D. Student (2026 –)" data-ko="박사과정 (2026 –)">Ph.D. Student (2026 –)</span>
         </li>
         <li>
           <span class="key">Institution</span>
@@ -977,8 +1179,8 @@
   <!-- Quick Stats -->
   <div class="stats-row">
     <div class="stat-card reveal">
-      <span class="stat-num">2</span>
-      <div class="stat-desc" data-en="Publications<br>(Journal + Conference)" data-ko="논문<br>(저널 + 학술대회)">Publications<br>(Journal + Conference)</div>
+      <span class="stat-num">5</span>
+      <div class="stat-desc" data-en="Publications<br>(3 SCIE · 1 KCI · 1 Conf.)" data-ko="논문<br>(SCIE 3 · KCI 1 · 학술대회 1)">Publications<br>(3 SCIE · 1 KCI · 1 Conf.)</div>
     </div>
     <div class="stat-card reveal">
       <span class="stat-num">3</span>
@@ -997,70 +1199,321 @@
 
 <hr class="section-divider" style="max-width:1100px; margin: 0 auto;">
 
-<!-- ─── Research Interest ─────────────────────────────────── -->
+<!-- ─── Research Journey ─────────────────────────────────── -->
+<section id="journey">
+  <div class="section-label reveal" data-en="2020 → Now" data-ko="2020 → 현재">2020 → Now</div>
+  <h2 class="section-title reveal" data-en="Research Journey" data-ko="연구 여정">Research Journey</h2>
+  <p class="sec-lead reveal"
+     data-en="From video restoration, through video-coding standards, to multi-scale 3D Gaussian Splatting — each stage asked the same question: <em>how do we keep image quality when the sampling rate changes?</em>"
+     data-ko="비디오 복원에서 비디오 코딩 표준을 거쳐 멀티스케일 3D 가우시안 스플래팅까지 — 단계마다 같은 질문을 붙잡았습니다: <em>샘플링 해상도가 바뀌어도 화질을 어떻게 지킬 것인가?</em>">
+    From video restoration, through video-coding standards, to multi-scale 3D Gaussian Splatting — each stage asked
+    the same question: <em>how do we keep image quality when the sampling rate changes?</em>
+  </p>
+
+  <div class="journey">
+    <div class="era" data-en="B.S. · 2020 – 2024" data-ko="학사 · 2020 – 2024">B.S. · 2020 – 2024</div>
+
+    <div class="jn reveal">
+      <div class="jn-date">2020.03</div>
+      <div class="jn-title" data-en="B.S. in Computer Engineering begins" data-ko="컴퓨터공학과 학사 입학">B.S. in Computer Engineering begins</div>
+      <div class="jn-desc" data-en="Dong-A University, Busan." data-ko="동아대학교, 부산.">Dong-A University, Busan.</div>
+    </div>
+
+    <div class="jn blue reveal r">
+      <div class="jn-date">2023</div>
+      <div class="jn-title" data-en="First papers — Video Super Resolution" data-ko="첫 논문 — 비디오 초해상도">First papers — Video Super Resolution</div>
+      <div class="jn-desc" data-en="KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters)."
+           data-ko="KCI 저널(RDAN, REDS4에서 DCAN 대비 +0.23 dB)과 한국방송미디어공학회 하계학술대회 경량 모델(파라미터 −38%).">
+        KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters).</div>
+      <div class="jn-tags"><span class="tag">VSR</span><span class="tag">Deformable Conv</span></div>
+    </div>
+
+    <div class="jn reveal">
+      <div class="jn-date">2023</div>
+      <div class="jn-title" data-en="Research intern · ETRI" data-ko="연구 인턴 · ETRI">Research intern · ETRI</div>
+      <div class="jn-desc" data-en="Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute."
+           data-ko="한국전자통신연구원 실감미디어연구실에서 2개월간 인턴십.">
+        Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute.</div>
+    </div>
+
+    <div class="jn blue reveal r">
+      <div class="jn-date" data-en="2023 – " data-ko="2023 – ">2023 – </div>
+      <div class="jn-title" data-en="NIA Busan Digital Twin platform" data-ko="NIA 부산 디지털 트윈 플랫폼">NIA Busan Digital Twin platform</div>
+      <div class="jn-desc" data-en="Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr."
+           data-ko="도시 인공조명 안전 서비스 프런트엔드 개발 — 1365twin.busan.kr 실서비스.">
+        Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr.</div>
+      <div class="jn-tags"><span class="tag">WebGL</span><span class="tag">GIS</span></div>
+    </div>
+
+    <div class="jn reveal">
+      <div class="jn-date">2024.02</div>
+      <div class="jn-title" data-en="B.S. completed" data-ko="학사 졸업">B.S. completed</div>
+      <div class="jn-desc" data-en="Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians."
+           data-ko="LiDAR 기반 시각장애인 보행 보조 시스템으로 캡스톤 디자인상 수상.">
+        Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians.</div>
+    </div>
+
+    <div class="era" data-en="M.S. · 2024 – 2026" data-ko="석사 · 2024 – 2026">M.S. · 2024 – 2026</div>
+
+    <div class="jn blue reveal r">
+      <div class="jn-date">2024.03</div>
+      <div class="jn-title" data-en="M.S. at ISPL — Video coding" data-ko="ISPL 석사 입학 — 비디오 코딩">M.S. at ISPL — Video coding</div>
+      <div class="jn-desc" data-en="Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control."
+           data-ko="지도교수 전동산. VVC/ECM 화면 간·화면 내 예측 도구와 레이트 컨트롤 연구.">
+        Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control.</div>
+      <div class="jn-tags"><span class="tag">VVC</span><span class="tag">ECM</span><span class="tag">Rate Control</span></div>
+    </div>
+
+    <div class="jn reveal">
+      <div class="jn-date">2024</div>
+      <div class="jn-title" data-en="Best Paper Award · Korea Multimedia Society" data-ko="최우수논문상 · 한국멀티미디어학회">Best Paper Award · Korea Multimedia Society</div>
+      <div class="jn-desc" data-en="And the first patent filing (2024.05): template-matching pair-wise average MVP candidates."
+           data-ko="같은 해 첫 특허 출원(2024.05): 템플릿 매칭 기반 pair-wise average MVP 후보 확장.">
+        And the first patent filing (2024.05): template-matching pair-wise average MVP candidates.</div>
+    </div>
+
+    <div class="jn big reveal r">
+      <div class="jn-date">2025</div>
+      <div class="jn-title" data-en="Pivot to 3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅으로 전환">Pivot to 3D Gaussian Splatting</div>
+      <div class="jn-desc" data-en="Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem, the same family of problems as resolution change in video."
+           data-ko="레이트 컨트롤에서 멀티스케일 3DGS로 전환 — 줌 레벨에 따른 렌더링 품질 저하는 비디오의 해상도 변화와 같은 계열의 앨리어싱 문제입니다.">
+        Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem,
+        the same family of problems as resolution change in video.</div>
+      <div class="jn-tags"><span class="tag">3DGS</span><span class="tag">Anti-Aliasing</span></div>
+    </div>
+
+    <div class="jn blue reveal">
+      <div class="jn-date">2025.12</div>
+      <div class="jn-title" data-en="Two more patents filed" data-ko="특허 2건 추가 출원">Two more patents filed</div>
+      <div class="jn-desc" data-en="TIMD merge-list and TMRL candidate-list augmentation for intra prediction."
+           data-ko="화면 내 예측을 위한 TIMD 병합 리스트·TMRL 후보 리스트 확장.">
+        TIMD merge-list and TMRL candidate-list augmentation for intra prediction.</div>
+    </div>
+
+    <div class="jn reveal r">
+      <div class="jn-date">2026</div>
+      <div class="jn-title" data-en="M.S. thesis — RSIC-GS" data-ko="석사학위논문 — RSIC-GS">M.S. thesis — RSIC-GS</div>
+      <div class="jn-desc" data-en="Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360."
+           data-ko="멀티스케일 3DGS를 위한 학습 단계 목적함수: Mip-NeRF 360에서 MS-GS 대비 평균 PSNR +0.51 dB.">
+        Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360.</div>
+    </div>
+
+    <div class="jn big reveal">
+      <div class="jn-date">2026</div>
+      <div class="jn-title" data-en="Three SCIE journal papers" data-ko="SCIE 저널 논문 3편">Three SCIE journal papers</div>
+      <div class="jn-desc" data-en="One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>."
+           data-ko="<em>Mathematics</em>(MDPI, 2026.07) 게재 1편, <em>IEEE Transactions on Multimedia</em> 1차 심사 중 2편.">
+        One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>.</div>
+    </div>
+
+    <div class="era" data-en="Ph.D. · 2026 –" data-ko="박사 · 2026 –">Ph.D. · 2026 –</div>
+
+    <div class="jn big reveal r">
+      <div class="jn-date">2026.09</div>
+      <div class="jn-title" data-en="Ph.D. in Computer Engineering begins" data-ko="컴퓨터공학과 박사과정 입학">Ph.D. in Computer Engineering begins</div>
+      <div class="jn-desc" data-en="Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL."
+           data-ko="ISPL에서 멀티스케일·안티앨리어싱 3D 가우시안 스플래팅 연구를 이어갑니다.">
+        Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL.</div>
+    </div>
+  </div>
+
+  <!-- Why 3DGS — field trend -->
+  <div class="panel reveal" style="margin-top:2.4rem;">
+    <h4 data-en="Why 3DGS — the field moved fast" data-ko="왜 3DGS인가 — 빠르게 이동한 연구 흐름">Why 3DGS — the field moved fast</h4>
+    <div class="panel-sub" data-en="Google Scholar results per year for the exact phrases &ldquo;Neural Radiance Fields&rdquo; and &ldquo;3D Gaussian Splatting&rdquo;"
+         data-ko="연도별 Google Scholar 검색 결과 수 — 정확한 구문 &ldquo;Neural Radiance Fields&rdquo; vs &ldquo;3D Gaussian Splatting&rdquo;">
+      Google Scholar results per year for the exact phrases &ldquo;Neural Radiance Fields&rdquo; and &ldquo;3D Gaussian Splatting&rdquo;</div>
+    <div class="legend"><span><i style="background:var(--viz-a)"></i>NeRF</span><span><i style="background:var(--viz-b)"></i>3DGS</span></div>
+    <div class="chart" id="chart-trend"></div>
+    <button class="table-toggle" data-table="tbl-trend" data-en="Show data table" data-ko="데이터 표 보기">Show data table</button>
+    <div id="tbl-trend" hidden></div>
+    <div class="panel-note" data-en="Retrieved 2026-06-02. Scholar counts include preprints, theses and citing papers, so read them as a relative trend rather than exact paper counts; 2025 is still accumulating."
+         data-ko="2026-06-02 조회. Scholar 결과 수는 프리프린트·학위논문·인용 문헌을 포함하므로 정확한 논문 편수가 아니라 상대적 동향 지표로 해석해야 하며, 2025년 값은 아직 누적 중입니다.">
+      Retrieved 2026-06-02. Scholar counts include preprints, theses and citing papers, so read them as a relative trend rather than exact paper counts; 2025 is still accumulating.</div>
+  </div>
+</section>
+
+<hr class="section-divider" style="max-width:1100px; margin: 0 auto;">
+
+<!-- ─── Research Highlights ─────────────────────────────── -->
 <section id="research">
-  <div class="section-label reveal" data-en="Focus Areas" data-ko="연구 분야">Focus Areas</div>
-  <h2 class="section-title reveal" data-en="Research Interests" data-ko="연구 관심사">Research Interests</h2>
-  <div class="interest-grid">
-    <div class="interest-card reveal">
-      <div class="interest-icon" data-en="Video SR" data-ko="Video SR">Video SR</div>
-      <h3 data-en="Video Super Resolution" data-ko="비디오 초해상도">Video Super Resolution</h3>
-      <p data-en="Video Super Resolution (VSR) is a class of methods that reconstruct high-resolution video frames from temporally consecutive low-resolution inputs by exploiting inter-frame spatial-temporal correlations through deep neural networks."
-         data-ko="비디오 초해상도(VSR)는 딥 뉴럴 네트워크를 통해 연속된 저해상도 입력으로부터 고해상도 비디오 프레임을 복원하는 방법론으로, 프레임 간 공간-시간 상관관계를 활용합니다.">
-        Video Super Resolution (VSR) is a class of methods that reconstruct high-resolution
-        video frames from temporally consecutive low-resolution inputs by exploiting
-        inter-frame spatial-temporal correlations through deep neural networks.
-      </p>
+  <div class="section-label reveal" data-en="Case Studies" data-ko="연구 사례">Case Studies</div>
+  <h2 class="section-title reveal" data-en="Research Highlights" data-ko="연구 하이라이트">Research Highlights</h2>
+  <p class="sec-lead reveal"
+     data-en="Multi-scale 3DGS renders one scene at many zoom levels (1× → 128×). Gaussians fitted at full resolution break down when the camera zooms out: colors wash out, thin structures alias, and errors pile up at coarse scales. These two works attack that failure from different sides."
+     data-ko="멀티스케일 3DGS는 하나의 장면을 여러 줌 레벨(1× → 128×)로 렌더링합니다. 원해상도에 맞춰 학습된 가우시안은 카메라가 멀어질수록 색이 바래고, 얇은 구조에 앨리어싱이 생기며, 거친 스케일에서 오차가 누적됩니다. 아래 두 연구는 이 문제를 서로 다른 방향에서 풉니다.">
+    Multi-scale 3DGS renders one scene at many zoom levels (1× → 128×). Gaussians fitted at full resolution break down
+    when the camera zooms out: colors wash out, thin structures alias, and errors pile up at coarse scales.
+    These two works attack that failure from different sides.
+  </p>
+
+  <!-- ══ Case 1 — Mathematics (published) ══ -->
+  <article class="case">
+    <div class="case-head reveal">
+      <span class="case-kicker" data-en="SCIE · Published" data-ko="SCIE · 게재">SCIE · Published</span>
+      <span class="case-meta">Mathematics (MDPI) · 2026.07 · H. Park†, Y. Lee†, <strong style="color:var(--accent)">D. Lee</strong>, D. Jun*</span>
     </div>
-    <div class="interest-card reveal">
-      <div class="interest-icon" data-en="3D Rendering" data-ko="3D 렌더링">3D Rendering</div>
-      <h3 data-en="3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅">3D Gaussian Splatting</h3>
-      <p data-en="3D Gaussian Splatting (3DGS) is a point-based scene representation that models a scene as a set of anisotropic 3D Gaussians, enabling real-time novel-view synthesis via differentiable rasterization without neural ray marching."
-         data-ko="3D 가우시안 스플래팅(3DGS)은 장면을 비등방성 3D 가우시안 집합으로 표현하는 포인트 기반 방법론으로, 신경 레이 마칭 없이 미분 가능한 래스터화를 통해 실시간 새로운 시점 합성을 가능하게 합니다.">
-        3D Gaussian Splatting (3DGS) is a point-based scene representation that models
-        a scene as a set of anisotropic 3D Gaussians, enabling real-time novel-view synthesis
-        via differentiable rasterization without neural ray marching.
-      </p>
+    <h3 class="reveal">Adaptive-Scale Color Offset and Error-Guided Gaussian Reallocation for Multi-Scale 3D Gaussian Splatting</h3>
+    <p class="case-one reveal"
+       data-en="<strong>ACO-EGR</strong> gives every Gaussian a small per-scale color correction and moves under-used Gaussians to where coarse-scale error stays high — without adding primitives."
+       data-ko="<strong>ACO-EGR</strong>은 각 가우시안에 스케일별 색상 보정을 더하고, 기여도가 낮은 가우시안을 거친 스케일 오차가 큰 영역으로 옮깁니다 — 가우시안 개수는 늘리지 않습니다.">
+      <strong>ACO-EGR</strong> gives every Gaussian a small per-scale color correction and moves under-used Gaussians to where
+      coarse-scale error stays high — without adding primitives.</p>
+
+    <div class="kpi-row">
+      <div class="kpi reveal"><div class="kpi-num">+2.09<small>dB</small></div>
+        <div class="kpi-lbl" data-en="PSNR gain at 128× over MS-GS (Mip-NeRF 360)" data-ko="128×에서 MS-GS 대비 PSNR 향상 (Mip-NeRF 360)">PSNR gain at 128× over MS-GS (Mip-NeRF 360)</div></div>
+      <div class="kpi reveal"><div class="kpi-num">+1.96<small>dB</small></div>
+        <div class="kpi-lbl" data-en="PSNR gain at 4× (Mip-NeRF 360)" data-ko="4×에서 PSNR 향상 (Mip-NeRF 360)">PSNR gain at 4× (Mip-NeRF 360)</div></div>
+      <div class="kpi reveal"><div class="kpi-num">3</div>
+        <div class="kpi-lbl" data-en="Benchmarks improved from 4× onward: Mip-NeRF 360, Tanks &amp; Temples, Deep Blending" data-ko="4× 이상에서 모두 향상된 벤치마크: Mip-NeRF 360, Tanks &amp; Temples, Deep Blending">Benchmarks improved from 4× onward: Mip-NeRF 360, Tanks &amp; Temples, Deep Blending</div></div>
+      <div class="kpi reveal"><div class="kpi-num">±0</div>
+        <div class="kpi-lbl" data-en="Extra Gaussians — reallocation runs under a fixed primitive budget" data-ko="추가 가우시안 수 — 고정된 개수 안에서 재배치">Extra Gaussians — reallocation runs under a fixed primitive budget</div></div>
     </div>
-    <div class="interest-card reveal">
-      <div class="interest-icon" data-en="Video Coding" data-ko="비디오 코딩">Video Coding</div>
-      <h3 data-en="VVC / Video Compression" data-ko="VVC / 비디오 압축">VVC / Video Compression</h3>
-      <p data-en="Versatile Video Coding (VVC / H.266) is the latest generation ITU-T/ISO video coding standard that achieves approximately 50% bitrate reduction over HEVC through advanced partitioning, inter/intra prediction tools, and in-loop filtering."
-         data-ko="다목적 비디오 코딩(VVC / H.266)은 최신 세대 ITU-T/ISO 비디오 코딩 표준으로, 고급 파티셔닝, 인터/인트라 예측 도구, 인루프 필터링을 통해 HEVC 대비 약 50%의 비트레이트 절감을 달성합니다.">
-        Versatile Video Coding (VVC / H.266) is the latest generation ITU-T/ISO video coding
-        standard that achieves approximately 50% bitrate reduction over HEVC through advanced
-        partitioning, inter/intra prediction tools, and in-loop filtering.
-      </p>
+
+    <div class="flow">
+      <div class="flow-step reveal"><b data-en="Problem" data-ko="문제">Problem</b>
+        <span data-en="At coarse scales one pixel averages many Gaussians, so a single fixed color per Gaussian is the <strong>wrong color</strong> once you zoom out."
+              data-ko="거친 스케일에서는 한 픽셀이 여러 가우시안을 평균하므로, 가우시안마다 고정된 색 하나로는 줌아웃 시 <strong>색이 틀어집니다</strong>.">At coarse scales one pixel averages many Gaussians, so a single fixed color per Gaussian is the <strong>wrong color</strong> once you zoom out.</span></div>
+      <div class="flow-step reveal"><b data-en="Idea" data-ko="아이디어">Idea</b>
+        <span data-en="<strong>(a) ACO</strong> — learn a DC color offset Δ<sup>s</sup> per scale, geometry untouched. <strong>(b) EGR</strong> — relocate low-contribution Gaussians into high-error regions."
+              data-ko="<strong>(a) ACO</strong> — 형상은 그대로 두고 스케일별 DC 색상 오프셋 Δ<sup>s</sup>를 학습. <strong>(b) EGR</strong> — 기여도 낮은 가우시안을 고오차 영역으로 재배치."><strong>(a) ACO</strong> — learn a DC color offset Δ<sup>s</sup> per scale, geometry untouched. <strong>(b) EGR</strong> — relocate low-contribution Gaussians into high-error regions.</span></div>
+      <div class="flow-step reveal"><b data-en="Result" data-ko="결과">Result</b>
+        <span data-en="Higher PSNR <strong>and</strong> SSIM at every scale from 4× upward on all three datasets, with rendering time close to MS-GS."
+              data-ko="세 데이터셋 모두 4× 이상 전 스케일에서 PSNR·SSIM이 <strong>함께</strong> 향상되며, 렌더링 시간은 MS-GS 수준을 유지합니다.">Higher PSNR <strong>and</strong> SSIM at every scale from 4× upward on all three datasets, with rendering time close to MS-GS.</span></div>
     </div>
-    <div class="interest-card reveal">
-      <div class="interest-icon" data-en="Rate Control" data-ko="레이트 컨트롤">Rate Control</div>
-      <h3 data-en="VVC Rate Control" data-ko="VVC 레이트 컨트롤">VVC Rate Control</h3>
-      <p data-en="Rate control in video coding determines the quantization parameter (QP) and bit allocation per coding unit to meet a target bitrate constraint while maximizing perceptual quality, balancing distortion against buffer and bandwidth limits."
-         data-ko="비디오 코딩의 레이트 컨트롤은 목표 비트레이트 제약 조건을 만족하면서 지각적 화질을 극대화하기 위해 코딩 단위별 양자화 파라미터(QP)와 비트 할당을 결정하며, 왜곡과 버퍼/대역폭 한계를 균형 있게 조절합니다.">
-        Rate control in video coding determines the quantization parameter (QP) and bit
-        allocation per coding unit to meet a target bitrate constraint while maximizing
-        perceptual quality, balancing distortion against buffer and bandwidth limits.
-      </p>
+
+    <div class="case-grid">
+      <figure class="fig dark reveal">
+        <button type="button" data-lightbox="assets/img/aco_pipeline.jpg" aria-label="Enlarge ACO-EGR overview figure">
+          <img src="assets/img/aco_pipeline.jpg" alt="Overview of ACO-EGR: (a) adaptive-scale color offset adds a per-scale DC color offset to each projected Gaussian; (b) error-guided reallocation moves low-contribution Gaussians toward high-error regions." loading="lazy">
+        </button>
+        <figcaption data-en="Overview of ACO-EGR. Fig. 2 from Park et al., <em>Mathematics</em> 2026 (CC BY 4.0)."
+                    data-ko="ACO-EGR 개요. Park et al., <em>Mathematics</em> 2026의 Fig. 2 (CC BY 4.0).">Overview of ACO-EGR. Fig. 2 from Park et al., <em>Mathematics</em> 2026 (CC BY 4.0).</figcaption>
+      </figure>
+      <div class="panel reveal">
+        <h4 data-en="PSNR at every zoom level" data-ko="줌 레벨별 PSNR">PSNR at every zoom level</h4>
+        <div class="panel-sub" data-en="Higher is better · hover for values" data-ko="높을수록 좋음 · 마우스를 올리면 값 표시">Higher is better · hover for values</div>
+        <div class="seg" role="group" aria-label="Dataset" id="seg-aco">
+          <button type="button" aria-pressed="true" data-ds="mip">Mip-NeRF 360</button>
+          <button type="button" aria-pressed="false" data-ds="tt">Tanks &amp; Temples</button>
+          <button type="button" aria-pressed="false" data-ds="db">Deep Blending</button>
+        </div>
+        <div class="legend"><span><i style="background:var(--viz-a)"></i>MS-GS</span><span><i style="background:var(--viz-b)"></i>Ours (ACO-EGR)</span>
+          <button type="button" class="ref-toggle" id="tg-3dgs" aria-pressed="false"><i class="dash"></i><span data-en="Show vanilla 3DGS" data-ko="기존 3DGS 함께 보기">Show vanilla 3DGS</span></button></div>
+        <div class="chart" id="chart-aco"></div>
+        <button class="table-toggle" data-table="tbl-aco" data-en="Show data table" data-ko="데이터 표 보기">Show data table</button>
+        <div id="tbl-aco" hidden></div>
+      </div>
     </div>
-    <div class="interest-card reveal">
-      <div class="interest-icon" data-en="Digital Twin" data-ko="디지털 트윈">Digital Twin</div>
-      <h3 data-en="Smart City Digital Twin" data-ko="스마트시티 디지털 트윈">Smart City Digital Twin</h3>
-      <p data-en="A smart city digital twin is a real-time virtual replica of urban infrastructure — integrating GIS, IoT sensor streams, and 3D city models — that enables simulation, monitoring, and data-driven decision support for city administrators."
-         data-ko="스마트시티 디지털 트윈은 GIS, IoT 센서 스트림, 3D 도시 모델을 통합한 도시 인프라의 실시간 가상 복제본으로, 시뮬레이션, 모니터링 및 데이터 기반 의사결정을 지원합니다.">
-        A smart city digital twin is a real-time virtual replica of urban infrastructure —
-        integrating GIS, IoT sensor streams, and 3D city models — that enables simulation,
-        monitoring, and data-driven decision support for city administrators.
-      </p>
+
+    <!-- Before/After slider -->
+    <div class="panel reveal" style="margin-top:1.2rem;">
+      <h4 data-en="Drag to compare — MS-GS vs. Ours" data-ko="드래그해서 비교 — MS-GS vs. Ours">Drag to compare — MS-GS vs. Ours</h4>
+      <div class="panel-sub" data-en="Same view rendered at a lower resolution; the boxed inset is a zoomed crop." data-ko="같은 시점을 낮은 해상도로 렌더링한 결과이며, 실선 박스는 확대 영역입니다.">Same view rendered at a lower resolution; the boxed inset is a zoomed crop.</div>
+      <div style="display:flex; gap:.8rem; flex-wrap:wrap;">
+        <div class="seg" role="group" aria-label="Scene" id="seg-scene">
+          <button type="button" aria-pressed="true" data-v="bicycle">bicycle</button>
+          <button type="button" aria-pressed="false" data-v="flowers">flowers</button>
+        </div>
+        <div class="seg" role="group" aria-label="Scale" id="seg-scale">
+          <button type="button" aria-pressed="false" data-v="4x">4×</button>
+          <button type="button" aria-pressed="false" data-v="8x">8×</button>
+          <button type="button" aria-pressed="true" data-v="16x">16×</button>
+          <button type="button" aria-pressed="false" data-v="32x">32×</button>
+        </div>
+      </div>
+      <div class="ba-wrap">
+        <div class="ba" id="ba">
+          <img class="ba-bot" id="ba-left" src="assets/img/aco/bicycle_16x_msgs.jpg" alt="MS-GS rendering">
+          <img class="ba-top" id="ba-right" src="assets/img/aco/bicycle_16x_ours.jpg" alt="ACO-EGR rendering">
+          <span class="ba-tag l">MS-GS</span><span class="ba-tag r">Ours</span>
+          <input type="range" min="0" max="100" value="50" aria-label="Comparison slider: left MS-GS, right Ours">
+          <div class="ba-line"></div><div class="ba-knob">↔</div>
+        </div>
+        <div class="ba-side">
+          <div class="ba-label" data-en="Ground truth" data-ko="정답 영상">Ground truth</div>
+          <div class="gt"><img id="ba-gt" src="assets/img/aco/bicycle_16x_gt.jpg" alt="Ground truth"><span>GT</span></div>
+          <div class="ba-label" style="margin-top:.4rem;" data-en="Vanilla 3DGS" data-ko="기존 3DGS">Vanilla 3DGS</div>
+          <div class="gt"><img id="ba-3dgs" src="assets/img/aco/bicycle_16x_3dgs.jpg" alt="3DGS rendering"><span>3DGS</span></div>
+        </div>
+      </div>
+      <div class="panel-note" data-en="Crops from Fig. 3 of Park et al., <em>Mathematics</em> 2026 (CC BY 4.0)." data-ko="Park et al., <em>Mathematics</em> 2026의 Fig. 3에서 발췌 (CC BY 4.0).">Crops from Fig. 3 of Park et al., <em>Mathematics</em> 2026 (CC BY 4.0).</div>
     </div>
-    <div class="interest-card reveal">
-      <div class="interest-icon" data-en="Image Quality" data-ko="화질 평가">Image Quality</div>
-      <h3 data-en="Perceptual Image Quality" data-ko="지각적 화질 평가">Perceptual Image Quality</h3>
-      <p data-en="Image quality assessment (IQA) encompasses both full-reference metrics (PSNR, SSIM, VMAF) and no-reference perceptual models that measure fidelity, structural similarity, and human visual system–aligned distortion in restored imagery."
-         data-ko="화질 평가(IQA)는 완전 참조 지표(PSNR, SSIM, VMAF)와 비참조 지각 모델을 모두 포함하며, 복원 영상의 충실도, 구조적 유사성, 인간 시각 시스템 기반 왜곡을 측정합니다.">
-        Image quality assessment (IQA) encompasses both full-reference metrics
-        (PSNR, SSIM, VMAF) and no-reference perceptual models that measure fidelity,
-        structural similarity, and human visual system–aligned distortion in restored imagery.
-      </p>
+  </article>
+
+  <!-- ══ Case 2 — M.S. thesis ══ -->
+  <article class="case">
+    <div class="case-head reveal">
+      <span class="case-kicker blue" data-en="M.S. Thesis" data-ko="석사학위논문">M.S. Thesis</span>
+      <span class="case-meta" data-en="Dong-A University · 2026 · Advisor: Prof. Dongsan Jun" data-ko="동아대학교 · 2026 · 지도교수: 전동산">Dong-A University · 2026 · Advisor: Prof. Dongsan Jun</span>
+    </div>
+    <h3 class="reveal">Multi-Scale 3D Gaussian Splatting with Region-Adaptive Structure Loss and Scale-Wise Weighting <span style="color:var(--muted); font-size:.75em;">(RSIC-GS)</span></h3>
+    <p class="case-one reveal"
+       data-en="Prior anti-aliasing work fixes the <strong>renderer</strong>. RSIC-GS instead changes the <strong>training objective</strong>, so that structure-rich regions and coarse scales get the supervision they were missing — as a plug-in for existing backbones."
+       data-ko="기존 안티앨리어싱 연구는 <strong>렌더러</strong>를 고칩니다. RSIC-GS는 대신 <strong>학습 목적함수</strong>를 바꿔, 구조가 복잡한 영역과 거친 스케일이 부족했던 감독 신호를 받도록 합니다 — 기존 백본에 붙여 쓰는 플러그인 형태입니다.">
+      Prior anti-aliasing work fixes the <strong>renderer</strong>. RSIC-GS instead changes the <strong>training objective</strong>,
+      so that structure-rich regions and coarse scales get the supervision they were missing — as a plug-in for existing backbones.</p>
+
+    <div class="kpi-row">
+      <div class="kpi reveal"><div class="kpi-num">+0.51<small>dB</small></div>
+        <div class="kpi-lbl" data-en="Average PSNR gain over MS-GS across 1×–64× (Mip-NeRF 360)" data-ko="1×–64× 평균 MS-GS 대비 PSNR 향상 (Mip-NeRF 360)">Average PSNR gain over MS-GS across 1×–64× (Mip-NeRF 360)</div></div>
+      <div class="kpi reveal"><div class="kpi-num">+0.84<small>dB</small></div>
+        <div class="kpi-lbl" data-en="Largest single-scale gain, at 16×" data-ko="단일 스케일 최대 향상 (16×)">Largest single-scale gain, at 16×</div></div>
+      <div class="kpi reveal"><div class="kpi-num">2</div>
+        <div class="kpi-lbl" data-en="Backbones it plugs into: MS-GS and Mip-Splatting" data-ko="적용한 백본: MS-GS, Mip-Splatting">Backbones it plugs into: MS-GS and Mip-Splatting</div></div>
+      <div class="kpi reveal"><div class="kpi-num">−2.3<small>MB</small></div>
+        <div class="kpi-lbl" data-en="Model size vs. MS-GS on Mip-NeRF 360 — no memory overhead" data-ko="Mip-NeRF 360에서 MS-GS 대비 모델 크기 — 메모리 오버헤드 없음">Model size vs. MS-GS on Mip-NeRF 360 — no memory overhead</div></div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step reveal"><b data-en="Problem" data-ko="문제">Problem</b>
+        <span data-en="A single loss treats every region and scale alike: structure-rich regions are under-supervised, and coarse scales dominate the summed loss while fine scales converge early."
+              data-ko="단일 손실은 모든 영역·스케일을 똑같이 다룹니다: 구조가 복잡한 영역은 감독이 부족하고, 합산 손실은 거친 스케일이 지배하는 반면 세밀한 스케일은 일찍 수렴합니다.">A single loss treats every region and scale alike: structure-rich regions are under-supervised, and coarse scales dominate the summed loss while fine scales converge early.</span></div>
+      <div class="flow-step reveal"><b data-en="Idea" data-ko="아이디어">Idea</b>
+        <span data-en="<strong>RASL</strong> — a Laplacian-domain residual between rendered and ground-truth images, auto-normalized per scale. <strong>SAW</strong> — learnable per-scale weights that rebalance the loss."
+              data-ko="<strong>RASL</strong> — 렌더링 영상과 정답 영상의 라플라시안 영역 잔차를 스케일별로 자동 정규화. <strong>SAW</strong> — 손실을 재균형하는 학습 가능한 스케일별 가중치."><strong>RASL</strong> — a Laplacian-domain residual between rendered and ground-truth images, auto-normalized per scale. <strong>SAW</strong> — learnable per-scale weights that rebalance the loss.</span></div>
+      <div class="flow-step reveal"><b data-en="Result" data-ko="결과">Result</b>
+        <span data-en="Gains concentrate where MS-GS is weakest (4×–64×), at near-unchanged rendering time; ablation shows RASL and SAW are complementary (25.62 → 26.13 dB)."
+              data-ko="MS-GS가 가장 약한 4×–64×에서 향상이 집중되며 렌더링 시간은 거의 그대로입니다. 어블레이션에서 RASL과 SAW는 상호 보완적입니다(25.62 → 26.13 dB).">Gains concentrate where MS-GS is weakest (4×–64×), at near-unchanged rendering time; ablation shows RASL and SAW are complementary (25.62 → 26.13 dB).</span></div>
+    </div>
+
+    <div class="case-grid">
+      <figure class="fig reveal">
+        <button type="button" data-lightbox="assets/img/thesis_pipeline.jpg" aria-label="Enlarge RSIC-GS pipeline figure">
+          <img src="assets/img/thesis_pipeline.jpg" alt="RSIC-GS training pipeline: (a) RASL computes Laplacian maps of rendered and ground-truth images and their residual; (b) SAW learns per-scale weights through a softplus parameterization." loading="lazy">
+        </button>
+        <figcaption data-en="Training pipeline — (a) RASL, (b) SAW." data-ko="학습 파이프라인 — (a) RASL, (b) SAW.">Training pipeline — (a) RASL, (b) SAW.</figcaption>
+      </figure>
+      <div class="panel reveal">
+        <h4 data-en="Gain over the MS-GS backbone" data-ko="MS-GS 백본 대비 향상">Gain over the MS-GS backbone</h4>
+        <div class="panel-sub" data-en="Mip-NeRF 360 · PSNR (dB) · hover for values" data-ko="Mip-NeRF 360 · PSNR (dB) · 마우스를 올리면 값 표시">Mip-NeRF 360 · PSNR (dB) · hover for values</div>
+        <div class="legend"><span><i style="background:var(--viz-a)"></i>MS-GS</span><span><i style="background:var(--viz-b)"></i>MS-GS + RSIC-GS</span></div>
+        <div class="chart" id="chart-thesis"></div>
+        <button class="table-toggle" data-table="tbl-thesis" data-en="Show data table" data-ko="데이터 표 보기">Show data table</button>
+        <div id="tbl-thesis" hidden></div>
+      </div>
+    </div>
+    <figure class="fig reveal" style="margin-top:1.2rem;">
+      <button type="button" data-lightbox="assets/img/thesis_bonsai.jpg" aria-label="Enlarge bonsai comparison">
+        <img src="assets/img/thesis_bonsai.jpg" alt="Bonsai scene: ground truth and zoomed crops at 1×, 4×, 16× and 64× for MS-GS and MS-GS + Ours." loading="lazy">
+      </button>
+      <figcaption data-en="bonsai (Mip-NeRF 360) — zoomed crops at 1×, 4×, 16×, 64×: MS-GS vs. MS-GS + Ours." data-ko="bonsai (Mip-NeRF 360) — 1×, 4×, 16×, 64× 확대 영역: MS-GS vs. MS-GS + Ours.">bonsai (Mip-NeRF 360) — zoomed crops at 1×, 4×, 16×, 64×: MS-GS vs. MS-GS + Ours.</figcaption>
+    </figure>
+  </article>
+
+  <!-- Under review -->
+  <div class="section-label reveal" style="margin-top:1rem;" data-en="In the pipeline" data-ko="심사 중">In the pipeline</div>
+  <div class="pipeline-strip">
+    <div class="pipe-card reveal">
+      <div class="pc-status">IEEE Transactions on Multimedia · (Top 2% JCR Journal, IF=9.9) (Under First-Round Review)</div>
+      <div class="pc-title">Nyquist-Controlled Gaussian Splatting for Multi-Scale Artifact Reduction</div>
+      <div class="pc-one" data-en="Controls scale-dependent aliasing in multi-scale 3DGS using Nyquist sampling theory." data-ko="Nyquist 샘플링 이론으로 멀티스케일 3DGS의 스케일별 앨리어싱을 제어합니다.">Controls scale-dependent aliasing in multi-scale 3DGS using Nyquist sampling theory.</div>
+    </div>
+    <div class="pipe-card reveal">
+      <div class="pc-status">IEEE Transactions on Multimedia · (Top 2% JCR Journal, IF=9.9) (Under First-Round Review)</div>
+      <div class="pc-title">Region-Scale Coupled Training Objective for Consistent Multi-Scale 3D Gaussian Splatting</div>
+      <div class="pc-one" data-en="A training objective that couples region structure and scale for consistent quality across zoom levels." data-ko="영역 구조와 스케일을 결합한 학습 목적함수로 줌 레벨 간 일관된 품질을 확보합니다.">A training objective that couples region structure and scale for consistent quality across zoom levels.</div>
     </div>
   </div>
 </section>
@@ -1230,9 +1683,10 @@
 <section id="patents">
   <div class="section-label reveal" data-en="Intellectual Property" data-ko="지식재산권">Intellectual Property</div>
   <h2 class="section-title reveal" data-en="Patents" data-ko="특허">Patents</h2>
+  <p class="sec-lead reveal" style="margin-top:-1.2rem;" data-en="Concept sketches drawn for this page (not the filed drawings): blue = existing candidates, gold = what each invention adds." data-ko="이 페이지용으로 직접 그린 개념도입니다(출원 도면 아님): 파랑 = 기존 후보, 금색 = 각 발명이 추가하는 부분.">Concept sketches drawn for this page (not the filed drawings): blue = existing candidates, gold = what each invention adds.</p>
   <div class="patent-list">
 
-    <div class="patent-card reveal">
+    <div class="patent-card has-diagram reveal">
       <div class="patent-icon">KR Patent</div>
       <div style="flex:1;">
         <div class="patent-num">10-2025-0193072 · Filed 2025.12.08</div>
@@ -1240,9 +1694,10 @@
         <div class="patent-meta">TMRL candidate 추가 구성 방법 · Inventors: Dongsan Jun, <strong>Dongho Lee</strong> · Dong-A Univ. Industry–Academia Cooperation Foundation</div>
       </div>
       <div class="patent-status">Pending</div>
+      <div class="patent-diagram"><svg viewBox="0 0 380 170" role="img" aria-labelledby="pd1t"><title id="pd1t">TMRL: reference lines 1, 3, 5, 7 and 12 are searched; when lines 1 and 3 pick the same mode, intermediate line 2 is added.</title><line x1="30" y1="130.0" x2="190" y2="130.0" stroke="#4a8fd0" stroke-width="3" stroke-linecap="round"/><text x="198" y="133.5" font-size="9" text-anchor="start" fill="#8a8a8a">L1</text><line x1="30" y1="120.5" x2="190" y2="120.5" stroke="#c2862a" stroke-width="4" stroke-linecap="round"/><text x="24" y="124.0" font-size="9" text-anchor="end" fill="#c2862a">L2</text><line x1="30" y1="111.0" x2="190" y2="111.0" stroke="#4a8fd0" stroke-width="3" stroke-linecap="round"/><text x="198" y="114.5" font-size="9" text-anchor="start" fill="#8a8a8a">L3</text><line x1="30" y1="101.5" x2="190" y2="101.5" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="92.0" x2="190" y2="92.0" stroke="#4a8fd0" stroke-width="3" stroke-linecap="round"/><text x="198" y="95.5" font-size="9" text-anchor="start" fill="#8a8a8a">L5</text><line x1="30" y1="82.5" x2="190" y2="82.5" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="73.0" x2="190" y2="73.0" stroke="#4a8fd0" stroke-width="3" stroke-linecap="round"/><text x="198" y="76.5" font-size="9" text-anchor="start" fill="#8a8a8a">L7</text><line x1="30" y1="63.5" x2="190" y2="63.5" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="54.0" x2="190" y2="54.0" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="44.5" x2="190" y2="44.5" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="35.0" x2="190" y2="35.0" stroke="#333" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="25.5" x2="190" y2="25.5" stroke="#4a8fd0" stroke-width="3" stroke-linecap="round"/><text x="198" y="29.0" font-size="9" text-anchor="start" fill="#8a8a8a">L12</text><rect x="30" y="138" width="160" height="26" rx="3" fill="#1e1e1e" stroke="#444"/><text x="110.0" y="155" font-size="10" fill="#d8d8d8" text-anchor="middle">current block</text><path d="M222 130 C 250 130, 250 120.5, 222 120.5" fill="none" stroke="#c2862a" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M222 111 C 250 111, 250 120.5, 222 120.5" fill="none" stroke="#c2862a" stroke-width="1.5" stroke-dasharray="3 3"/><text x="258" y="104" font-size="10" fill="#d8d8d8">same mode on</text><text x="258" y="117" font-size="10" fill="#d8d8d8">L1 and L3</text><text x="258" y="136" font-size="10" font-weight="600" fill="#c2862a">→ add L2</text><rect x="258" y="22" width="10" height="3" fill="#4a8fd0"/><text x="274" y="26" font-size="9" fill="#8a8a8a">searched lines</text><rect x="258" y="36" width="10" height="3" fill="#c2862a"/><text x="274" y="40" font-size="9" fill="#8a8a8a">added line</text><rect x="258" y="50" width="10" height="3" fill="#333"/><text x="274" y="54" font-size="9" fill="#8a8a8a">skipped lines</text></svg><p data-en="Template-based multiple-reference-line prediction only searches a sparse set of lines (e.g. 1, 3, 5, 7, 12). When the same intra mode wins on two nearby lines, the <strong>intermediate line</strong> between them is likely even better — so it is added to the candidate list with almost no extra search." data-ko="템플릿 기반 다중 참조 라인 예측은 일부 라인(예: 1, 3, 5, 7, 12)만 탐색합니다. 인접한 두 라인에서 같은 모드가 선택되면 그 사이의 <strong>중간 참조 라인</strong>이 더 정확할 가능성이 높으므로, 탐색량을 거의 늘리지 않고 후보로 보충합니다.">Template-based multiple-reference-line prediction only searches a sparse set of lines (e.g. 1, 3, 5, 7, 12). When the same intra mode wins on two nearby lines, the <strong>intermediate line</strong> between them is likely even better — so it is added to the candidate list with almost no extra search.</p></div>
     </div>
 
-    <div class="patent-card reveal">
+    <div class="patent-card has-diagram reveal">
       <div class="patent-icon">KR Patent</div>
       <div style="flex:1;">
         <div class="patent-num">10-2025-0193071 · Filed 2025.12.08</div>
@@ -1250,9 +1705,10 @@
         <div class="patent-meta">TIMD merge list 추가 구성 방법 · Inventors: Dongsan Jun, <strong>Dongho Lee</strong> · Dong-A Univ. Industry–Academia Cooperation Foundation</div>
       </div>
       <div class="patent-status">Pending</div>
+      <div class="patent-diagram"><svg viewBox="0 0 380 150" role="img" aria-labelledby="pd2t"><title id="pd2t">TIMD merge list: empty slots left by neighbour candidates are filled first with internal TIMD modes, then with block-vector-guided candidates.</title><rect x="20" y="46" width="50" height="40" rx="4" fill="#4a8fd0" fill-opacity="0.9" stroke="#4a8fd0" stroke-width="1.5" /><text x="45.0" y="70.0" font-size="11" font-weight="600" fill="#0f0f0f" text-anchor="middle">Nbr</text><rect x="76" y="46" width="50" height="40" rx="4" fill="#4a8fd0" fill-opacity="0.9" stroke="#4a8fd0" stroke-width="1.5" /><text x="101.0" y="70.0" font-size="11" font-weight="600" fill="#0f0f0f" text-anchor="middle">Nbr</text><rect x="132" y="46" width="50" height="40" rx="4" fill="#c2862a" fill-opacity="0.9" stroke="#c2862a" stroke-width="1.5" /><text x="157.0" y="70.0" font-size="11" font-weight="600" fill="#0f0f0f" text-anchor="middle">Int</text><rect x="188" y="46" width="50" height="40" rx="4" fill="#c2862a" fill-opacity="0.9" stroke="#c2862a" stroke-width="1.5" /><text x="213.0" y="70.0" font-size="11" font-weight="600" fill="#0f0f0f" text-anchor="middle">Int</text><rect x="244" y="46" width="50" height="40" rx="4" fill="none" fill-opacity="1" stroke="#c2862a" stroke-width="1.5" stroke-dasharray="4 3"/><text x="269.0" y="70.0" font-size="11" font-weight="600" fill="#c2862a" text-anchor="middle">BVG</text><rect x="300" y="46" width="50" height="40" rx="4" fill="none" fill-opacity="1" stroke="#c2862a" stroke-width="1.5" stroke-dasharray="4 3"/><text x="325.0" y="70.0" font-size="11" font-weight="600" fill="#c2862a" text-anchor="middle">BVG</text><text x="20" y="32" font-size="10" fill="#8a8a8a">TIMD merge candidate list (N<tspan baseline-shift="sub" font-size="7">max</tspan> slots)</text><path d="M20 98 v6 H126 v-6" fill="none" stroke="#4a8fd0" stroke-width="1.2"/><text x="73.0" y="118" font-size="9.5" fill="#4a8fd0" text-anchor="middle">neighbour blocks</text><path d="M132 98 v6 H238 v-6" fill="none" stroke="#c2862a" stroke-width="1.2"/><text x="185.0" y="118" font-size="9.5" fill="#c2862a" text-anchor="middle">① internal TIMD</text><path d="M244 98 v6 H350 v-6" fill="none" stroke="#c2862a" stroke-width="1.2"/><text x="297.0" y="118" font-size="9.5" fill="#c2862a" text-anchor="middle">② block-vector guided</text><text x="20" y="142" font-size="9" fill="#8a8a8a">fusion weight &amp; LocDep derived implicitly from the template — no extra bits</text></svg><p data-en="When neighbouring blocks cannot fill the TIMD merge list, the empty slots are filled first with modes from the block&rsquo;s own <strong>template-matching (internal TIMD)</strong> step, then with <strong>block-vector-guided</strong> candidates. Fusion weights and position dependency are derived at the decoder, so no side information is sent." data-ko="주변 블록만으로 TIMD 병합 리스트가 채워지지 않으면, 빈 슬롯을 먼저 현재 블록의 <strong>템플릿 매칭(내부 TIMD)</strong> 결과 모드로, 다음으로 <strong>블록 벡터 유도(BVG)</strong> 후보로 채웁니다. 융합 가중치와 위치 의존성은 디코더가 묵시적으로 유도하므로 부가 정보 전송이 없습니다.">When neighbouring blocks cannot fill the TIMD merge list, the empty slots are filled first with modes from the block&rsquo;s own <strong>template-matching (internal TIMD)</strong> step, then with <strong>block-vector-guided</strong> candidates. Fusion weights and position dependency are derived at the decoder, so no side information is sent.</p></div>
     </div>
 
-    <div class="patent-card reveal">
+    <div class="patent-card has-diagram reveal">
       <div class="patent-icon">KR Patent</div>
       <div style="flex:1;">
         <div class="patent-num">10-2024-0071658 · Filed 2024.05.31</div>
@@ -1260,6 +1716,7 @@
         <div class="patent-meta">Template matching 기반 pair-wise average MVP 후보 목록 확장 방법 · Inventors: Dongsan Jun, Taesik Lee, <strong>Dongho Lee</strong></div>
       </div>
       <div class="patent-status">Pending</div>
+      <div class="patent-diagram"><svg viewBox="0 0 380 160" role="img" aria-labelledby="pd3t"><title id="pd3t">Pair-wise average MVP: two merge candidates are averaged over an extended set of reference indices, ranked by template-matching SAD and inserted into the merge list.</title><rect x="10" y="30" width="70" height="28" rx="4" fill="none" stroke="#4a8fd0" stroke-width="1.5"/><text x="45" y="48" font-size="10" fill="#d8d8d8" text-anchor="middle">MV cand. 0</text><rect x="10" y="78" width="70" height="28" rx="4" fill="none" stroke="#4a8fd0" stroke-width="1.5"/><text x="45" y="96" font-size="10" fill="#d8d8d8" text-anchor="middle">MV cand. 1</text><path d="M80 44 L112 66 M80 92 L112 70" stroke="#8a8a8a" stroke-width="1.2" fill="none"/><circle cx="124" cy="68" r="13" fill="#1e1e1e" stroke="#8a8a8a"/><text x="124" y="72" font-size="11" fill="#d8d8d8" text-anchor="middle">avg</text><path d="M137 68 L166 41" stroke="#8a8a8a" stroke-width="1" fill="none"/><rect x="166" y="30" width="62" height="22" rx="4" fill="#4a8fd0" fill-opacity=".9"/><text x="197" y="45" font-size="9.5" font-weight="600" fill="#0f0f0f" text-anchor="middle">ref idx 0</text><path d="M137 68 L166 69" stroke="#8a8a8a" stroke-width="1" fill="none"/><rect x="166" y="58" width="62" height="22" rx="4" fill="#c2862a" fill-opacity=".9"/><text x="197" y="73" font-size="9.5" font-weight="600" fill="#0f0f0f" text-anchor="middle">ref idx 1</text><path d="M137 68 L166 97" stroke="#8a8a8a" stroke-width="1" fill="none"/><rect x="166" y="86" width="62" height="22" rx="4" fill="#c2862a" fill-opacity=".9"/><text x="197" y="101" font-size="9.5" font-weight="600" fill="#0f0f0f" text-anchor="middle">ref idx 2</text><text x="197" y="124" font-size="9" fill="#c2862a" text-anchor="middle">extended ref. indices</text><text x="250" y="24" font-size="9.5" fill="#8a8a8a">template SAD ↓</text><rect x="250" y="34" width="70" height="11" rx="2" fill="#c2862a" fill-opacity=".85"/><rect x="250" y="52" width="52" height="11" rx="2" fill="#4a8fd0" fill-opacity=".85"/><rect x="250" y="70" width="34" height="11" rx="2" fill="#c2862a" fill-opacity=".85"/><path d="M285 92 v22" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#ah)"/><defs><marker id="ah" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#8a8a8a"/></marker></defs><rect x="240" y="122" width="130" height="26" rx="4" fill="#1e1e1e" stroke="#444"/><text x="305" y="139" font-size="10" fill="#d8d8d8" text-anchor="middle">insert into merge list</text></svg><p data-en="Pair-wise average MVP candidates normally use a restricted reference index. The invention averages merge candidates over an <strong>extended set of reference indices</strong>, ranks them by template-matching SAD, and inserts the best into the merge list." data-ko="Pair-wise average MVP 후보는 보통 제한된 참조 인덱스만 사용합니다. 본 발명은 병합 후보를 <strong>확장된 참조 인덱스</strong>에 대해 평균하고, 템플릿 매칭 SAD로 정렬해 가장 좋은 후보를 병합 리스트에 삽입합니다.">Pair-wise average MVP candidates normally use a restricted reference index. The invention averages merge candidates over an <strong>extended set of reference indices</strong>, ranks them by template-matching SAD, and inserts the best into the merge list.</p></div>
     </div>
 
   </div>
@@ -1422,18 +1879,29 @@
     <div class="edu-item reveal">
       <div class="edu-dot"></div>
       <div>
-        <div class="edu-period">2023 – Present</div>
-        <div class="edu-degree" data-en="M.S. in Computer Engineering" data-ko="컴퓨터공학과 석사 과정">M.S. in Computer Engineering</div>
+        <div class="edu-period" data-en="2026.09 – Present" data-ko="2026.09 – 현재">2026.09 – Present</div>
+        <div class="edu-degree" data-en="Ph.D. in Computer Engineering" data-ko="컴퓨터공학과 박사 과정">Ph.D. in Computer Engineering</div>
         <div class="edu-school" data-en="Dong-A University, Busan, South Korea" data-ko="동아대학교, 부산, 대한민국">Dong-A University, Busan, South Korea</div>
         <div class="edu-detail" data-en="Advisor: Prof. Dongsan Jun · Lab: Image Signal Processing Lab (ISPL)" data-ko="지도교수: 전동산 교수님 · 소속: 영상신호처리연구실(ISPL)">Advisor: Prof. Dongsan Jun &nbsp;·&nbsp; Lab: Image Signal Processing Lab (ISPL)</div>
-        <div class="edu-detail" data-en="Research: Video Super Resolution, 3D Gaussian Splatting, Video Coding" data-ko="연구: 비디오 초해상도, 3D 가우시안 스플래팅, 비디오 코딩">Research: Video Super Resolution, 3D Gaussian Splatting, Video Coding</div>
+        <div class="edu-detail" data-en="Research: Multi-scale and anti-aliased 3D Gaussian Splatting" data-ko="연구: 멀티스케일·안티앨리어싱 3D 가우시안 스플래팅">Research: Multi-scale and anti-aliased 3D Gaussian Splatting</div>
       </div>
     </div>
 
     <div class="edu-item reveal">
       <div class="edu-dot"></div>
       <div>
-        <div class="edu-period">– 2023</div>
+        <div class="edu-period">2024.03 – 2026.02</div>
+        <div class="edu-degree" data-en="M.S. in Computer Engineering" data-ko="컴퓨터공학과 석사">M.S. in Computer Engineering</div>
+        <div class="edu-school" data-en="Dong-A University, Busan, South Korea" data-ko="동아대학교, 부산, 대한민국">Dong-A University, Busan, South Korea</div>
+        <div class="edu-detail" data-en="Thesis: Multi-Scale 3D Gaussian Splatting with Region-Adaptive Structure Loss and Scale-Wise Weighting" data-ko="학위논문: Multi-Scale 3D Gaussian Splatting with Region-Adaptive Structure Loss and Scale-Wise Weighting">Thesis: Multi-Scale 3D Gaussian Splatting with Region-Adaptive Structure Loss and Scale-Wise Weighting</div>
+        <div class="edu-detail" data-en="Research: Video coding (VVC/ECM, rate control) → 3D Gaussian Splatting" data-ko="연구: 비디오 코딩(VVC/ECM, 레이트 컨트롤) → 3D 가우시안 스플래팅">Research: Video coding (VVC/ECM, rate control) → 3D Gaussian Splatting</div>
+      </div>
+    </div>
+
+    <div class="edu-item reveal">
+      <div class="edu-dot"></div>
+      <div>
+        <div class="edu-period">2020.03 – 2024.02</div>
         <div class="edu-degree" data-en="B.S. in Computer Engineering" data-ko="컴퓨터공학과 학사">B.S. in Computer Engineering</div>
         <div class="edu-school" data-en="Dong-A University, Busan, South Korea" data-ko="동아대학교, 부산, 대한민국">Dong-A University, Busan, South Korea</div>
         <div class="edu-detail" data-en="Capstone Design Award recipient" data-ko="캡스톤 디자인상 수상">Capstone Design Award recipient</div>
@@ -1490,6 +1958,7 @@
 <footer>
   <div style="margin-bottom:.8rem;">
     <a href="https://github.com/LeeDongho-ISPL" target="_blank" style="margin:0 .8rem;">GitHub</a>
+    <a href="https://www.linkedin.com/in/%EB%8F%99%ED%98%B8-%EC%9D%B4-24b526322/" target="_blank" style="margin:0 .8rem;">LinkedIn</a>
     <a href="mailto:dlehdgh256@gmail.com" style="margin:0 .8rem;" data-en="Email" data-ko="이메일">Email</a>
     <a href="https://soet0256.tistory.com/" target="_blank" style="margin:0 .8rem;" data-en="Blog" data-ko="블로그">Blog</a>
   </div>
@@ -1518,6 +1987,9 @@ function setLang(lang) {
 
   // html lang 속성 업데이트
   document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
+
+  // re-draw charts so axis labels / tooltips follow the language
+  if (window.__portfolioRender) window.__portfolioRender();
 }
 
 // ─── Scroll Progress Bar ───────────────────────────────────────
@@ -1599,6 +2071,314 @@ function setLang(lang) {
     }, { threshold: 0.6 });
     statNums.forEach(function (el) { countObserver.observe(el); });
   }
+})();
+
+// ═══════════════ Portfolio v2 — charts, slider, lightbox ═══════════════
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  var C = { a: '#4a8fd0', b: '#c2862a', ref: '#6b6b6b', grid: '#262626', axis: '#3a3a3a', ink2: '#9a9a9a', ink3: '#6f6f6f' };
+  var T = {
+    en: { scale: 'Rendering scale', psnr: 'PSNR (dB)', year: 'Year', results: 'Scholar results', delta: 'Ours − MS-GS', show: 'Show data table', hide: 'Hide data table', notyet: '—' },
+    ko: { scale: '렌더링 스케일', psnr: 'PSNR (dB)', year: '연도', results: 'Scholar 결과 수', delta: 'Ours − MS-GS', show: '데이터 표 보기', hide: '데이터 표 숨기기', notyet: '—' }
+  };
+  function L() { return T[(typeof currentLang !== 'undefined' && currentLang) || 'en']; }
+  function el(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function txt(parent, x, y, s, attrs) {
+    var t = el('text', Object.assign({ x: x, y: y, fill: C.ink2, 'font-size': 11 }, attrs || {}), parent);
+    t.textContent = s; return t;
+  }
+  function niceTicks(lo, hi, n) {
+    var span = hi - lo, step = Math.pow(10, Math.floor(Math.log10(span / n)));
+    var err = (span / n) / step;
+    if (err >= 7.5) step *= 10; else if (err >= 3.5) step *= 5; else if (err >= 1.5) step *= 2;
+    var t0 = Math.floor(lo / step) * step, t1 = Math.ceil(hi / step) * step, out = [];
+    for (var v = t0; v <= t1 + 1e-9; v += step) out.push(+v.toFixed(6));
+    return out;
+  }
+  function fmtInt(v) { return v.toLocaleString('en-US'); }
+  function tipEl(host) {
+    var d = host.querySelector('.viz-tip');
+    if (!d) { d = document.createElement('div'); d.className = 'viz-tip'; host.appendChild(d); }
+    return d;
+  }
+  function placeTip(host, tip, px, py) {
+    var hw = host.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = px + 14; if (x + tw > hw) x = px - tw - 14; if (x < 0) x = 0;
+    var y = py - th - 10; if (y < 0) y = py + 14;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+
+  // ── Line chart with crosshair tooltip ─────────────────────────
+  function lineChart(host, cfg) {
+    host.innerHTML = '';
+    var W = Math.max(300, host.clientWidth || 460), H = W < 480 ? 250 : 290, m = { l: 44, r: 52, t: 22, b: 42 };
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': cfg.aria }, host);
+    var xs = cfg.x, n = xs.length, iw = W - m.l - m.r, ih = H - m.t - m.b;
+    var vals = [];
+    cfg.series.forEach(function (s) { s.v.forEach(function (v) { if (v != null) vals.push(v); }); });
+    var ticks = niceTicks(Math.min.apply(null, vals) - 0.3, Math.max.apply(null, vals) + 0.3, 5);
+    var y0 = ticks[0], y1 = ticks[ticks.length - 1];
+    function X(i) { return m.l + (n === 1 ? iw / 2 : i * iw / (n - 1)); }
+    function Y(v) { return m.t + ih - (v - y0) / (y1 - y0) * ih; }
+    ticks.forEach(function (t) {
+      el('line', { x1: m.l, x2: m.l + iw, y1: Y(t), y2: Y(t), stroke: C.grid, 'stroke-width': 1 }, svg);
+      txt(svg, m.l - 8, Y(t) + 4, t.toFixed(t % 1 ? 1 : 0), { 'text-anchor': 'end', fill: C.ink3, 'font-size': 12 });
+    });
+    xs.forEach(function (x, i) { txt(svg, X(i), m.t + ih + 19, x, { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 12 }); });
+    txt(svg, m.l + iw / 2, H - 3, L().scale, { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 11.5 });
+    var yl = txt(svg, 11, m.t + ih / 2, L().psnr, { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 11.5, transform: 'rotate(-90 12 ' + (m.t + ih / 2) + ')' });
+
+    // shaded gain band between baseline (a) and ours (b)
+    if (cfg.band) {
+      var A = cfg.series[cfg.band[0]].v, B = cfg.series[cfg.band[1]].v, pts = [];
+      for (var i = 0; i < n; i++) if (A[i] != null && B[i] != null) pts.push([X(i), Y(B[i])]);
+      for (var j = n - 1; j >= 0; j--) if (A[j] != null && B[j] != null) pts.push([X(j), Y(A[j])]);
+      el('path', { d: 'M' + pts.map(function (p) { return p.join(','); }).join('L') + 'Z', fill: C.b, 'fill-opacity': 0.10 }, svg);
+    }
+    var dots = [];
+    cfg.series.forEach(function (s, si) {
+      var d = '', started = false;
+      s.v.forEach(function (v, i) {
+        if (v == null) { started = false; return; }
+        d += (started ? 'L' : 'M') + X(i) + ',' + Y(v); started = true;
+      });
+      el('path', { d: d, fill: 'none', stroke: s.color, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', 'stroke-dasharray': s.dash ? '5 4' : 'none' }, svg);
+      var row = [];
+      s.v.forEach(function (v, i) {
+        if (v == null) { row.push(null); return; }
+        row.push(el('circle', { cx: X(i), cy: Y(v), r: 3.5, fill: s.color, stroke: '#161616', 'stroke-width': 2 }, svg));
+      });
+      dots.push(row);
+      // direct label at the line end
+      var last = -1; s.v.forEach(function (v, i) { if (v != null) last = i; });
+      if (last >= 0) txt(svg, X(last) + 8, Y(s.v[last]) + 4 + (s.labelDy || 0), s.short || s.name, { fill: C.ink2, 'font-size': 11.5 });
+    });
+    // one selective direct label: the largest gain
+    if (cfg.band && cfg.callout !== false) {
+      var A2 = cfg.series[cfg.band[0]].v, B2 = cfg.series[cfg.band[1]].v, best = -1, bi = -1;
+      for (var k = 0; k < n; k++) if (A2[k] != null && B2[k] != null && B2[k] - A2[k] > best) { best = B2[k] - A2[k]; bi = k; }
+      if (bi >= 0) {
+        var lx = bi === n - 1 ? X(bi) - 8 : X(bi), ly = Y(B2[bi]) - 14, anc = bi === n - 1 ? 'end' : 'middle';
+        var pill = el('rect', { rx: 4, fill: '#0f0f0f', stroke: C.b, 'stroke-width': 1 }, svg);
+        var ct = txt(svg, lx, ly, '+' + best.toFixed(2) + ' dB', { 'text-anchor': anc, fill: '#f0f0f0', 'font-size': 12.5, 'font-weight': 600 });
+        var bb = ct.getBBox(); pill.setAttribute('x', bb.x - 5); pill.setAttribute('y', bb.y - 2); pill.setAttribute('width', bb.width + 10); pill.setAttribute('height', bb.height + 4);
+      }
+    }
+    // hover layer
+    var cross = el('line', { x1: 0, x2: 0, y1: m.t, y2: m.t + ih, stroke: '#555', 'stroke-width': 1, opacity: 0 }, svg);
+    var hit = el('rect', { x: m.l - 20, y: m.t, width: iw + 40, height: ih, fill: 'transparent' }, svg);
+    var tip = tipEl(host);
+    function show(i, evt) {
+      cross.setAttribute('x1', X(i)); cross.setAttribute('x2', X(i)); cross.setAttribute('opacity', 1);
+      dots.forEach(function (row) { row.forEach(function (c, j) { if (c) c.setAttribute('r', j === i ? 5 : 3.2); }); });
+      var h = '<div class="t-h">' + xs[i] + '</div>';
+      cfg.series.forEach(function (s) {
+        var v = s.v[i];
+        h += '<div class="t-r"><span><i style="background:' + s.color + '"></i>' + s.name + '</span><b>' + (v == null ? L().notyet : v.toFixed(2)) + '</b></div>';
+      });
+      if (cfg.band) {
+        var a = cfg.series[cfg.band[0]].v[i], b = cfg.series[cfg.band[1]].v[i];
+        if (a != null && b != null) { var dl = b - a; h += '<div class="t-d">' + (cfg.deltaLabel || L().delta) + ': ' + (dl >= 0 ? '+' : '') + dl.toFixed(2) + ' dB</div>'; }
+      }
+      tip.innerHTML = h; tip.classList.add('on');
+      var r = svg.getBoundingClientRect(), hr = host.getBoundingClientRect();
+      placeTip(host, tip, X(i) / W * r.width + (r.left - hr.left), (evt ? evt.clientY - hr.top : r.height / 2));
+    }
+    function hide() { cross.setAttribute('opacity', 0); tip.classList.remove('on'); dots.forEach(function (row) { row.forEach(function (c) { if (c) c.setAttribute('r', 3.2); }); }); }
+    function idxFrom(evt) {
+      var r = svg.getBoundingClientRect(), px = (evt.clientX - r.left) / r.width * W;
+      var i = Math.round((px - m.l) / (iw / (n - 1))); return Math.max(0, Math.min(n - 1, i));
+    }
+    hit.addEventListener('mousemove', function (e) { show(idxFrom(e), e); });
+    hit.addEventListener('mouseleave', hide);
+    hit.addEventListener('touchstart', function (e) { show(idxFrom(e.touches[0]), e.touches[0]); }, { passive: true });
+    // keyboard
+    host.tabIndex = 0; var ki = -1;
+    host.onkeydown = function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { ki = Math.max(0, Math.min(n - 1, ki + (e.key === 'ArrowRight' ? 1 : -1))); show(ki); e.preventDefault(); }
+      if (e.key === 'Escape') { hide(); ki = -1; }
+    };
+    host.onblur = hide;
+  }
+
+  // ── Grouped bar chart (trend) ─────────────────────────────────
+  function barChart(host, cfg) {
+    host.innerHTML = '';
+    var W = Math.max(300, host.clientWidth || 760), H = W < 480 ? 230 : 280, m = { l: 52, r: 12, t: 22, b: 34 };
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': cfg.aria }, host);
+    var n = cfg.x.length, iw = W - m.l - m.r, ih = H - m.t - m.b, k = cfg.series.length;
+    var max = 0; cfg.series.forEach(function (s) { s.v.forEach(function (v) { if (v > max) max = v; }); });
+    var ticks = niceTicks(0, max, 5), y1 = ticks[ticks.length - 1];
+    function Y(v) { return m.t + ih - v / y1 * ih; }
+    ticks.forEach(function (t) {
+      el('line', { x1: m.l, x2: m.l + iw, y1: Y(t), y2: Y(t), stroke: t === 0 ? C.axis : C.grid, 'stroke-width': 1 }, svg);
+      txt(svg, m.l - 8, Y(t) + 4, fmtInt(t), { 'text-anchor': 'end', fill: C.ink3, 'font-size': 12 });
+    });
+    var band = iw / n, bw = Math.min(30, (band * 0.62) / k), gap = 2;
+    var groups = [];
+    cfg.x.forEach(function (x, i) {
+      var cx = m.l + band * i + band / 2;
+      txt(svg, cx, m.t + ih + 21, x, { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 12.5 });
+      var grp = el('g', {}, svg);
+      cfg.series.forEach(function (s, si) {
+        var v = s.v[i]; if (v == null || v === 0) return;
+        var bx = cx - (k * bw + (k - 1) * gap) / 2 + si * (bw + gap), by = Y(v), h = m.t + ih - by, r = Math.min(4, h);
+        el('path', { d: 'M' + bx + ',' + (m.t + ih) + 'V' + (by + r) + 'Q' + bx + ',' + by + ' ' + (bx + r) + ',' + by + 'H' + (bx + bw - r) + 'Q' + (bx + bw) + ',' + by + ' ' + (bx + bw) + ',' + (by + r) + 'V' + (m.t + ih) + 'Z', fill: s.color }, grp);
+        if (i === n - 1 || (s.labelAt && s.labelAt.indexOf(i) >= 0)) txt(svg, bx + bw / 2, by - 6, fmtInt(v), { 'text-anchor': 'middle', fill: '#cfcfcf', 'font-size': 12 });
+      });
+      groups.push(grp);
+      var hit = el('rect', { x: m.l + band * i, y: m.t, width: band, height: ih, fill: 'transparent' }, svg);
+      hit.addEventListener('mousemove', function (e) { show(i, e); });
+      hit.addEventListener('mouseleave', hide);
+      hit.addEventListener('touchstart', function (e) { show(i, e.touches[0]); }, { passive: true });
+    });
+    var tip = tipEl(host);
+    function show(i, evt) {
+      groups.forEach(function (g, j) { g.setAttribute('opacity', j === i ? 1 : 0.45); });
+      var h = '<div class="t-h">' + cfg.x[i] + '</div>';
+      cfg.series.forEach(function (s) { var v = s.v[i]; h += '<div class="t-r"><span><i style="background:' + s.color + '"></i>' + s.name + '</span><b>' + (v == null ? L().notyet : fmtInt(v)) + '</b></div>'; });
+      tip.innerHTML = h; tip.classList.add('on');
+      var r = svg.getBoundingClientRect(), hr = host.getBoundingClientRect();
+      placeTip(host, tip, (m.l + band * i + band / 2) / W * r.width + (r.left - hr.left), evt ? evt.clientY - hr.top : r.height / 2);
+    }
+    function hide() { groups.forEach(function (g) { g.setAttribute('opacity', 1); }); tip.classList.remove('on'); }
+    host.tabIndex = 0; var ki = -1;
+    host.onkeydown = function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { ki = Math.max(0, Math.min(n - 1, ki + (e.key === 'ArrowRight' ? 1 : -1))); show(ki); e.preventDefault(); }
+      if (e.key === 'Escape') { hide(); ki = -1; }
+    };
+    host.onblur = hide;
+  }
+
+  function table(hostId, head, rows) {
+    var h = document.getElementById(hostId); if (!h) return;
+    var s = '<table class="data-table"><thead><tr>' + head.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>';
+    rows.forEach(function (r) { s += '<tr>' + r.map(function (c) { return '<td>' + (c == null ? '—' : c) + '</td>'; }).join('') + '</tr>'; });
+    h.innerHTML = s + '</tbody></table>';
+  }
+
+  // ── Data (verbatim from the papers / thesis) ──────────────────
+  var TREND = { x: ['2020', '2021', '2022', '2023', '2024', '2025'],
+    nerf: [126, 672, 1570, 3810, 6950, 9220], gs: [null, null, null, 138, 2420, 6970] };
+  var ACO = {
+    mip: { x: ['1×', '2×', '4×', '8×', '16×', '32×', '64×', '128×'],
+      gs: [27.52, 25.23, 21.35, 18.83, 17.12, 15.86, 14.97, 14.48],
+      ms: [27.25, 25.96, 24.39, 24.32, 25.35, 25.08, 25.12, 21.18],
+      ours: [27.70, 26.16, 26.35, 25.58, 26.35, 25.92, 26.05, 23.27] },
+    tt: { x: ['1×', '2×', '4×', '8×', '16×', '32×', '64×'],
+      gs: [23.84, 22.48, 19.46, 17.09, 15.42, 14.33, 13.77],
+      ms: [23.52, 21.60, 20.22, 19.65, 19.48, 20.10, 20.22],
+      ours: [23.85, 22.02, 21.38, 21.00, 20.55, 20.95, 20.93] },
+    db: { x: ['1×', '2×', '4×', '8×', '16×', '32×', '64×'],
+      gs: [29.75, 29.51, 27.56, 24.77, 22.25, 20.04, 18.10],
+      ms: [29.38, 29.28, 28.17, 27.10, 26.70, 27.08, 26.10],
+      ours: [29.49, 29.26, 28.63, 27.90, 27.16, 27.35, 26.67] }
+  };
+  var THESIS = { x: ['1×', '4×', '16×', '64×'], ms: [27.42, 24.52, 25.24, 25.30], ours: [27.38, 25.32, 26.08, 25.73] };
+  var acoDs = 'mip', showRef = false;
+
+  function render() {
+    var lt = L();
+    var trendHost = document.getElementById('chart-trend');
+    if (trendHost) {
+      barChart(trendHost, { aria: 'Bar chart of yearly Google Scholar results, NeRF vs 3DGS, 2020 to 2025', x: TREND.x,
+        series: [{ name: 'NeRF', color: C.a, v: TREND.nerf }, { name: '3DGS', color: C.b, v: TREND.gs, labelAt: [3] }] });
+      table('tbl-trend', [lt.year, 'NeRF', '3DGS'], TREND.x.map(function (y, i) { return [y, fmtInt(TREND.nerf[i]), TREND.gs[i] == null ? null : fmtInt(TREND.gs[i])]; }));
+    }
+    var acoHost = document.getElementById('chart-aco');
+    if (acoHost) {
+      var d = ACO[acoDs];
+      lineChart(acoHost, { aria: 'Line chart of PSNR per rendering scale for MS-GS and ACO-EGR' + (showRef ? ' with vanilla 3DGS' : ''), x: d.x, band: showRef ? [1, 2] : [0, 1],
+        series: (showRef ? [{ name: '3DGS', short: '3DGS', color: C.ref, dash: true, v: d.gs }] : []).concat([
+                 { name: 'MS-GS', short: 'MS-GS', color: C.a, v: d.ms, labelDy: 8 },
+                 { name: 'Ours (ACO-EGR)', short: 'Ours', color: C.b, v: d.ours, labelDy: -4 }]) });
+      table('tbl-aco', [lt.scale, '3DGS', 'MS-GS', 'Ours', 'Δ'], d.x.map(function (x, i) { return [x, d.gs[i].toFixed(2), d.ms[i].toFixed(2), d.ours[i].toFixed(2), (d.ours[i] - d.ms[i] >= 0 ? '+' : '') + (d.ours[i] - d.ms[i]).toFixed(2)]; }));
+    }
+    var thHost = document.getElementById('chart-thesis');
+    if (thHost) {
+      lineChart(thHost, { aria: 'Line chart of PSNR per rendering scale for MS-GS and MS-GS plus RSIC-GS on Mip-NeRF 360', x: THESIS.x, band: [0, 1], deltaLabel: '+RSIC-GS − MS-GS',
+        series: [{ name: 'MS-GS', short: 'MS-GS', color: C.a, v: THESIS.ms, labelDy: 8 },
+                 { name: 'MS-GS + RSIC-GS', short: '+Ours', color: C.b, v: THESIS.ours, labelDy: -4 }] });
+      table('tbl-thesis', [lt.scale, 'MS-GS', '+RSIC-GS', 'Δ'], THESIS.x.map(function (x, i) { var dl = THESIS.ours[i] - THESIS.ms[i]; return [x, THESIS.ms[i].toFixed(2), THESIS.ours[i].toFixed(2), (dl >= 0 ? '+' : '') + dl.toFixed(2)]; }));
+    }
+    document.querySelectorAll('.table-toggle').forEach(function (b) {
+      var t = document.getElementById(b.dataset.table);
+      b.textContent = t && !t.hidden ? lt.hide : lt.show;
+    });
+  }
+
+  // segmented controls
+  function seg(id, fn) {
+    var g = document.getElementById(id); if (!g) return;
+    g.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      fn(b);
+    });
+  }
+  seg('seg-aco', function (b) { acoDs = b.dataset.ds; render(); });
+  var tg = document.getElementById('tg-3dgs');
+  if (tg) tg.addEventListener('click', function () { showRef = !showRef; tg.setAttribute('aria-pressed', showRef ? 'true' : 'false'); render(); });
+
+  // before/after slider
+  var ba = document.getElementById('ba');
+  var scene = 'bicycle', scale = '16x';
+  function baSrc() {
+    var p = 'assets/img/aco/' + scene + '_' + scale + '_';
+    document.getElementById('ba-left').src = p + 'msgs.jpg';
+    document.getElementById('ba-right').src = p + 'ours.jpg';
+    document.getElementById('ba-gt').src = p + 'gt.jpg';
+    document.getElementById('ba-3dgs').src = p + '3dgs.jpg';
+  }
+  if (ba) {
+    var range = ba.querySelector('input');
+    range.addEventListener('input', function () { ba.style.setProperty('--pos', range.value + '%'); });
+    seg('seg-scene', function (b) { scene = b.dataset.v; baSrc(); });
+    seg('seg-scale', function (b) { scale = b.dataset.v; baSrc(); });
+    // preload all crops
+    ['bicycle', 'flowers'].forEach(function (s) { ['4x', '8x', '16x', '32x'].forEach(function (k) { ['msgs', 'ours', 'gt', '3dgs'].forEach(function (mth) { var im = new Image(); im.src = 'assets/img/aco/' + s + '_' + k + '_' + mth + '.jpg'; }); }); });
+  }
+
+  // data-table toggles
+  document.querySelectorAll('.table-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = document.getElementById(b.dataset.table); t.hidden = !t.hidden;
+      b.textContent = t.hidden ? L().show : L().hide;
+    });
+  });
+
+  // lightbox
+  var lastFocus = null;
+  function closeLB() { var lb = document.getElementById('lightbox'); if (lb) lb.remove(); document.removeEventListener('keydown', escLB); if (lastFocus) lastFocus.focus(); }
+  function escLB(e) { if (e.key === 'Escape') closeLB(); }
+  document.querySelectorAll('[data-lightbox]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      lastFocus = btn;
+      var cap = btn.closest('figure').querySelector('figcaption');
+      var lb = document.createElement('div'); lb.id = 'lightbox'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true');
+      lb.innerHTML = '<img alt=""><div class="lb-cap"></div><button class="lb-x" type="button">✕ Esc</button>';
+      lb.querySelector('img').src = btn.dataset.lightbox;
+      lb.querySelector('img').alt = btn.querySelector('img').alt;
+      lb.querySelector('.lb-cap').innerHTML = cap ? cap.innerHTML : '';
+      lb.addEventListener('click', closeLB);
+      document.body.appendChild(lb);
+      lb.querySelector('.lb-x').focus();
+      document.addEventListener('keydown', escLB);
+    });
+  });
+
+  window.__portfolioRender = render;
+  render();
+  var rz, lastW = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth === lastW) return; lastW = window.innerWidth;
+    clearTimeout(rz); rz = setTimeout(render, 150);
+  });
 })();
 </script>
 </body>
