@@ -1046,53 +1046,54 @@
       .nav-links a { white-space: nowrap; }
     }
 
-    /* ── Horizontal journey timeline ── */
-    .tl-scroll { overflow-x: auto; padding: .4rem 0 1rem; scrollbar-width: thin;
-      width: min(1320px, calc(100vw - 2rem)); margin-left: calc(50% - min(660px, 50vw - 1rem)); }
+    /* ── Horizontal journey timeline (minimal) ── */
+    .tl-scroll { overflow-x: auto; padding: .2rem 0 .6rem; scrollbar-width: thin;
+      width: min(1240px, calc(100vw - 2rem)); margin-left: calc(50% - min(620px, 50vw - 1rem));
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1); }
     .tl-scroll::-webkit-scrollbar { height: 6px; }
-    .tl {
-      display: grid; grid-template-columns: repeat(26, minmax(0, 1fr));
-      grid-template-rows: auto auto 40px auto; min-width: 1120px; padding: 0 .5rem;
-    }
+    .tl { display: grid; grid-template-rows: auto 64px 34px 64px; padding: 0 .5rem; }
     .tl-era {
-      grid-row: 1; margin: 0 0 1.4rem; padding-top: .45rem; text-align: center; white-space: nowrap;
-      border-top: 2px solid var(--accent); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
-      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+      grid-row: 1; margin-bottom: 1rem; padding-top: .4rem; text-align: center; white-space: nowrap;
+      border-top: 2px solid var(--accent); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
     }
     .tl-era.ms { border-color: var(--accent2); color: var(--accent2); }
     .tl-era.phd { border-color: #6db38a; color: #6db38a; }
-    .tl-item { padding: 0 5px; transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1); }
-    .tl-item.up { grid-row: 2; align-self: end; }
-    .tl-item.down { grid-row: 4; align-self: start; }
-    .tl-card {
-      position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      padding: .75rem .8rem .8rem; transition: border-color .2s, transform .2s;
+    .tl-item {
+      all: unset; box-sizing: border-box; cursor: pointer; text-align: center; padding: .2rem .3rem;
+      display: flex; flex-direction: column; gap: .1rem; border-radius: 6px;
     }
-    .tl-item:hover .tl-card { border-color: var(--accent); transform: translateY(-2px); }
-    .tl-item.down:hover .tl-card { transform: translateY(2px); }
-    .tl-item.blue:hover .tl-card { border-color: var(--accent2); }
-    .tl-item.big .tl-card { border-color: rgba(200,169,110,.55); background: linear-gradient(180deg, rgba(200,169,110,.08), var(--surface) 60%); }
-    .tl-card::after { content: ''; position: absolute; left: 50%; width: 1px; height: 20px; background: #3a3a3a; }
-    .tl-item.up .tl-card::after { bottom: -21px; }
-    .tl-item.down .tl-card::after { top: -21px; }
-    .tl-card .jn-date { font-size: .66rem; }
-    .tl-card .jn-title { font-size: .84rem; line-height: 1.35; margin: .2rem 0 .3rem; }
-    .tl-card .jn-desc { font-size: .74rem; line-height: 1.5; }
-    .tl-card .jn-tags { justify-content: flex-start !important; margin-top: .45rem; }
-    .tl-card .jn-tags .tag { font-size: .62rem; padding: .1rem .45rem; }
-    .tl-item.blue .jn-date { color: var(--accent2); }
+    .tl-item.up { grid-row: 2; justify-content: flex-end; padding-bottom: .55rem; }
+    .tl-item.down { grid-row: 4; justify-content: flex-start; padding-top: .55rem; }
+    .tl-item:focus-visible { outline: 2px solid var(--accent); }
+    .tl-date { font-size: .66rem; font-weight: 600; letter-spacing: .1em; color: #777; transition: color .2s; }
+    .tl-label { font-size: .8rem; line-height: 1.3; color: #9a9a9a; transition: color .2s; }
+    .tl-item.big .tl-label { color: #d6d6d6; font-weight: 500; }
+    .tl-item:hover .tl-label, .tl-item.active .tl-label { color: #fff; }
+    .tl-item:hover .tl-date, .tl-item.active .tl-date { color: var(--accent); }
+    .tl-item.blue:hover .tl-date, .tl-item.blue.active .tl-date { color: var(--accent2); }
     .tl-axis {
       grid-row: 3; grid-column: 1 / -1; align-self: center; height: 2px; border-radius: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent) 8%, var(--accent) 40%, var(--accent2) 70%, #6db38a 95%, transparent);
+      background: linear-gradient(90deg, transparent, #4a4a4a 6%, #4a4a4a 94%, transparent);
     }
     .tl-node {
       grid-row: 3; justify-self: center; align-self: center; z-index: 1;
-      width: 12px; height: 12px; border-radius: 50%; background: #0f0f0f; border: 2px solid var(--accent);
+      width: 10px; height: 10px; border-radius: 50%; background: #0f0f0f; border: 2px solid #5a5a5a;
+      transition: transform .2s, border-color .2s, background .2s;
     }
-    .tl-node.blue { border-color: var(--accent2); }
-    .tl-node.big { width: 16px; height: 16px; background: var(--accent); box-shadow: 0 0 0 5px rgba(200,169,110,.16); }
+    .tl-node.big { border-color: var(--accent); }
+    .tl-node.active { background: var(--accent); border-color: var(--accent); transform: scale(1.35); box-shadow: 0 0 0 5px rgba(200,169,110,.16); }
+    .tl-node.blue.active { background: var(--accent2); border-color: var(--accent2); box-shadow: 0 0 0 5px rgba(126,168,201,.16); }
+    .tl-detail {
+      max-width: 640px; margin: 1.4rem auto 0; padding: 1.1rem 1.4rem; text-align: center;
+      border: 1px solid var(--border); border-radius: 10px; background: var(--surface); min-height: 7.5rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+    }
+    .tl-pane-date { font-size: .7rem; font-weight: 600; letter-spacing: .14em; color: var(--accent); }
+    .tl-pane-title { font-size: 1.02rem; font-weight: 600; margin: .2rem 0 .35rem; }
+    .tl-pane-desc { font-size: .86rem; color: var(--muted); line-height: 1.6; }
+    .tl-pane .jn-tags { justify-content: center; margin-top: .6rem; }
     .tl-hint { display: none; font-size: .74rem; color: var(--muted); margin-bottom: .4rem; }
-    @media (max-width: 1150px) { .tl-hint { display: block; } }
+    @media (max-width: 1000px) { .tl-hint { display: block; } }
   </style>
 </head>
 <body>
@@ -1168,9 +1169,9 @@
   <div class="about-grid">
     <div class="about-body">
       <p id="about-p1"
-        data-en="I am a <strong>Ph.D. student</strong> in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>. I received my B.S. (2024) and M.S. (2026) from the same department."
-        data-ko="대한민국 부산 <strong>동아대학교</strong> 컴퓨터공학과 <strong>박사과정</strong>에 재학 중이며, <strong>영상신호처리연구실(ISPL)</strong>에서 전동산 교수님의 지도를 받고 있습니다. 같은 학과에서 학사(2024)와 석사(2026)를 마쳤습니다.">
-        I am a <strong>Ph.D. student</strong> in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>. I received my B.S. (2024) and M.S. (2026) from the same department.
+        data-en="I am a <strong>Ph.D. student</strong> in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>, which I joined as an undergraduate researcher in 2022. I received my B.S. (2024) and M.S. (2026) from the same department."
+        data-ko="대한민국 부산 <strong>동아대학교</strong> 컴퓨터공학과 <strong>박사과정</strong>에 재학 중이며, <strong>영상신호처리연구실(ISPL)</strong>에서 전동산 교수님의 지도를 받고 있습니다(2022년 학부연구생으로 합류). 같은 학과에서 학사(2024)와 석사(2026)를 마쳤습니다.">
+        I am a <strong>Ph.D. student</strong> in the Department of Computer Engineering at <strong>Dong-A University</strong>, Busan, South Korea, advised by Prof. Dongsan Jun in the <strong>Image Signal Processing Laboratory (ISPL)</strong>, which I joined as an undergraduate researcher in 2022. I received my B.S. (2024) and M.S. (2026) from the same department.
       </p>
       <p id="about-p2"
         data-en="My current research is <strong>multi-scale 3D Gaussian Splatting (3DGS)</strong> — keeping novel-view renderings sharp and alias-free from full resolution down to 128× zoom-out. My M.S. thesis and three 2026 SCIE journal papers approach this problem from the training-objective, color-representation and sampling-theory sides."
@@ -1261,136 +1262,54 @@
   </p>
 
   <p class="tl-hint" data-en="← Swipe to see the whole timeline →" data-ko="← 좌우로 밀어서 전체 타임라인 보기 →">← Swipe to see the whole timeline →</p>
-  <div class="tl-scroll">
-  <div class="tl">
-    <div class="tl-era bs reveal" style="grid-column:3 / 11" data-en="B.S. · 2020 – 2024" data-ko="학사 · 2020 – 2024">B.S. · 2020 – 2024</div>
-    <div class="tl-era ms reveal" style="grid-column:13 / 23" data-en="M.S. · 2024 – 2026" data-ko="석사 · 2024 – 2026">M.S. · 2024 – 2026</div>
-    <div class="tl-era phd reveal" style="grid-column:24 / 26" data-en="Ph.D. · 2026 –" data-ko="박사 · 2026 –">Ph.D. · 2026 –</div>
-    <div class="tl-item up  reveal" style="grid-column:1 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2020.03</div>
-        <div class="jn-title" data-en="B.S. in Computer Engineering begins" data-ko="컴퓨터공학과 학사 입학">B.S. in Computer Engineering begins</div>
-        <div class="jn-desc" data-en="Dong-A University, Busan." data-ko="동아대학교, 부산.">Dong-A University, Busan.</div>
-      </div>
-    </div>
-    <div class="tl-item down blue reveal" style="grid-column:3 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2023</div>
-        <div class="jn-title" data-en="First papers — Video Super Resolution" data-ko="첫 논문 — 비디오 초해상도">First papers — Video Super Resolution</div>
-        <div class="jn-desc" data-en="KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters)."
-        data-ko="KCI 저널(RDAN, REDS4에서 DCAN 대비 +0.23 dB)과 한국방송미디어공학회 하계학술대회 경량 모델(파라미터 −38%).">
-        KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters).</div>
-        <div class="jn-tags"><span class="tag">VSR</span><span class="tag">Deformable Conv</span></div>
-      </div>
-    </div>
-    <div class="tl-item up  reveal" style="grid-column:5 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2023</div>
-        <div class="jn-title" data-en="Research intern · ETRI" data-ko="연구 인턴 · ETRI">Research intern · ETRI</div>
-        <div class="jn-desc" data-en="Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute."
-        data-ko="한국전자통신연구원 실감미디어연구실에서 2개월간 인턴십.">
-        Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute.</div>
-      </div>
-    </div>
-    <div class="tl-item down blue reveal" style="grid-column:7 / span 4">
-      <div class="tl-card">
-        <div class="jn-date" data-en="2023 – " data-ko="2023 – ">2023 – </div>
-        <div class="jn-title" data-en="NIA Busan Digital Twin platform" data-ko="NIA 부산 디지털 트윈 플랫폼">NIA Busan Digital Twin platform</div>
-        <div class="jn-desc" data-en="Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr."
-        data-ko="도시 인공조명 안전 서비스 프런트엔드 개발 — 1365twin.busan.kr 실서비스.">
-        Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr.</div>
-        <div class="jn-tags"><span class="tag">WebGL</span><span class="tag">GIS</span></div>
-      </div>
-    </div>
-    <div class="tl-item up  reveal" style="grid-column:9 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2024.02</div>
-        <div class="jn-title" data-en="B.S. completed" data-ko="학사 졸업">B.S. completed</div>
-        <div class="jn-desc" data-en="Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians."
-        data-ko="LiDAR 기반 시각장애인 보행 보조 시스템으로 캡스톤 디자인상 수상.">
-        Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians.</div>
-      </div>
-    </div>
-    <div class="tl-item down blue reveal" style="grid-column:11 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2024.03</div>
-        <div class="jn-title" data-en="M.S. at ISPL — Video coding" data-ko="ISPL 석사 입학 — 비디오 코딩">M.S. at ISPL — Video coding</div>
-        <div class="jn-desc" data-en="Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control."
-        data-ko="지도교수 전동산. VVC/ECM 화면 간·화면 내 예측 도구와 레이트 컨트롤 연구.">
-        Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control.</div>
-        <div class="jn-tags"><span class="tag">VVC</span><span class="tag">ECM</span><span class="tag">Rate Control</span></div>
-      </div>
-    </div>
-    <div class="tl-item up  reveal" style="grid-column:13 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2024</div>
-        <div class="jn-title" data-en="Best Paper Award · Korea Multimedia Society" data-ko="최우수논문상 · 한국멀티미디어학회">Best Paper Award · Korea Multimedia Society</div>
-        <div class="jn-desc" data-en="And the first patent filing (2024.05): template-matching pair-wise average MVP candidates."
-        data-ko="같은 해 첫 특허 출원(2024.05): 템플릿 매칭 기반 pair-wise average MVP 후보 확장.">
-        And the first patent filing (2024.05): template-matching pair-wise average MVP candidates.</div>
-      </div>
-    </div>
-    <div class="tl-item down big reveal" style="grid-column:15 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2025</div>
-        <div class="jn-title" data-en="Pivot to 3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅으로 전환">Pivot to 3D Gaussian Splatting</div>
-        <div class="jn-desc" data-en="Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem, the same family of problems as resolution change in video."
-        data-ko="레이트 컨트롤에서 멀티스케일 3DGS로 전환 — 줌 레벨에 따른 렌더링 품질 저하는 비디오의 해상도 변화와 같은 계열의 앨리어싱 문제입니다.">
-        Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem,
-        the same family of problems as resolution change in video.</div>
-        <div class="jn-tags"><span class="tag">3DGS</span><span class="tag">Anti-Aliasing</span></div>
-      </div>
-    </div>
-    <div class="tl-item up blue reveal" style="grid-column:17 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2025.12</div>
-        <div class="jn-title" data-en="Two more patents filed" data-ko="특허 2건 추가 출원">Two more patents filed</div>
-        <div class="jn-desc" data-en="TIMD merge-list and TMRL candidate-list augmentation for intra prediction."
-        data-ko="화면 내 예측을 위한 TIMD 병합 리스트·TMRL 후보 리스트 확장.">
-        TIMD merge-list and TMRL candidate-list augmentation for intra prediction.</div>
-      </div>
-    </div>
-    <div class="tl-item down  reveal" style="grid-column:19 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2026</div>
-        <div class="jn-title" data-en="M.S. thesis — RSIC-GS" data-ko="석사학위논문 — RSIC-GS">M.S. thesis — RSIC-GS</div>
-        <div class="jn-desc" data-en="Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360."
-        data-ko="멀티스케일 3DGS를 위한 학습 단계 목적함수: Mip-NeRF 360에서 MS-GS 대비 평균 PSNR +0.51 dB.">
-        Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360.</div>
-      </div>
-    </div>
-    <div class="tl-item up big reveal" style="grid-column:21 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2026</div>
-        <div class="jn-title" data-en="Three SCIE journal papers" data-ko="SCIE 저널 논문 3편">Three SCIE journal papers</div>
-        <div class="jn-desc" data-en="One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>."
-        data-ko="<em>Mathematics</em>(MDPI, 2026.07) 게재 1편, <em>IEEE Transactions on Multimedia</em> 1차 심사 중 2편.">
-        One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>.</div>
-      </div>
-    </div>
-    <div class="tl-item down big reveal" style="grid-column:23 / span 4">
-      <div class="tl-card">
-        <div class="jn-date">2026.09</div>
-        <div class="jn-title" data-en="Ph.D. in Computer Engineering begins" data-ko="컴퓨터공학과 박사과정 입학">Ph.D. in Computer Engineering begins</div>
-        <div class="jn-desc" data-en="Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL."
-        data-ko="ISPL에서 멀티스케일·안티앨리어싱 3D 가우시안 스플래팅 연구를 이어갑니다.">
-        Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL.</div>
-      </div>
-    </div>
+  <div class="tl-scroll reveal">
+  <div class="tl" role="tablist" aria-label="Research journey" style="grid-template-columns:repeat(28, minmax(0,1fr)); min-width:988px">
+    <div class="tl-era bs" style="grid-column:3 / 13" data-en="B.S. · 2020 – 2024" data-ko="학사 · 2020 – 2024">B.S. · 2020 – 2024</div>
+    <div class="tl-era ms" style="grid-column:15 / 25" data-en="M.S. · 2024 – 2026" data-ko="석사 · 2024 – 2026">M.S. · 2024 – 2026</div>
+    <div class="tl-era phd" style="grid-column:26 / 28" data-en="Ph.D. · 2026 –" data-ko="박사 · 2026 –">Ph.D. · 2026 –</div>
+    <button type="button" role="tab" class="tl-item up " style="grid-column:1 / span 4" data-i="0" aria-selected="false"><span class="tl-date">2020.03</span><span class="tl-label" data-en="B.S. begins" data-ko="학사 입학">B.S. begins</span></button>
+    <button type="button" role="tab" class="tl-item down big" style="grid-column:3 / span 4" data-i="1" aria-selected="false"><span class="tl-date">2022.07</span><span class="tl-label" data-en="Joined ISPL" data-ko="ISPL 학부연구생">Joined ISPL</span></button>
+    <button type="button" role="tab" class="tl-item up blue" style="grid-column:5 / span 4" data-i="2" aria-selected="false"><span class="tl-date">2023</span><span class="tl-label" data-en="First papers · VSR" data-ko="첫 논문 · VSR">First papers · VSR</span></button>
+    <button type="button" role="tab" class="tl-item down " style="grid-column:7 / span 4" data-i="3" aria-selected="false"><span class="tl-date">2023</span><span class="tl-label" data-en="ETRI intern" data-ko="ETRI 인턴">ETRI intern</span></button>
+    <button type="button" role="tab" class="tl-item up blue" style="grid-column:9 / span 4" data-i="4" aria-selected="false"><span class="tl-date">2023 –</span><span class="tl-label" data-en="NIA Digital Twin" data-ko="NIA 디지털 트윈">NIA Digital Twin</span></button>
+    <button type="button" role="tab" class="tl-item down " style="grid-column:11 / span 4" data-i="5" aria-selected="false"><span class="tl-date">2024.02</span><span class="tl-label" data-en="B.S. · Capstone Award" data-ko="학사 졸업 · 캡스톤상">B.S. · Capstone Award</span></button>
+    <button type="button" role="tab" class="tl-item up blue" style="grid-column:13 / span 4" data-i="6" aria-selected="false"><span class="tl-date">2024.03</span><span class="tl-label" data-en="M.S. · Video coding" data-ko="석사 · 비디오 코딩">M.S. · Video coding</span></button>
+    <button type="button" role="tab" class="tl-item down " style="grid-column:15 / span 4" data-i="7" aria-selected="false"><span class="tl-date">2024</span><span class="tl-label" data-en="Best Paper Award" data-ko="최우수논문상">Best Paper Award</span></button>
+    <button type="button" role="tab" class="tl-item up big active" style="grid-column:17 / span 4" data-i="8" aria-selected="true"><span class="tl-date">2025</span><span class="tl-label" data-en="Pivot to 3DGS" data-ko="3DGS로 전환">Pivot to 3DGS</span></button>
+    <button type="button" role="tab" class="tl-item down blue" style="grid-column:19 / span 4" data-i="9" aria-selected="false"><span class="tl-date">2025.12</span><span class="tl-label" data-en="+2 patents" data-ko="특허 2건 출원">+2 patents</span></button>
+    <button type="button" role="tab" class="tl-item up " style="grid-column:21 / span 4" data-i="10" aria-selected="false"><span class="tl-date">2026</span><span class="tl-label" data-en="M.S. thesis" data-ko="석사학위논문">M.S. thesis</span></button>
+    <button type="button" role="tab" class="tl-item down big" style="grid-column:23 / span 4" data-i="11" aria-selected="false"><span class="tl-date">2026</span><span class="tl-label" data-en="3 SCIE papers" data-ko="SCIE 논문 3편">3 SCIE papers</span></button>
+    <button type="button" role="tab" class="tl-item up big" style="grid-column:25 / span 4" data-i="12" aria-selected="false"><span class="tl-date">2026.09</span><span class="tl-label" data-en="Ph.D. begins" data-ko="박사 입학">Ph.D. begins</span></button>
     <div class="tl-axis" aria-hidden="true"></div>
-    <span class="tl-node " style="grid-column:2 / span 2" aria-hidden="true"></span>
-    <span class="tl-node blue" style="grid-column:4 / span 2" aria-hidden="true"></span>
-    <span class="tl-node " style="grid-column:6 / span 2" aria-hidden="true"></span>
-    <span class="tl-node blue" style="grid-column:8 / span 2" aria-hidden="true"></span>
-    <span class="tl-node " style="grid-column:10 / span 2" aria-hidden="true"></span>
-    <span class="tl-node blue" style="grid-column:12 / span 2" aria-hidden="true"></span>
-    <span class="tl-node " style="grid-column:14 / span 2" aria-hidden="true"></span>
-    <span class="tl-node big" style="grid-column:16 / span 2" aria-hidden="true"></span>
-    <span class="tl-node blue" style="grid-column:18 / span 2" aria-hidden="true"></span>
-    <span class="tl-node " style="grid-column:20 / span 2" aria-hidden="true"></span>
-    <span class="tl-node big" style="grid-column:22 / span 2" aria-hidden="true"></span>
-    <span class="tl-node big" style="grid-column:24 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " data-i="0" style="grid-column:2 / span 2" aria-hidden="true"></span>
+    <span class="tl-node big" data-i="1" style="grid-column:4 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" data-i="2" style="grid-column:6 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " data-i="3" style="grid-column:8 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" data-i="4" style="grid-column:10 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " data-i="5" style="grid-column:12 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" data-i="6" style="grid-column:14 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " data-i="7" style="grid-column:16 / span 2" aria-hidden="true"></span>
+    <span class="tl-node big active" data-i="8" style="grid-column:18 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" data-i="9" style="grid-column:20 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " data-i="10" style="grid-column:22 / span 2" aria-hidden="true"></span>
+    <span class="tl-node big" data-i="11" style="grid-column:24 / span 2" aria-hidden="true"></span>
+    <span class="tl-node big" data-i="12" style="grid-column:26 / span 2" aria-hidden="true"></span>
   </div>
+  </div>
+  <div class="tl-detail reveal" aria-live="polite">
+    <div class="tl-pane" data-i="0" hidden><div class="tl-pane-date">2020.03</div><div class="tl-pane-title" data-en="B.S. in Computer Engineering begins" data-ko="컴퓨터공학과 학사 입학">B.S. in Computer Engineering begins</div><div class="tl-pane-desc" data-en="Dong-A University, Busan." data-ko="동아대학교, 부산.">Dong-A University, Busan.</div></div>
+    <div class="tl-pane" data-i="1" hidden><div class="tl-pane-date">2022.07</div><div class="tl-pane-title" data-en="Joined ISPL as an undergraduate researcher" data-ko="ISPL 학부연구생 시작">Joined ISPL as an undergraduate researcher</div><div class="tl-pane-desc" data-en="Image Signal Processing Lab, advised by Prof. Dongsan Jun — the start of research in video restoration." data-ko="전동산 교수님의 영상신호처리연구실에서 비디오 복원 연구를 시작했습니다.">Image Signal Processing Lab, advised by Prof. Dongsan Jun — the start of research in video restoration.</div></div>
+    <div class="tl-pane" data-i="2" hidden><div class="tl-pane-date">2023</div><div class="tl-pane-title" data-en="First papers — Video Super Resolution" data-ko="첫 논문 — 비디오 초해상도">First papers — Video Super Resolution</div><div class="tl-pane-desc" data-en="KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters)." data-ko="KCI 저널(RDAN, REDS4에서 DCAN 대비 +0.23 dB)과 한국방송미디어공학회 하계학술대회 경량 모델(파라미터 −38%).">KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters).</div><div class="jn-tags"><span class="tag">VSR</span><span class="tag">Deformable Conv</span></div></div>
+    <div class="tl-pane" data-i="3" hidden><div class="tl-pane-date">2023</div><div class="tl-pane-title" data-en="Research intern · ETRI" data-ko="연구 인턴 · ETRI">Research intern · ETRI</div><div class="tl-pane-desc" data-en="Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute." data-ko="한국전자통신연구원 실감미디어연구실에서 2개월간 인턴십.">Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute.</div></div>
+    <div class="tl-pane" data-i="4" hidden><div class="tl-pane-date">2023 –</div><div class="tl-pane-title" data-en="NIA Busan Digital Twin platform" data-ko="NIA 부산 디지털 트윈 플랫폼">NIA Busan Digital Twin platform</div><div class="tl-pane-desc" data-en="Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr." data-ko="도시 인공조명 안전 서비스 프런트엔드 개발 — 1365twin.busan.kr 실서비스.">Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr.</div><div class="jn-tags"><span class="tag">WebGL</span><span class="tag">GIS</span></div></div>
+    <div class="tl-pane" data-i="5" hidden><div class="tl-pane-date">2024.02</div><div class="tl-pane-title" data-en="B.S. completed" data-ko="학사 졸업">B.S. completed</div><div class="tl-pane-desc" data-en="Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians." data-ko="LiDAR 기반 시각장애인 보행 보조 시스템으로 캡스톤 디자인상 수상.">Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians.</div></div>
+    <div class="tl-pane" data-i="6" hidden><div class="tl-pane-date">2024.03</div><div class="tl-pane-title" data-en="M.S. begins — Video coding" data-ko="석사 입학 — 비디오 코딩">M.S. begins — Video coding</div><div class="tl-pane-desc" data-en="Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control." data-ko="지도교수 전동산. VVC/ECM 화면 간·화면 내 예측 도구와 레이트 컨트롤 연구.">Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control.</div><div class="jn-tags"><span class="tag">VVC</span><span class="tag">ECM</span><span class="tag">Rate Control</span></div></div>
+    <div class="tl-pane" data-i="7" hidden><div class="tl-pane-date">2024</div><div class="tl-pane-title" data-en="Best Paper Award · Korea Multimedia Society" data-ko="최우수논문상 · 한국멀티미디어학회">Best Paper Award · Korea Multimedia Society</div><div class="tl-pane-desc" data-en="And the first patent filing (2024.05): template-matching pair-wise average MVP candidates." data-ko="같은 해 첫 특허 출원(2024.05): 템플릿 매칭 기반 pair-wise average MVP 후보 확장.">And the first patent filing (2024.05): template-matching pair-wise average MVP candidates.</div></div>
+    <div class="tl-pane" data-i="8"><div class="tl-pane-date">2025</div><div class="tl-pane-title" data-en="Pivot to 3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅으로 전환">Pivot to 3D Gaussian Splatting</div><div class="tl-pane-desc" data-en="Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem, the same family of problems as resolution change in video." data-ko="레이트 컨트롤에서 멀티스케일 3DGS로 전환 — 줌 레벨에 따른 렌더링 품질 저하는 비디오의 해상도 변화와 같은 계열의 앨리어싱 문제입니다.">Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem, the same family of problems as resolution change in video.</div><div class="jn-tags"><span class="tag">3DGS</span><span class="tag">Anti-Aliasing</span></div></div>
+    <div class="tl-pane" data-i="9" hidden><div class="tl-pane-date">2025.12</div><div class="tl-pane-title" data-en="Two more patents filed" data-ko="특허 2건 추가 출원">Two more patents filed</div><div class="tl-pane-desc" data-en="TIMD merge-list and TMRL candidate-list augmentation for intra prediction." data-ko="화면 내 예측을 위한 TIMD 병합 리스트·TMRL 후보 리스트 확장.">TIMD merge-list and TMRL candidate-list augmentation for intra prediction.</div></div>
+    <div class="tl-pane" data-i="10" hidden><div class="tl-pane-date">2026</div><div class="tl-pane-title" data-en="M.S. thesis — RSIC-GS" data-ko="석사학위논문 — RSIC-GS">M.S. thesis — RSIC-GS</div><div class="tl-pane-desc" data-en="Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360." data-ko="멀티스케일 3DGS를 위한 학습 단계 목적함수: Mip-NeRF 360에서 MS-GS 대비 평균 PSNR +0.51 dB.">Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360.</div></div>
+    <div class="tl-pane" data-i="11" hidden><div class="tl-pane-date">2026</div><div class="tl-pane-title" data-en="Three SCIE journal papers" data-ko="SCIE 저널 논문 3편">Three SCIE journal papers</div><div class="tl-pane-desc" data-en="One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>." data-ko="<em>Mathematics</em>(MDPI, 2026.07) 게재 1편, <em>IEEE Transactions on Multimedia</em> 1차 심사 중 2편.">One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>.</div></div>
+    <div class="tl-pane" data-i="12" hidden><div class="tl-pane-date">2026.09</div><div class="tl-pane-title" data-en="Ph.D. in Computer Engineering begins" data-ko="컴퓨터공학과 박사과정 입학">Ph.D. in Computer Engineering begins</div><div class="tl-pane-desc" data-en="Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL." data-ko="ISPL에서 멀티스케일·안티앨리어싱 3D 가우시안 스플래팅 연구를 이어갑니다.">Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL.</div></div>
   </div>
 
   <!-- Why 3DGS — field trend -->
@@ -1461,8 +1380,8 @@
 
     <div class="case-grid">
       <figure class="fig reveal">
-        <button type="button" data-lightbox="assets/img/aco_pipeline.jpg" aria-label="Enlarge ACO-EGR overview figure">
-          <img src="assets/img/aco_pipeline.jpg" alt="Overview of ACO-EGR: (a) adaptive-scale color offset adds a per-scale DC color offset to each projected Gaussian; (b) error-guided reallocation moves low-contribution Gaussians toward high-error regions." loading="lazy">
+        <button type="button" data-lightbox="assets/img/aco_pipeline_light.jpg" aria-label="Enlarge ACO-EGR overview figure">
+          <img src="assets/img/aco_pipeline_light.jpg" alt="Overview of ACO-EGR: (a) adaptive-scale color offset adds a per-scale DC color offset to each projected Gaussian; (b) error-guided reallocation moves low-contribution Gaussians toward high-error regions." loading="lazy">
         </button>
         <figcaption data-en="Overview of ACO-EGR. Fig. 2 from Park et al., <em>Mathematics</em> 2026 (CC BY 4.0)."
                     data-ko="ACO-EGR 개요. Park et al., <em>Mathematics</em> 2026의 Fig. 2 (CC BY 4.0).">Overview of ACO-EGR. Fig. 2 from Park et al., <em>Mathematics</em> 2026 (CC BY 4.0).</figcaption>
@@ -2454,6 +2373,27 @@ function setLang(lang) {
   window.addEventListener('resize', function () {
     if (window.innerWidth === lastW) return; lastW = window.innerWidth;
     clearTimeout(rz); rz = setTimeout(render, 150);
+  });
+})();
+
+// ─── Journey timeline: one detail panel ───────────────────────
+(function () {
+  var tl = document.querySelector('.tl'); if (!tl) return;
+  var items = tl.querySelectorAll('.tl-item'), nodes = tl.querySelectorAll('.tl-node'), panes = document.querySelectorAll('.tl-pane');
+  function act(i) {
+    items.forEach(function (b) { var on = b.dataset.i == i; b.classList.toggle('active', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    nodes.forEach(function (n) { n.classList.toggle('active', n.dataset.i == i); });
+    panes.forEach(function (p) { p.hidden = p.dataset.i != i; });
+  }
+  items.forEach(function (b) {
+    b.addEventListener('mouseenter', function () { act(b.dataset.i); });
+    b.addEventListener('focus', function () { act(b.dataset.i); });
+    b.addEventListener('click', function () { act(b.dataset.i); });
+    b.addEventListener('keydown', function (e) {
+      var i = +b.dataset.i;
+      if (e.key === 'ArrowRight' && items[i + 1]) { items[i + 1].focus(); e.preventDefault(); }
+      if (e.key === 'ArrowLeft' && items[i - 1]) { items[i - 1].focus(); e.preventDefault(); }
+    });
   });
 })();
 </script>
