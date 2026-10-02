@@ -924,7 +924,7 @@
       transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1), border-color .2s;
     }
     .fig:hover { border-color: var(--accent2); }
-    .fig button { all: unset; cursor: zoom-in; display: block; background: #fff; }
+    .fig button { all: unset; cursor: zoom-in; display: flex; align-items: center; flex: 1; background: #fff; padding: .4rem; }
     .fig button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
     .fig img { width: 100%; height: auto; }
     .fig.dark button { background: #161616; }
@@ -1040,9 +1040,59 @@
       .flow-step:last-child { border-radius: 0 0 10px 10px; }
       .case-grid, .ba-wrap, .pipeline-strip, .patent-diagram { grid-template-columns: 1fr; }
       nav { gap: 1rem; }
-      .nav-links { overflow-x: auto; max-width: 52vw; gap: 1rem; scrollbar-width: none; }
+      nav { padding: 0 1rem !important; }
+      .lang-toggle { margin-left: .6rem; }
+      .nav-links { overflow-x: auto; max-width: 36vw; gap: 1rem; scrollbar-width: none; }
       .nav-links a { white-space: nowrap; }
     }
+
+    /* ── Horizontal journey timeline ── */
+    .tl-scroll { overflow-x: auto; padding: .4rem 0 1rem; scrollbar-width: thin;
+      width: min(1320px, calc(100vw - 2rem)); margin-left: calc(50% - min(660px, 50vw - 1rem)); }
+    .tl-scroll::-webkit-scrollbar { height: 6px; }
+    .tl {
+      display: grid; grid-template-columns: repeat(26, minmax(0, 1fr));
+      grid-template-rows: auto auto 40px auto; min-width: 1120px; padding: 0 .5rem;
+    }
+    .tl-era {
+      grid-row: 1; margin: 0 0 1.4rem; padding-top: .45rem; text-align: center; white-space: nowrap;
+      border-top: 2px solid var(--accent); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+    }
+    .tl-era.ms { border-color: var(--accent2); color: var(--accent2); }
+    .tl-era.phd { border-color: #6db38a; color: #6db38a; }
+    .tl-item { padding: 0 5px; transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1); }
+    .tl-item.up { grid-row: 2; align-self: end; }
+    .tl-item.down { grid-row: 4; align-self: start; }
+    .tl-card {
+      position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: .75rem .8rem .8rem; transition: border-color .2s, transform .2s;
+    }
+    .tl-item:hover .tl-card { border-color: var(--accent); transform: translateY(-2px); }
+    .tl-item.down:hover .tl-card { transform: translateY(2px); }
+    .tl-item.blue:hover .tl-card { border-color: var(--accent2); }
+    .tl-item.big .tl-card { border-color: rgba(200,169,110,.55); background: linear-gradient(180deg, rgba(200,169,110,.08), var(--surface) 60%); }
+    .tl-card::after { content: ''; position: absolute; left: 50%; width: 1px; height: 20px; background: #3a3a3a; }
+    .tl-item.up .tl-card::after { bottom: -21px; }
+    .tl-item.down .tl-card::after { top: -21px; }
+    .tl-card .jn-date { font-size: .66rem; }
+    .tl-card .jn-title { font-size: .84rem; line-height: 1.35; margin: .2rem 0 .3rem; }
+    .tl-card .jn-desc { font-size: .74rem; line-height: 1.5; }
+    .tl-card .jn-tags { justify-content: flex-start !important; margin-top: .45rem; }
+    .tl-card .jn-tags .tag { font-size: .62rem; padding: .1rem .45rem; }
+    .tl-item.blue .jn-date { color: var(--accent2); }
+    .tl-axis {
+      grid-row: 3; grid-column: 1 / -1; align-self: center; height: 2px; border-radius: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent) 8%, var(--accent) 40%, var(--accent2) 70%, #6db38a 95%, transparent);
+    }
+    .tl-node {
+      grid-row: 3; justify-self: center; align-self: center; z-index: 1;
+      width: 12px; height: 12px; border-radius: 50%; background: #0f0f0f; border: 2px solid var(--accent);
+    }
+    .tl-node.blue { border-color: var(--accent2); }
+    .tl-node.big { width: 16px; height: 16px; background: var(--accent); box-shadow: 0 0 0 5px rgba(200,169,110,.16); }
+    .tl-hint { display: none; font-size: .74rem; color: var(--muted); margin-bottom: .4rem; }
+    @media (max-width: 1150px) { .tl-hint { display: block; } }
   </style>
 </head>
 <body>
@@ -1210,111 +1260,137 @@
     the same question: <em>how do we keep image quality when the sampling rate changes?</em>
   </p>
 
-  <div class="journey">
-    <div class="era" data-en="B.S. · 2020 – 2024" data-ko="학사 · 2020 – 2024">B.S. · 2020 – 2024</div>
-
-    <div class="jn reveal">
-      <div class="jn-date">2020.03</div>
-      <div class="jn-title" data-en="B.S. in Computer Engineering begins" data-ko="컴퓨터공학과 학사 입학">B.S. in Computer Engineering begins</div>
-      <div class="jn-desc" data-en="Dong-A University, Busan." data-ko="동아대학교, 부산.">Dong-A University, Busan.</div>
+  <p class="tl-hint" data-en="← Swipe to see the whole timeline →" data-ko="← 좌우로 밀어서 전체 타임라인 보기 →">← Swipe to see the whole timeline →</p>
+  <div class="tl-scroll">
+  <div class="tl">
+    <div class="tl-era bs reveal" style="grid-column:3 / 11" data-en="B.S. · 2020 – 2024" data-ko="학사 · 2020 – 2024">B.S. · 2020 – 2024</div>
+    <div class="tl-era ms reveal" style="grid-column:13 / 23" data-en="M.S. · 2024 – 2026" data-ko="석사 · 2024 – 2026">M.S. · 2024 – 2026</div>
+    <div class="tl-era phd reveal" style="grid-column:24 / 26" data-en="Ph.D. · 2026 –" data-ko="박사 · 2026 –">Ph.D. · 2026 –</div>
+    <div class="tl-item up  reveal" style="grid-column:1 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2020.03</div>
+        <div class="jn-title" data-en="B.S. in Computer Engineering begins" data-ko="컴퓨터공학과 학사 입학">B.S. in Computer Engineering begins</div>
+        <div class="jn-desc" data-en="Dong-A University, Busan." data-ko="동아대학교, 부산.">Dong-A University, Busan.</div>
+      </div>
     </div>
-
-    <div class="jn blue reveal r">
-      <div class="jn-date">2023</div>
-      <div class="jn-title" data-en="First papers — Video Super Resolution" data-ko="첫 논문 — 비디오 초해상도">First papers — Video Super Resolution</div>
-      <div class="jn-desc" data-en="KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters)."
-           data-ko="KCI 저널(RDAN, REDS4에서 DCAN 대비 +0.23 dB)과 한국방송미디어공학회 하계학술대회 경량 모델(파라미터 −38%).">
+    <div class="tl-item down blue reveal" style="grid-column:3 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2023</div>
+        <div class="jn-title" data-en="First papers — Video Super Resolution" data-ko="첫 논문 — 비디오 초해상도">First papers — Video Super Resolution</div>
+        <div class="jn-desc" data-en="KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters)."
+        data-ko="KCI 저널(RDAN, REDS4에서 DCAN 대비 +0.23 dB)과 한국방송미디어공학회 하계학술대회 경량 모델(파라미터 −38%).">
         KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters).</div>
-      <div class="jn-tags"><span class="tag">VSR</span><span class="tag">Deformable Conv</span></div>
+        <div class="jn-tags"><span class="tag">VSR</span><span class="tag">Deformable Conv</span></div>
+      </div>
     </div>
-
-    <div class="jn reveal">
-      <div class="jn-date">2023</div>
-      <div class="jn-title" data-en="Research intern · ETRI" data-ko="연구 인턴 · ETRI">Research intern · ETRI</div>
-      <div class="jn-desc" data-en="Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute."
-           data-ko="한국전자통신연구원 실감미디어연구실에서 2개월간 인턴십.">
+    <div class="tl-item up  reveal" style="grid-column:5 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2023</div>
+        <div class="jn-title" data-en="Research intern · ETRI" data-ko="연구 인턴 · ETRI">Research intern · ETRI</div>
+        <div class="jn-desc" data-en="Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute."
+        data-ko="한국전자통신연구원 실감미디어연구실에서 2개월간 인턴십.">
         Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute.</div>
+      </div>
     </div>
-
-    <div class="jn blue reveal r">
-      <div class="jn-date" data-en="2023 – " data-ko="2023 – ">2023 – </div>
-      <div class="jn-title" data-en="NIA Busan Digital Twin platform" data-ko="NIA 부산 디지털 트윈 플랫폼">NIA Busan Digital Twin platform</div>
-      <div class="jn-desc" data-en="Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr."
-           data-ko="도시 인공조명 안전 서비스 프런트엔드 개발 — 1365twin.busan.kr 실서비스.">
+    <div class="tl-item down blue reveal" style="grid-column:7 / span 4">
+      <div class="tl-card">
+        <div class="jn-date" data-en="2023 – " data-ko="2023 – ">2023 – </div>
+        <div class="jn-title" data-en="NIA Busan Digital Twin platform" data-ko="NIA 부산 디지털 트윈 플랫폼">NIA Busan Digital Twin platform</div>
+        <div class="jn-desc" data-en="Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr."
+        data-ko="도시 인공조명 안전 서비스 프런트엔드 개발 — 1365twin.busan.kr 실서비스.">
         Front-end for the urban artificial-lighting safety service, live at 1365twin.busan.kr.</div>
-      <div class="jn-tags"><span class="tag">WebGL</span><span class="tag">GIS</span></div>
+        <div class="jn-tags"><span class="tag">WebGL</span><span class="tag">GIS</span></div>
+      </div>
     </div>
-
-    <div class="jn reveal">
-      <div class="jn-date">2024.02</div>
-      <div class="jn-title" data-en="B.S. completed" data-ko="학사 졸업">B.S. completed</div>
-      <div class="jn-desc" data-en="Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians."
-           data-ko="LiDAR 기반 시각장애인 보행 보조 시스템으로 캡스톤 디자인상 수상.">
+    <div class="tl-item up  reveal" style="grid-column:9 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2024.02</div>
+        <div class="jn-title" data-en="B.S. completed" data-ko="학사 졸업">B.S. completed</div>
+        <div class="jn-desc" data-en="Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians."
+        data-ko="LiDAR 기반 시각장애인 보행 보조 시스템으로 캡스톤 디자인상 수상.">
         Capstone Design Award for a LiDAR-based walking-assistance system for visually impaired pedestrians.</div>
+      </div>
     </div>
-
-    <div class="era" data-en="M.S. · 2024 – 2026" data-ko="석사 · 2024 – 2026">M.S. · 2024 – 2026</div>
-
-    <div class="jn blue reveal r">
-      <div class="jn-date">2024.03</div>
-      <div class="jn-title" data-en="M.S. at ISPL — Video coding" data-ko="ISPL 석사 입학 — 비디오 코딩">M.S. at ISPL — Video coding</div>
-      <div class="jn-desc" data-en="Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control."
-           data-ko="지도교수 전동산. VVC/ECM 화면 간·화면 내 예측 도구와 레이트 컨트롤 연구.">
+    <div class="tl-item down blue reveal" style="grid-column:11 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2024.03</div>
+        <div class="jn-title" data-en="M.S. at ISPL — Video coding" data-ko="ISPL 석사 입학 — 비디오 코딩">M.S. at ISPL — Video coding</div>
+        <div class="jn-desc" data-en="Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control."
+        data-ko="지도교수 전동산. VVC/ECM 화면 간·화면 내 예측 도구와 레이트 컨트롤 연구.">
         Advised by Prof. Dongsan Jun. VVC/ECM inter &amp; intra prediction tools and rate control.</div>
-      <div class="jn-tags"><span class="tag">VVC</span><span class="tag">ECM</span><span class="tag">Rate Control</span></div>
+        <div class="jn-tags"><span class="tag">VVC</span><span class="tag">ECM</span><span class="tag">Rate Control</span></div>
+      </div>
     </div>
-
-    <div class="jn reveal">
-      <div class="jn-date">2024</div>
-      <div class="jn-title" data-en="Best Paper Award · Korea Multimedia Society" data-ko="최우수논문상 · 한국멀티미디어학회">Best Paper Award · Korea Multimedia Society</div>
-      <div class="jn-desc" data-en="And the first patent filing (2024.05): template-matching pair-wise average MVP candidates."
-           data-ko="같은 해 첫 특허 출원(2024.05): 템플릿 매칭 기반 pair-wise average MVP 후보 확장.">
+    <div class="tl-item up  reveal" style="grid-column:13 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2024</div>
+        <div class="jn-title" data-en="Best Paper Award · Korea Multimedia Society" data-ko="최우수논문상 · 한국멀티미디어학회">Best Paper Award · Korea Multimedia Society</div>
+        <div class="jn-desc" data-en="And the first patent filing (2024.05): template-matching pair-wise average MVP candidates."
+        data-ko="같은 해 첫 특허 출원(2024.05): 템플릿 매칭 기반 pair-wise average MVP 후보 확장.">
         And the first patent filing (2024.05): template-matching pair-wise average MVP candidates.</div>
+      </div>
     </div>
-
-    <div class="jn big reveal r">
-      <div class="jn-date">2025</div>
-      <div class="jn-title" data-en="Pivot to 3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅으로 전환">Pivot to 3D Gaussian Splatting</div>
-      <div class="jn-desc" data-en="Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem, the same family of problems as resolution change in video."
-           data-ko="레이트 컨트롤에서 멀티스케일 3DGS로 전환 — 줌 레벨에 따른 렌더링 품질 저하는 비디오의 해상도 변화와 같은 계열의 앨리어싱 문제입니다.">
+    <div class="tl-item down big reveal" style="grid-column:15 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2025</div>
+        <div class="jn-title" data-en="Pivot to 3D Gaussian Splatting" data-ko="3D 가우시안 스플래팅으로 전환">Pivot to 3D Gaussian Splatting</div>
+        <div class="jn-desc" data-en="Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem, the same family of problems as resolution change in video."
+        data-ko="레이트 컨트롤에서 멀티스케일 3DGS로 전환 — 줌 레벨에 따른 렌더링 품질 저하는 비디오의 해상도 변화와 같은 계열의 앨리어싱 문제입니다.">
         Moved from rate control to multi-scale 3DGS — rendering quality across zoom levels is an aliasing problem,
         the same family of problems as resolution change in video.</div>
-      <div class="jn-tags"><span class="tag">3DGS</span><span class="tag">Anti-Aliasing</span></div>
+        <div class="jn-tags"><span class="tag">3DGS</span><span class="tag">Anti-Aliasing</span></div>
+      </div>
     </div>
-
-    <div class="jn blue reveal">
-      <div class="jn-date">2025.12</div>
-      <div class="jn-title" data-en="Two more patents filed" data-ko="특허 2건 추가 출원">Two more patents filed</div>
-      <div class="jn-desc" data-en="TIMD merge-list and TMRL candidate-list augmentation for intra prediction."
-           data-ko="화면 내 예측을 위한 TIMD 병합 리스트·TMRL 후보 리스트 확장.">
+    <div class="tl-item up blue reveal" style="grid-column:17 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2025.12</div>
+        <div class="jn-title" data-en="Two more patents filed" data-ko="특허 2건 추가 출원">Two more patents filed</div>
+        <div class="jn-desc" data-en="TIMD merge-list and TMRL candidate-list augmentation for intra prediction."
+        data-ko="화면 내 예측을 위한 TIMD 병합 리스트·TMRL 후보 리스트 확장.">
         TIMD merge-list and TMRL candidate-list augmentation for intra prediction.</div>
+      </div>
     </div>
-
-    <div class="jn reveal r">
-      <div class="jn-date">2026</div>
-      <div class="jn-title" data-en="M.S. thesis — RSIC-GS" data-ko="석사학위논문 — RSIC-GS">M.S. thesis — RSIC-GS</div>
-      <div class="jn-desc" data-en="Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360."
-           data-ko="멀티스케일 3DGS를 위한 학습 단계 목적함수: Mip-NeRF 360에서 MS-GS 대비 평균 PSNR +0.51 dB.">
+    <div class="tl-item down  reveal" style="grid-column:19 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2026</div>
+        <div class="jn-title" data-en="M.S. thesis — RSIC-GS" data-ko="석사학위논문 — RSIC-GS">M.S. thesis — RSIC-GS</div>
+        <div class="jn-desc" data-en="Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360."
+        data-ko="멀티스케일 3DGS를 위한 학습 단계 목적함수: Mip-NeRF 360에서 MS-GS 대비 평균 PSNR +0.51 dB.">
         Training-side objective for multi-scale 3DGS: +0.51 dB average PSNR over MS-GS on Mip-NeRF 360.</div>
+      </div>
     </div>
-
-    <div class="jn big reveal">
-      <div class="jn-date">2026</div>
-      <div class="jn-title" data-en="Three SCIE journal papers" data-ko="SCIE 저널 논문 3편">Three SCIE journal papers</div>
-      <div class="jn-desc" data-en="One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>."
-           data-ko="<em>Mathematics</em>(MDPI, 2026.07) 게재 1편, <em>IEEE Transactions on Multimedia</em> 1차 심사 중 2편.">
+    <div class="tl-item up big reveal" style="grid-column:21 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2026</div>
+        <div class="jn-title" data-en="Three SCIE journal papers" data-ko="SCIE 저널 논문 3편">Three SCIE journal papers</div>
+        <div class="jn-desc" data-en="One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>."
+        data-ko="<em>Mathematics</em>(MDPI, 2026.07) 게재 1편, <em>IEEE Transactions on Multimedia</em> 1차 심사 중 2편.">
         One published in <em>Mathematics</em> (MDPI, 2026.07); two under first-round review at <em>IEEE Transactions on Multimedia</em>.</div>
+      </div>
     </div>
-
-    <div class="era" data-en="Ph.D. · 2026 –" data-ko="박사 · 2026 –">Ph.D. · 2026 –</div>
-
-    <div class="jn big reveal r">
-      <div class="jn-date">2026.09</div>
-      <div class="jn-title" data-en="Ph.D. in Computer Engineering begins" data-ko="컴퓨터공학과 박사과정 입학">Ph.D. in Computer Engineering begins</div>
-      <div class="jn-desc" data-en="Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL."
-           data-ko="ISPL에서 멀티스케일·안티앨리어싱 3D 가우시안 스플래팅 연구를 이어갑니다.">
+    <div class="tl-item down big reveal" style="grid-column:23 / span 4">
+      <div class="tl-card">
+        <div class="jn-date">2026.09</div>
+        <div class="jn-title" data-en="Ph.D. in Computer Engineering begins" data-ko="컴퓨터공학과 박사과정 입학">Ph.D. in Computer Engineering begins</div>
+        <div class="jn-desc" data-en="Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL."
+        data-ko="ISPL에서 멀티스케일·안티앨리어싱 3D 가우시안 스플래팅 연구를 이어갑니다.">
         Continuing multi-scale and anti-aliased 3D Gaussian Splatting at ISPL.</div>
+      </div>
     </div>
+    <div class="tl-axis" aria-hidden="true"></div>
+    <span class="tl-node " style="grid-column:2 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" style="grid-column:4 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " style="grid-column:6 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" style="grid-column:8 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " style="grid-column:10 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" style="grid-column:12 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " style="grid-column:14 / span 2" aria-hidden="true"></span>
+    <span class="tl-node big" style="grid-column:16 / span 2" aria-hidden="true"></span>
+    <span class="tl-node blue" style="grid-column:18 / span 2" aria-hidden="true"></span>
+    <span class="tl-node " style="grid-column:20 / span 2" aria-hidden="true"></span>
+    <span class="tl-node big" style="grid-column:22 / span 2" aria-hidden="true"></span>
+    <span class="tl-node big" style="grid-column:24 / span 2" aria-hidden="true"></span>
+  </div>
   </div>
 
   <!-- Why 3DGS — field trend -->
@@ -1384,7 +1460,7 @@
     </div>
 
     <div class="case-grid">
-      <figure class="fig dark reveal">
+      <figure class="fig reveal">
         <button type="button" data-lightbox="assets/img/aco_pipeline.jpg" aria-label="Enlarge ACO-EGR overview figure">
           <img src="assets/img/aco_pipeline.jpg" alt="Overview of ACO-EGR: (a) adaptive-scale color offset adds a per-scale DC color offset to each projected Gaussian; (b) error-guided reallocation moves low-contribution Gaussians toward high-error regions." loading="lazy">
         </button>
