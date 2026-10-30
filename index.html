@@ -1100,6 +1100,47 @@
     .tl-pane .jn-tags { justify-content: center; margin-top: .6rem; }
     .tl-hint { display: none; font-size: .74rem; color: var(--muted); margin-bottom: .4rem; }
     @media (max-width: 1000px) { .tl-hint { display: block; } }
+
+    /* ── Standardization ── */
+    .std-sub { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 2.2rem 0 1rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1); }
+    .std-list { display: flex; flex-direction: column; gap: 1rem; }
+    .std-card {
+      display: grid; grid-template-columns: 150px 1fr; gap: 1.4rem; align-items: start;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.6rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1), border-color .2s;
+    }
+    .std-card:hover { border-color: var(--accent2); }
+    .std-doc { display: flex; flex-direction: column; gap: .35rem; }
+    .std-num { font-weight: 700; font-size: .95rem; color: var(--accent2); letter-spacing: .02em; }
+    .std-num:hover { text-decoration: underline; }
+    .std-mpeg { font-size: .72rem; color: var(--muted); }
+    .std-title { font-size: 1rem; font-weight: 600; line-height: 1.45; margin-bottom: .3rem; }
+    .std-authors { font-size: .82rem; color: var(--muted); }
+    .std-authors strong { color: var(--accent); font-weight: 600; }
+    .std-meet { font-size: .8rem; color: #9a9a9a; margin-top: .15rem; }
+    .std-sum { font-size: .84rem; color: var(--muted); line-height: 1.65; margin-top: .6rem; }
+    .trip-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .trip-card {
+      display: flex; gap: 1.2rem; align-items: center; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.1rem 1.3rem;
+      transition: opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1), border-color .2s;
+    }
+    .trip-card:hover { border-color: var(--accent); }
+    .trip-no { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; min-width: 3.2rem; }
+    .trip-no sup { font-size: .8rem; }
+    .trip-thumb { width: 92px; flex-shrink: 0; border-radius: 4px; overflow: hidden; border: 1px solid #333; background: #fff; display: block; }
+    .trip-thumb img { width: 100%; height: auto; display: block; }
+    .trip-title { font-weight: 600; font-size: .95rem; }
+    .trip-place { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
+    .trip-role { font-size: .74rem; color: var(--accent2); margin-top: .35rem; }
+    .trip-link { display: inline-block; margin-top: .55rem; font-size: .74rem; font-weight: 600; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: .18rem .6rem; }
+    .trip-link:hover { background: var(--accent); color: #0f0f0f; }
+    @media (max-width: 900px) {
+      .std-card { grid-template-columns: 1fr; gap: .6rem; }
+      .std-doc { flex-direction: row; align-items: baseline; gap: .8rem; }
+      .trip-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1116,6 +1157,7 @@
       <a href="#research"     data-en="Highlights"   data-ko="하이라이트">Highlights</a>
       <a href="#publications" data-en="Publications" data-ko="논문">Publications</a>
       <a href="#patents"      data-en="Patents"      data-ko="특허">Patents</a>
+      <a href="#standardization" data-en="Standards" data-ko="표준화">Standards</a>
       <a href="#projects"     data-en="Projects"     data-ko="프로젝트">Projects</a>
     </div>
     <div class="lang-toggle">
@@ -1258,7 +1300,7 @@
 
 <!-- ─── Research Journey ─────────────────────────────────── -->
 <section id="journey">
-  <div class="section-label reveal" data-en="2020 → Now" data-ko="2020 → 현재">2020 → Now</div>
+  <div class="section-label reveal" data-en="2022 → Now" data-ko="2022 → 현재">2022 → Now</div>
   <h2 class="section-title reveal" data-en="Research Journey" data-ko="연구 여정">Research Journey</h2>
   <p class="sec-lead reveal"
      data-en="From video restoration, through video-coding standards, to multi-scale 3D Gaussian Splatting — each stage asked the same question: <em>how do we keep image quality when the sampling rate changes?</em>"
@@ -1270,10 +1312,10 @@
   <p class="tl-hint" data-en="← Swipe to see the whole timeline →" data-ko="← 좌우로 밀어서 전체 타임라인 보기 →">← Swipe to see the whole timeline →</p>
   <div class="tl-scroll reveal">
   <div class="tl" role="tablist" aria-label="Research journey" style="grid-template-columns:repeat(28, minmax(0,1fr)); min-width:988px">
-    <div class="tl-era bs" style="grid-column:3 / 13" data-en="B.S. · 2020 – 2024" data-ko="학사 · 2020 – 2024">B.S. · 2020 – 2024</div>
+    <div class="tl-era bs" style="grid-column:3 / 13" data-en="B.S. · 2022 – 2024" data-ko="학사 · 2022 – 2024">B.S. · 2022 – 2024</div>
     <div class="tl-era ms" style="grid-column:15 / 25" data-en="M.S. · 2024 – 2026" data-ko="석사 · 2024 – 2026">M.S. · 2024 – 2026</div>
     <div class="tl-era phd" style="grid-column:26 / 28" data-en="Ph.D. · 2026 –" data-ko="박사 · 2026 –">Ph.D. · 2026 –</div>
-    <button type="button" role="tab" class="tl-item up " style="grid-column:1 / span 4" data-i="0" aria-selected="false"><span class="tl-date">2020.03</span><span class="tl-label" data-en="B.S. begins" data-ko="학사 입학">B.S. begins</span></button>
+    <button type="button" role="tab" class="tl-item up " style="grid-column:1 / span 4" data-i="0" aria-selected="false"><span class="tl-date">2022.03</span><span class="tl-label" data-en="Transfer to Dong-A" data-ko="동아대 편입">Transfer to Dong-A</span></button>
     <button type="button" role="tab" class="tl-item down big" style="grid-column:3 / span 4" data-i="1" aria-selected="false"><span class="tl-date">2022.07</span><span class="tl-label" data-en="Joined ISPL" data-ko="ISPL 학부연구생">Joined ISPL</span></button>
     <button type="button" role="tab" class="tl-item up blue" style="grid-column:5 / span 4" data-i="2" aria-selected="false"><span class="tl-date">2023</span><span class="tl-label" data-en="First papers · VSR" data-ko="첫 논문 · VSR">First papers · VSR</span></button>
     <button type="button" role="tab" class="tl-item down " style="grid-column:7 / span 4" data-i="3" aria-selected="false"><span class="tl-date">2023</span><span class="tl-label" data-en="ETRI intern" data-ko="ETRI 인턴">ETRI intern</span></button>
@@ -1303,7 +1345,7 @@
   </div>
   </div>
   <div class="tl-detail reveal" aria-live="polite">
-    <div class="tl-pane" data-i="0" hidden><div class="tl-pane-date">2020.03</div><div class="tl-pane-title" data-en="B.S. in Computer Engineering begins" data-ko="컴퓨터공학과 학사 입학">B.S. in Computer Engineering begins</div><div class="tl-pane-desc" data-en="Dong-A University, Busan." data-ko="동아대학교, 부산.">Dong-A University, Busan.</div></div>
+    <div class="tl-pane" data-i="0" hidden><div class="tl-pane-date">2022.03</div><div class="tl-pane-title" data-en="Transferred into Computer Engineering, Dong-A University" data-ko="동아대학교 컴퓨터공학과 편입">Transferred into Computer Engineering, Dong-A University</div><div class="tl-pane-desc" data-en="Joined the B.S. program as a transfer student, Busan." data-ko="편입생으로 학사 과정에 합류했습니다. 부산.">Joined the B.S. program as a transfer student, Busan.</div></div>
     <div class="tl-pane" data-i="1" hidden><div class="tl-pane-date">2022.07</div><div class="tl-pane-title" data-en="Joined ISPL as an undergraduate researcher" data-ko="ISPL 학부연구생 시작">Joined ISPL as an undergraduate researcher</div><div class="tl-pane-desc" data-en="Image Signal Processing Lab, advised by Prof. Dongsan Jun — the start of research in video restoration." data-ko="전동산 교수님의 영상신호처리연구실에서 비디오 복원 연구를 시작했습니다.">Image Signal Processing Lab, advised by Prof. Dongsan Jun — the start of research in video restoration.</div></div>
     <div class="tl-pane" data-i="2" hidden><div class="tl-pane-date">2023</div><div class="tl-pane-title" data-en="First papers — Video Super Resolution" data-ko="첫 논문 — 비디오 초해상도">First papers — Video Super Resolution</div><div class="tl-pane-desc" data-en="KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters)." data-ko="KCI 저널(RDAN, REDS4에서 DCAN 대비 +0.23 dB)과 한국방송미디어공학회 하계학술대회 경량 모델(파라미터 −38%).">KCI journal (RDAN, +0.23 dB vs. DCAN on REDS4) and a lightweight variant at the KIBME Summer Conference (−38% parameters).</div><div class="jn-tags"><span class="tag">VSR</span><span class="tag">Deformable Conv</span></div></div>
     <div class="tl-pane" data-i="3" hidden><div class="tl-pane-date">2023</div><div class="tl-pane-title" data-en="Research intern · ETRI" data-ko="연구 인턴 · ETRI">Research intern · ETRI</div><div class="tl-pane-desc" data-en="Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute." data-ko="한국전자통신연구원 실감미디어연구실에서 2개월간 인턴십.">Two months in the Realistic Media Research Lab, Electronics and Telecommunications Research Institute.</div></div>
@@ -1472,8 +1514,8 @@
         <span data-en="A single loss treats every region and scale alike: structure-rich regions are under-supervised, and coarse scales dominate the summed loss while fine scales converge early."
               data-ko="단일 손실은 모든 영역·스케일을 똑같이 다룹니다: 구조가 복잡한 영역은 감독이 부족하고, 합산 손실은 거친 스케일이 지배하는 반면 세밀한 스케일은 일찍 수렴합니다.">A single loss treats every region and scale alike: structure-rich regions are under-supervised, and coarse scales dominate the summed loss while fine scales converge early.</span></div>
       <div class="flow-step reveal"><b data-en="Idea" data-ko="아이디어">Idea</b>
-        <span data-en="<span class='idea-list'><span class='idea-row'><strong class='idea-name'>RASL</strong><span class='idea-full'>Region-Adaptive Structure Loss</span><span class='idea-text'>Laplacian-domain residual between rendered and ground-truth images, auto-normalized per scale.</span></span><span class='idea-row'><strong class='idea-name'>SAW</strong><span class='idea-full'>Scale-Adaptive Weighting</span><span class='idea-text'>Learnable per-scale weights that rebalance the multi-scale loss.</span></span></span>"
-              data-ko="<span class='idea-list'><span class='idea-row'><strong class='idea-name'>RASL</strong><span class='idea-full'>Region-Adaptive Structure Loss</span><span class='idea-text'>렌더링 영상과 정답 영상의 라플라시안 영역 잔차를 스케일별로 자동 정규화합니다.</span></span><span class='idea-row'><strong class='idea-name'>SAW</strong><span class='idea-full'>Scale-Adaptive Weighting</span><span class='idea-text'>학습 가능한 스케일별 가중치로 멀티스케일 손실을 재균형합니다.</span></span></span>"><span class='idea-list'><span class='idea-row'><strong class='idea-name'>RASL</strong><span class='idea-full'>Region-Adaptive Structure Loss</span><span class='idea-text'>Laplacian-domain residual between rendered and ground-truth images, auto-normalized per scale.</span></span><span class='idea-row'><strong class='idea-name'>SAW</strong><span class='idea-full'>Scale-Adaptive Weighting</span><span class='idea-text'>Learnable per-scale weights that rebalance the multi-scale loss.</span></span></span></span></div>
+        <span data-en="<span class='idea-list'><span class='idea-row'><strong class='idea-name'>RASL</strong><span class='idea-full'>Region-Adaptive Structure Loss</span><span class='idea-text'>Laplacian-domain residual between rendered and ground-truth images, auto-normalized per scale.</span></span><span class='idea-row'><strong class='idea-name'>SAW</strong><span class='idea-full'>Scale-Wise Weighting</span><span class='idea-text'>Learnable per-scale weights that rebalance the multi-scale loss.</span></span></span>"
+              data-ko="<span class='idea-list'><span class='idea-row'><strong class='idea-name'>RASL</strong><span class='idea-full'>Region-Adaptive Structure Loss</span><span class='idea-text'>렌더링 영상과 정답 영상의 라플라시안 영역 잔차를 스케일별로 자동 정규화합니다.</span></span><span class='idea-row'><strong class='idea-name'>SAW</strong><span class='idea-full'>Scale-Wise Weighting</span><span class='idea-text'>학습 가능한 스케일별 가중치로 멀티스케일 손실을 재균형합니다.</span></span></span>"><span class='idea-list'><span class='idea-row'><strong class='idea-name'>RASL</strong><span class='idea-full'>Region-Adaptive Structure Loss</span><span class='idea-text'>Laplacian-domain residual between rendered and ground-truth images, auto-normalized per scale.</span></span><span class='idea-row'><strong class='idea-name'>SAW</strong><span class='idea-full'>Scale-Wise Weighting</span><span class='idea-text'>Learnable per-scale weights that rebalance the multi-scale loss.</span></span></span></span></div>
       <div class="flow-step reveal"><b data-en="Result" data-ko="결과">Result</b>
         <span data-en="Gains concentrate where MS-GS is weakest (4×–64×), at near-unchanged rendering time; ablation shows RASL and SAW are complementary (25.62 → 26.13 dB)."
               data-ko="MS-GS가 가장 약한 4×–64×에서 향상이 집중되며 렌더링 시간은 거의 그대로입니다. 어블레이션에서 RASL과 SAW는 상호 보완적입니다(25.62 → 26.13 dB).">Gains concentrate where MS-GS is weakest (4×–64×), at near-unchanged rendering time; ablation shows RASL and SAW are complementary (25.62 → 26.13 dB).</span></div>
@@ -1725,6 +1767,60 @@
 
 <hr class="section-divider" style="max-width:1100px; margin: 0 auto;">
 
+<!-- ─── Standardization ──────────────────────────────────── -->
+<section id="standardization">
+  <div class="section-label reveal" data-en="International Standardization" data-ko="국제 표준화">International Standardization</div>
+  <h2 class="section-title reveal" data-en="Standardization · JVET" data-ko="표준화 · JVET">Standardization · JVET</h2>
+  <p class="sec-lead reveal"
+     data-en="Joint Video Experts Team (JVET) of ITU-T SG 16 WP 3 and ISO/IEC JTC 1/SC 29 — contributions to the Enhanced Compression Model (ECM), the exploration beyond VVC."
+     data-ko="ITU-T SG 16 WP 3 및 ISO/IEC JTC 1/SC 29 합동 비디오 전문가 그룹(JVET) — VVC 이후 차세대 압축 탐색 모델(ECM)에 대한 기고 활동.">
+    Joint Video Experts Team (JVET) of ITU-T SG 16 WP 3 and ISO/IEC JTC 1/SC 29 — contributions to the Enhanced Compression Model (ECM), the exploration beyond VVC.
+  </p>
+
+  <h3 class="std-sub reveal" data-en="Contributions" data-ko="기고서">Contributions</h3>
+  <div class="std-list">
+    <article class="std-card reveal">
+      <div class="std-doc">
+        <a class="std-num" href="https://jvet-experts.org/doc_end_user/documents/35_Sapporo/wg11/JVET-AI0076-v2.zip" target="_blank" rel="noopener">JVET-AI0076 ↗</a>
+        <span class="std-mpeg">m68418</span>
+      </div>
+      <div class="std-body">
+        <div class="std-title">AHG12: The Modification of BV Candidate List Construction</div>
+        <div class="std-authors">T. Lee, S. Kim, B. Park, <strong>D. Lee</strong>, J. Seo, D. Jun · Dong-A University</div>
+        <div class="std-meet" data-en="35th JVET Meeting · Sapporo, JP · 12–19 July 2024" data-ko="제35차 JVET 회의 · 일본 삿포로 · 2024.07.12–19">35th JVET Meeting · Sapporo, JP · 12–19 July 2024</div>
+        <p class="std-sum"
+           data-en="Proposes two ways to modify the adjacent spatial candidate blocks used to build the block-vector (BV) candidate list in ECM-13.0 — (1) reuse the OBIC-mode adjacent candidates, (2) a simplified variant. All-intra: up to −0.10% Y BD-rate on the screen-content class TGM."
+           data-ko="ECM-13.0의 블록 벡터(BV) 후보 리스트 구성에 쓰이는 인접 공간 후보 블록을 두 가지 방식으로 수정 — (1) OBIC 모드의 인접 후보 재사용, (2) 이를 단순화한 변형. All-intra 기준 스크린 콘텐츠 클래스 TGM에서 최대 −0.10% Y BD-rate.">
+          Proposes two ways to modify the adjacent spatial candidate blocks used to build the block-vector (BV) candidate list in ECM-13.0 — (1) reuse the OBIC-mode adjacent candidates, (2) a simplified variant. All-intra: up to −0.10% Y BD-rate on the screen-content class TGM.</p>
+        <div class="pub-tags"><span class="tag">ECM-13.0</span><span class="tag">AHG12</span><span class="tag">BV Candidate List</span><span class="tag">Screen Content</span></div>
+      </div>
+    </article>
+  </div>
+
+  <h3 class="std-sub reveal" data-en="Meetings Attended" data-ko="참석 회의">Meetings Attended</h3>
+  <div class="trip-grid">
+    <article class="trip-card reveal">
+      <div class="trip-no">35<sup>th</sup></div>
+      <div>
+        <div class="trip-title" data-en="JVET 35th Meeting" data-ko="JVET 제35차 회의">JVET 35th Meeting</div>
+        <div class="trip-place" data-en="Sapporo, Japan · 12–19 July 2024" data-ko="일본 삿포로 · 2024.07.12–19">Sapporo, Japan · 12–19 July 2024</div>
+        <div class="trip-role" data-en="Co-author of JVET-AI0076 · AHG12 (ECM)" data-ko="JVET-AI0076 공동 저자 · AHG12 (ECM)">Co-author of JVET-AI0076 · AHG12 (ECM)</div>
+      </div>
+    </article>
+    <article class="trip-card reveal">
+      <div class="trip-no">39<sup>th</sup></div>
+      <div>
+        <div class="trip-title" data-en="JVET 39th Meeting" data-ko="JVET 제39차 회의">JVET 39th Meeting</div>
+        <div class="trip-place" data-en="Daejeon, Korea · 26 June – 4 July 2025" data-ko="대한민국 대전 · 2025.06.26–07.04">Daejeon, Korea · 26 June – 4 July 2025</div>
+        <div class="trip-role" data-en="Attended · AHG11 (NNVC) · AHG12 (ECM)" data-ko="참석 · AHG11 (NNVC) · AHG12 (ECM)">Attended · AHG11 (NNVC) · AHG12 (ECM)</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<hr class="section-divider" style="max-width:1100px; margin: 0 auto;">
+
+
 <!-- ─── Projects ──────────────────────────────────────────── -->
 <section id="projects">
   <div class="section-label reveal" data-en="Selected Work" data-ko="주요 작업">Selected Work</div>
@@ -1902,7 +1998,7 @@
     <div class="edu-item reveal">
       <div class="edu-dot"></div>
       <div>
-        <div class="edu-period">2020.03 – 2024.02</div>
+        <div class="edu-period" data-en="2022.03 (transfer) – 2024.02" data-ko="2022.03 (편입) – 2024.02">2022.03 (transfer) – 2024.02</div>
         <div class="edu-degree" data-en="B.S. in Computer Engineering" data-ko="컴퓨터공학과 학사">B.S. in Computer Engineering</div>
         <div class="edu-school" data-en="Dong-A University, Busan, South Korea" data-ko="동아대학교, 부산, 대한민국">Dong-A University, Busan, South Korea</div>
         <div class="edu-detail" data-en="Capstone Design Award recipient" data-ko="캡스톤 디자인상 수상">Capstone Design Award recipient</div>
